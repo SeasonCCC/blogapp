@@ -15,7 +15,7 @@ getTableArr.forEach((item, index) => {
   modelObj[modelName] = getModel(item)
 
   // get lists interface
-  router.get('/get' + modelName, async ctx => {
+  router.get('/' + modelName, async ctx => {
     await modelObj[modelName].find({}, (err, doc) => {
       if (err) {
         console.log(err)
@@ -38,5 +38,5 @@ getTableArr.forEach((item, index) => {
 
 // testUser.save().then(() => console.log('meow'))
 
-app.use(router.routes()).use(router.allowedMethods())
+app.use(router.routes())
 app.listen(3000)
