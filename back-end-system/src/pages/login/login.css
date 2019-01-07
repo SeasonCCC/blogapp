@@ -1,0 +1,64 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: auto;
+  background: #f0f2f5 url(../../assets/login-bg.svg) no-repeat 0 0/100% 100%;
+}
+
+.login-container {
+  flex: 1;
+  padding: 180px 0 24px;
+}
+
+.login-main {
+  width: 368px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login-scroll {
+  position: relative;
+}
+
+.login-tabs {
+  position: relative;
+  display: inline-block;
+}
+
+.tab {
+  display: inline-block;
+  height: 100%;
+  margin: 0 32px 0 0;
+  font-size: 14px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  position: relative;
+  transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tab:last-child {
+  margin-right: 0;
+}
+
+.active {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+.tabs-bar {
+  display: block;
+  transform: translate3d(0px, 0px, 0px);
+  width: 116px;
+
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  bottom: 1px;
+  box-sizing: border-box;
+  height: 2px;
+  background-color: #1890ff;
+  transform-origin: 0 0;
+}
