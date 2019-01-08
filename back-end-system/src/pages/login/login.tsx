@@ -1,14 +1,15 @@
 import { Button, Checkbox, Form, Icon, Input } from "antd";
+import { FormComponentProps } from "antd/lib/form";
 import * as React from "react";
 
 import "./login.css";
 
-export interface IProps {
-  // form: () => void;
-  getFieldDecorator: () => void;
-}
+// interface IUserFormProps extends FormComponentProps {
+//   getFieldDecorator: (id: string, options: any) => any;
+//   validateFields: (err: string, values: any) => any;
+// }
 
-class Login extends React.Component<IProps, object> {
+class Login extends React.Component<{} & FormComponentProps, {}> {
   public render() {
     // return (
     //   <div className="login">
@@ -52,8 +53,8 @@ class Login extends React.Component<IProps, object> {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator("remember", {
-            valuePropName: "checked",
-            initialValue: true
+            initialValue: true,
+            valuePropName: "checked"
           })(<Checkbox>Remember me</Checkbox>)}
           <a className="login-form-forgot" href="">
             Forgot password
@@ -74,10 +75,11 @@ class Login extends React.Component<IProps, object> {
     e.preventDefault();
     this.props.form.validateFields((err: any, values: any) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        // console.log("Received values of form: ", values);
       }
     });
   };
 }
 
-export default Login;
+export default Form.create<FormComponentProps>()(Login);
+// export default Login;
