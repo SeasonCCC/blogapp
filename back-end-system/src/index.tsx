@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./index.css";
-import Login from "./pages/login/login";
+import Main from "./pages/main/main";
 import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(<Login />, document.getElementById("root") as HTMLElement);
+ReactDOM.render(<Main />, document.getElementById("root") as HTMLElement);
 registerServiceWorker();
