@@ -1,13 +1,12 @@
 import * as React from "react";
-import { HashRouter, Route, Switch, withRouter } from "react-router-dom";
-// import routes from "../../router/router";
-import Index from "../index/index";
+import { HashRouter, Route, Switch } from "react-router-dom";
+import routes from "../../router/router";
+// import Index from "../index/index";
 
 interface IMainOption {
   location: any;
 }
 
-@withRouter()
 class Main extends React.Component<IMainOption, {}> {
   public static defaultProps = {
     location: {}
@@ -30,23 +29,23 @@ class Main extends React.Component<IMainOption, {}> {
   // }
 
   public render() {
-    const { location } = this.props;
+    // const { location } = this.props;
     return (
       <HashRouter>
-        <Switch location={location}>
-          <Route
+        <Switch>
+          {/* <Route
             path='/'
-            component={Index} />
-          {/* {routes.map((route, i) => {
-            console.log(route);
+            component={Index} /> */}
+          {routes.map((route, i) => {
             return (
               <Route
                 path={route.path}
                 key={i}
                 component={route.component}
+                exact={true}
               />
             );
-          })} */}
+          })}
         </Switch>
       </HashRouter>
     );
