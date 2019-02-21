@@ -1,15 +1,16 @@
 import { Button, Checkbox, Form, Icon, Input } from "antd";
 import { FormComponentProps } from "antd/lib/form";
+
 import * as React from "react";
 
 import "./login.css";
 
-class Login extends React.Component<{} & FormComponentProps, {}> {
-  public handleSubmit = (e:any) => {
+class Login extends React.Component<FormComponentProps, {}> {
+  public handleSubmit = (e: any) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log("Received values of form: ", values);
       }
     });
   };
