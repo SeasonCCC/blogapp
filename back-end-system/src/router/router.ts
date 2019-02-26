@@ -11,15 +11,15 @@ const routes = [
     routes: [
       {
         component: News,
-        path: "/News",
+        path: "/news",
       },
       {
-        component: News,
-        path: "/News",
+        component: Tips,
+        path: "/tips",
       },
       {
-        component: News,
-        path: "/News",
+        component: Exposure,
+        path: "/exposure",
       }
     ]
   },
