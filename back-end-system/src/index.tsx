@@ -14,13 +14,16 @@ class Main extends React.Component {
       <HashRouter>
         <Switch>
           {routes.map((route, i) => {
+            const Component = (props: any) => (
+              <route.component {...props} routes={route.routes} />
+            )
+
             return (
               <Route
                 path={route.path}
                 key={i}
-                component={route.component}
-                exact={true}
-                routes={route.routes}
+                exact={route.path === '/login'}
+                render={Component}
               />
             )
           })}
