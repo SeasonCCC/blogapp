@@ -1,11 +1,10 @@
 import { Icon, Layout, Menu } from "antd";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import * as React from "react";
+import { Link } from "react-router-dom";
+import "./index.css";
 const SubMenu = Menu.SubMenu;
 
-import * as React from "react";
-
 const { Header, Sider, Content } = Layout;
-import "./index.css";
 
 class Index extends React.Component {
   public state = {
