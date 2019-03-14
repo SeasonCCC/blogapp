@@ -1,3 +1,4 @@
+import dashboard from '../pages/index/dashboard/dashboard'
 import Exposure from '../pages/index/exposure/exposure'
 import Index from '../pages/index/index'
 import News from '../pages/index/news/news'
@@ -9,6 +10,10 @@ const routes = [
     component: Index,
     path: '/',
     routes: [
+      {
+        component: dashboard,
+        path: '/dashboard'
+      },
       {
         component: News,
         path: '/news'

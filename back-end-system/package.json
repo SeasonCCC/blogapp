@@ -10,6 +10,7 @@
     "@types/react-router-dom": "^4.3.1",
     "antd": "^3.13.5",
     "react": "^16.8.3",
+    "react-countup": "^4.1.1",
     "react-dom": "^16.8.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
@@ -31,13 +32,20 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.11",
+    "eslint": "^5.15.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard-react": "^7.0.2",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-standard": "^4.0.0",
+    "node-sass": "^4.11.0",
     "react-app-rewired": "^2.1.0",
-    "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-config-standard": "^8.0.1",
-    "tslint-react": "^3.6.0",
-    "typescript-tslint-plugin": "^0.3.1"
+    "standard": "^12.0.1"
   }
 }

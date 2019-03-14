@@ -1,7 +1,7 @@
-import { Icon, Layout, Menu } from 'antd';
-import * as React from 'react';
-import { Link, Redirect, Route, Switch } from 'react-router-dom';
-import './index.css';
+import { Icon, Layout, Menu } from 'antd'
+import * as React from 'react'
+import { Link, Redirect, Route, Switch } from 'react-router-dom'
+import './index.css'
 const SubMenu = Menu.SubMenu
 
 const { Header, Sider, Content } = Layout
@@ -26,7 +26,7 @@ class Index extends React.Component<IIndexOption, {}> {
   }
 
   public componentDidMount () {
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   public render () {
@@ -43,8 +43,15 @@ class Index extends React.Component<IIndexOption, {}> {
             theme='dark'
             mode='inline'
             defaultOpenKeys={['sub1', 'sub2', 'sub3']}
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={['0']}
           >
+            <Menu.Item key='0'>
+              <Link to='/dashboard' replace={true}>
+                <Icon type='dashboard' />
+                <span>Dashboard</span>
+              </Link>
+            </Menu.Item>
+
             <SubMenu
               key='sub1'
               title={
@@ -55,13 +62,13 @@ class Index extends React.Component<IIndexOption, {}> {
               }
             >
               <Menu.Item key='1'>
-                <Link to='/'>
+                <Link to='/news' replace={true}>
                   <Icon type='file-add' />
                   <span>Add News</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key='2'>
-                <Link to='/login'>
+                <Link to='/'>
                   <Icon type='edit' />
                   <span>Edit News</span>
                 </Link>
@@ -78,8 +85,10 @@ class Index extends React.Component<IIndexOption, {}> {
               }
             >
               <Menu.Item key='3'>
-                <Icon type='file-add' />
-                <span>Add Tips</span>
+                <Link to='/tips' replace={true}>
+                  <Icon type='file-add' />
+                  <span>Add Tips</span>
+                </Link>
               </Menu.Item>
               <Menu.Item key='4'>
                 <Icon type='edit' />
@@ -122,10 +131,8 @@ class Index extends React.Component<IIndexOption, {}> {
           </Header>
           <Content
             style={{
-              background: '#fff',
               margin: '24px 16px',
-              minHeight: 950,
-              padding: 24
+              minHeight: 950
             }}
           >
             <Switch>
@@ -134,16 +141,9 @@ class Index extends React.Component<IIndexOption, {}> {
                   <route.component {...props} routes={route.routes} />
                 )
 
-                return (
-                  <Route
-                    path={route.path}
-                    key={i}
-                    exact={true}
-                    render={Component}
-                  />
-                )
+                return <Route path={route.path} key={i} render={Component} />
               })}
-              <Redirect to='/news' />
+              <Redirect to='/dashboard' />
             </Switch>
           </Content>
         </Layout>
