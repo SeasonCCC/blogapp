@@ -7,7 +7,7 @@ class Dashboard extends React.Component {
     console.log(styles)
   }
 
-  public render (): object {
+  public render (): JSX.Element {
     return (
       <div>
         <Row gutter={16}>

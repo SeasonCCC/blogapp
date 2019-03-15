@@ -1,17 +1,23 @@
 {
-  "parser":  "@typescript-eslint/parser",
-  "extends": [
-    "plugin:@typescript-eslint/recommended"
-  ],
- "parserOptions": {
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["plugin:@typescript-eslint/recommended", "standard", "standard-react"],
+  "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType":  "module"
+    "sourceType": "module"
   },
   "rules": {
     "indent": "off",
-    "@typescript-eslint/indent": [
+    "semi": ["error", "never"],
+    "@typescript-eslint/indent": ["error", 2],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
       "error",
-      2
+      {
+        "vars": "local",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
     ]
   }
 }
