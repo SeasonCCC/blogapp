@@ -1,4 +1,5 @@
 import { Card, Col, Row } from 'antd'
+import NumberCard from './components/numberCard'
 import * as React from 'react'
 import styles from './dashboard.module.scss'
 
@@ -11,13 +12,9 @@ class Dashboard extends React.Component {
     return (
       <div>
         <Row gutter={16}>
-          <Col className={'new'} span={6}>
-            <Card
-              className={styles['gutter-box']}
-              style={{ padding: '0 16px' }}
-              bordered={false}
-            >
-              Card content
+          <Col span={6}>
+            <Card bordered={false}>
+              <NumberCard color='#8fc9fb' icon='pay-circle-o' />
             </Card>
           </Col>
           <Col span={6}>
