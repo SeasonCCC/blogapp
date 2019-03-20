@@ -1027,6 +1027,13 @@
   resolved "http://registry.npm.taobao.org/@types/q/download/@types/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha1-aQoUdbhPKohP0HzXl8APXzE1bqg=
 
+"@types/react-countup@^4.0.1":
+  version "4.0.1"
+  resolved "http://registry.npm.taobao.org/@types/react-countup/download/@types/react-countup-4.0.1.tgz#db718f8a72184684034cbbc4d4f8a98b863d4d66"
+  integrity sha1-23GPinIYRoQDTLvE1Pipi4Y9TWY=
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@16.8.2":
   version "16.8.2"
   resolved "http://registry.npm.taobao.org/@types/react-dom/download/@types/react-dom-16.8.2.tgz#9bd7d33f908b243ff0692846ef36c81d4941ad12"
