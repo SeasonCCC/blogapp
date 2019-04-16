@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule  } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NewsController } from './news/news.controller';
@@ -8,12 +8,11 @@ import { NewsController } from './news/news.controller';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mongodb',
-    host: process.env.MONGO_URL,
-    username: 'season',
-    password: 'season',
+    url: process.env.MONGO_URL,
     database: 'foodapp',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
+    useNewUrlParser: true,
   })],
   controllers: [AppController, NewsController],
   providers: [AppService],
