@@ -6,5 +6,7 @@ export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
   @Get()
-  getAllNews() {}
+  getAllNews() {
+    return this.newsService.showAll();
+  }
 }
