@@ -1,14 +1,14 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  ObjectID,
+  ObjectIdColumn,
   Column,
-  CreateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class NewsEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+export class News {
+  @ObjectIdColumn()
+  id: ObjectID;
 
   @Column()
   username: string;
@@ -19,6 +19,6 @@ export class NewsEntity {
   @Column()
   type: number;
 
-  @CreateDateColumn()
+  @Column()
   createTime: string;
 }

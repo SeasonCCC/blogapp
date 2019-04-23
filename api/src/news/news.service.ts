@@ -2,17 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { NewsEntity } from './news.entity';
+import { News } from './news.entity';
 
 @Injectable()
 export class NewsService {
   constructor(
-    @InjectRepository(NewsEntity)
-    private newsRepository: Repository<NewsEntity>,
+    @InjectRepository(News)
+    private newsRepository: Repository<News>,
   ) {}
 
   async showAll() {
     return await this.newsRepository.find();
-    // return '123132132';
   }
 }

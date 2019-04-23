@@ -7,6 +7,7 @@ export class NewsController {
 
   @Get()
   getAllNews() {
-    return this.newsService.showAll();
+    const data = this.newsService.showAll();
+    return data;
   }
 }
