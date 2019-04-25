@@ -6,9 +6,11 @@ import {
   Param,
   Put,
   Delete,
+  UsePipes,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { NewsDTO } from './news.dto';
+import { ValidationPipe } from '../shared/validation.pipe';
 
 @Controller('news')
 export class NewsController {
@@ -20,6 +22,7 @@ export class NewsController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   createNew(@Body() data: NewsDTO) {
     return this.newsService.create(data);
   }
@@ -30,6 +33,7 @@ export class NewsController {
   }
 
   @Put(':id')
+  @UsePipes(new ValidationPipe())
   updateNew(@Param('id') id: string, @Body() data: NewsDTO) {
     return this.newsService.update(id, data);
   }

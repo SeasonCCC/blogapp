@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -17,23 +17,36 @@ export class NewsService {
   }
 
   async create(data: NewsDTO) {
-    const newCreated = await this.newsRepository.create(data);
-    await this.newsRepository.save(newCreated);
-    return newCreated;
+    const news = await this.newsRepository.create(data);
+    await this.newsRepository.save(news);
+    return news;
   }
 
   async find(id: string) {
-    return await this.newsRepository.findOne(id);
+    const news = await this.newsRepository.findOne(id);
+    if (!news) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    return news;
   }
 
   async update(id: string, data: NewsDTO) {
+    const news = await this.newsRepository.findOne(id);
+    if (!news) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+
     await this.newsRepository.update(id, data);
-    return await this.newsRepository.findOne(id);
+    return news;
   }
 
   async delete(id: string) {
-    const deleteNew = await this.newsRepository.findOne(id);
+    const news = await this.newsRepository.findOne(id);
+    if (!news) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+
     await this.newsRepository.delete(id);
-    return deleteNew;
+    return news;
   }
 }
