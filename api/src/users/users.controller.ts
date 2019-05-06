@@ -22,11 +22,13 @@ export class UsersController {
   }
 
   @Post('login')
+  @UsePipes(new ValidationPipe())
   login(@Body() data: UsersDTO) {
-    return this.usersService.login();
+    return this.usersService.login(data);
   }
 
   @Post('register')
+  @UsePipes(new ValidationPipe())
   register(@Body() data: UsersDTO) {
     return this.usersService.register(data);
   }

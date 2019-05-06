@@ -1,9 +1,11 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, Min, Max } from 'class-validator';
 
 export class UsersDTO {
-  @IsString()
+  @IsNotEmpty()
   username: string;
 
-  @IsString()
+  @IsNotEmpty()
   password: string;
+
+  type: number;
 }

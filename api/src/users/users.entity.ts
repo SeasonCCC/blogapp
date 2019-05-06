@@ -7,6 +7,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
 
 @Entity('users')
 export class Users {
@@ -27,14 +28,34 @@ export class Users {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
-  @Column()
+  @Column({
+    default: 0,
+  })
   type: number;
 
   @CreateDateColumn()
   createTime: Date;
 
-  toResponseObject() {
-    const {username, password, type, createTime} = this;
-    return { username, password, type, createTime };
+  toResponseObject(showToken: boolean = true) {
+    const { username, password, type, createTime, token } = this;
+    const responseObject: any = { username, password, type, createTime };
+
+    if (showToken) {
+      responseObject.token = token;
+    }
+    return responseObject;
+  }
+
+  async comparePassword(attempt: string) {
+    return await bcrypt.compare(attempt, this.password);
+  }
+
+  private get token() {
+    const {id, username} = this;
+    return jwt.sign(
+      {id, username},
+      process.env.SECRET,
+      { expiresIn: '7d' },
+    );
   }
 }
