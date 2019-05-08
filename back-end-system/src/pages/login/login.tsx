@@ -1,79 +1,79 @@
-import { Button, Checkbox, Form, Icon, Input } from "antd";
-import { FormComponentProps } from "antd/lib/form";
+import { Button, Checkbox, Form, Icon, Input } from 'antd'
+import { FormComponentProps } from 'antd/lib/form'
 
-import * as React from "react";
+import * as React from 'react'
 
-import "./login.css";
+import './login.css'
 
 class Login extends React.Component<FormComponentProps, {}> {
   public handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        console.log('Received values of form: ', values)
       }
-    });
+    })
   };
 
-  public render(): JSX.Element {
-    const { getFieldDecorator } = this.props.form;
+  public render (): JSX.Element {
+    const { getFieldDecorator } = this.props.form
     return (
-      <div className="login">
-        <div className="login-container">
-          <div className="login-main">
-            <Form onSubmit={this.handleSubmit} className="login-form">
+      <div className='login'>
+        <div className='login-container'>
+          <div className='login-main'>
+            <Form onSubmit={this.handleSubmit} className='login-form'>
               <Form.Item>
-                {getFieldDecorator("userName", {
+                {getFieldDecorator('userName', {
                   rules: [
-                    { required: true, message: "Please input your username!" }
+                    { required: true, message: 'Please input your username!' }
                   ]
                 })(
                   <Input
                     prefix={
-                      <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                      <Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />
                     }
-                    placeholder="Username"
+                    placeholder='Username'
                   />
                 )}
               </Form.Item>
               <Form.Item>
-                {getFieldDecorator("password", {
+                {getFieldDecorator('password', {
                   rules: [
-                    { required: true, message: "Please input your Password!" }
+                    { required: true, message: 'Please input your Password!' }
                   ]
                 })(
                   <Input
                     prefix={
-                      <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                      <Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
                     }
-                    type="password"
-                    placeholder="Password"
+                    type='password'
+                    placeholder='Password'
                   />
                 )}
               </Form.Item>
               <Form.Item>
-                {getFieldDecorator("remember", {
+                {getFieldDecorator('remember', {
                   initialValue: true,
-                  valuePropName: "checked"
+                  valuePropName: 'checked'
                 })(<Checkbox>Remember me</Checkbox>)}
-                <a className="login-form-forgot" href="">
+                <a className='login-form-forgot' href=''>
                   Forgot password
                 </a>
                 <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="login-form-button"
+                  type='primary'
+                  htmlType='submit'
+                  className='login-form-button'
                 >
                   Log in
                 </Button>
-                Or <a href="">register now!</a>
+                Or <a href=''>register now!</a>
               </Form.Item>
             </Form>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Form.create<FormComponentProps>()(Login);
+export default Form.create<FormComponentProps>()(Login)

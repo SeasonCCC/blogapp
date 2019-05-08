@@ -9,6 +9,8 @@ import {
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
+export type UserRoleType = 0 | 1 | 2;
+
 @Entity('users')
 export class Users {
   @ObjectIdColumn()
@@ -31,14 +33,14 @@ export class Users {
   @Column({
     default: 0,
   })
-  type: number;
+  type: UserRoleType;
 
   @CreateDateColumn()
   createTime: Date;
 
   toResponseObject(showToken: boolean = true) {
-    const { username, password, type, createTime, token } = this;
-    const responseObject: any = { username, password, type, createTime };
+    const { id, username, password, type, createTime, token } = this;
+    const responseObject: any = {id, username, password, type, createTime };
 
     if (showToken) {
       responseObject.token = token;
@@ -51,11 +53,7 @@ export class Users {
   }
 
   private get token() {
-    const {id, username} = this;
-    return jwt.sign(
-      {id, username},
-      process.env.SECRET,
-      { expiresIn: '7d' },
-    );
+    const { id, username } = this;
+    return jwt.sign({ id, username }, process.env.SECRET, { expiresIn: '7d' });
   }
 }

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Users } from './users.entity';
-import { UsersDTO } from './users.dto';
+import { UsersDTO, UsersDO } from './users.dto';
 
 @Injectable()
 export class UsersService {
@@ -12,13 +12,13 @@ export class UsersService {
     private usersRepository: Repository<Users>,
   ) {}
 
-  async showAll() {
+  async showAll(): Promise<UsersDO[]> {
     // return this.usersRepository.find();
     const users = await this.usersRepository.find();
     return users.map(user => user.toResponseObject(false));
   }
 
-  async login(data: UsersDTO) {
+  async login(data: UsersDTO): Promise<UsersDO> {
     const { username, password } = data;
     const user = await this.usersRepository.findOne({ where: { username } });
     if (!user || (await user.comparePassword(password))) {
@@ -30,11 +30,12 @@ export class UsersService {
     return user.toResponseObject(false);
   }
 
-  async register(data: UsersDTO) {
+  async register(data: UsersDTO): Promise<UsersDO> {
     const { username } = data;
     const user = await this.usersRepository.findOne({
       where: { username },
     });
+
     if (user) {
       throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
     }
