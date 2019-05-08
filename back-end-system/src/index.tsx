@@ -9,12 +9,12 @@ import registerServiceWorker from './registerServiceWorker'
 import routes from './router/router'
 
 class Main extends React.Component {
-  public render () {
+  public render (): JSX.Element {
     return (
       <HashRouter>
         <Switch>
           {routes.map((route, i) => {
-            const Component = (props: any) => (
+            const Component = (props: any): JSX.Element => (
               <route.component {...props} routes={route.routes} />
             )
 

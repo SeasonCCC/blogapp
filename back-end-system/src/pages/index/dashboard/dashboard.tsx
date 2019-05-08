@@ -2,7 +2,7 @@ import { Card, Col, Row } from 'antd'
 import * as React from 'react'
 import styles from './dashboard.module.scss'
 import NumberCard from './components/numberCard'
-import * as d3 from 'd3'
+// import * as d3 from 'd3'
 
 class Dashboard extends React.Component {
   public componentDidMount (): void {

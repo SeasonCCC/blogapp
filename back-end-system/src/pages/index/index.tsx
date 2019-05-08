@@ -6,11 +6,20 @@ import './index.css'
 
 const { Header, Sider, Content } = Layout
 
-interface IndexProps {
+interface IProps {
   routes: object[];
 }
 
-class Index extends React.Component<IndexProps, {}> {
+interface IRoute {
+  component: JSX.Element;
+  path: string;
+}
+
+interface IRoutes extends IRoute {
+  routes?: IRoute[];
+}
+
+class Index extends React.Component<IProps, {}> {
   public state = {
     collapsed: false
   };
@@ -158,7 +167,7 @@ class Index extends React.Component<IndexProps, {}> {
           >
             <Switch>
               {this.props.routes.map((route: any, i: number) => {
-                const Component = (props: any): JSX.Element => (
+                const Component = (props: {}): JSX.Element => (
                   <route.component {...props} routes={route.routes} />
                 )
 
