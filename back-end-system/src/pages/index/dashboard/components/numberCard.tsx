@@ -4,13 +4,19 @@ import React from 'react'
 import CountUp from 'react-countup'
 import styles from './numberCard.module.scss'
 
-interface NumberCardProps {
+interface INumberCardProps {
   color: string;
   icon: string;
+  num: number;
   title?: string;
 }
 
-const NumberCard = ({ color, icon, title }: NumberCardProps): JSX.Element => (
+const NumberCard = ({
+  color,
+  icon,
+  title,
+  num
+}: INumberCardProps): JSX.Element => (
   <Card
     className={styles.numberCard}
     bordered={false}
@@ -20,7 +26,8 @@ const NumberCard = ({ color, icon, title }: NumberCardProps): JSX.Element => (
     <div className={styles.content}>
       <p className={styles.title}>{title || 'News Count'}</p>
       <p className={styles.number}>
-        <CountUp start={0} end={5000} duration={5} separator=',' />
+        {num}
+        {/* <CountUp start={0} end={num || 0} duration={5} separator=',' /> */}
       </p>
     </div>
   </Card>

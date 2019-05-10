@@ -10,15 +10,6 @@ interface IProps {
   routes: object[];
 }
 
-interface IRoute {
-  component: JSX.Element;
-  path: string;
-}
-
-interface IRoutes extends IRoute {
-  routes?: IRoute[];
-}
-
 class Index extends React.Component<IProps, {}> {
   public state = {
     collapsed: false
@@ -167,7 +158,7 @@ class Index extends React.Component<IProps, {}> {
           >
             <Switch>
               {this.props.routes.map((route: any, i: number) => {
-                const Component = (props: {}): JSX.Element => (
+                const Component = (props: any): JSX.Element => (
                   <route.component {...props} routes={route.routes} />
                 )
 
