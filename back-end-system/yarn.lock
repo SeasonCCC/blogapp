@@ -3626,6 +3626,14 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
+echarts-for-react@^2.0.15-beta.0:
+  version "2.0.15-beta.0"
+  resolved "https://registry.npm.taobao.org/echarts-for-react/download/echarts-for-react-2.0.15-beta.0.tgz#dbf30b66bfcc8b1cb9f889eb3ec59a8b1363c3d6"
+  integrity sha1-2/MLZr/Mixy5+InrPsWaixNjw9Y=
+  dependencies:
+    fast-deep-equal "^2.0.1"
+    size-sensor "^0.2.0"
+
 echarts@^4.2.1:
   version "4.2.1"
   resolved "https://registry.npm.taobao.org/echarts/download/echarts-4.2.1.tgz#9a8ea3b03354f86f824d97625c334cf16965ef03"
@@ -10228,6 +10236,11 @@ sisteransi@^0.1.1:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/sisteransi/download/sisteransi-0.1.1.tgz#5431447d5f7d1675aac667ccd0b865a4994cb3ce"
   integrity sha1-VDFEfV99FnWqxmfM0LhlpJlMs84=
+
+size-sensor@^0.2.0:
+  version "0.2.4"
+  resolved "https://registry.npm.taobao.org/size-sensor/download/size-sensor-0.2.4.tgz#93f7b3a8a8582967a1ae782c5ae39ae1dbb7368d"
+  integrity sha1-k/ezqKhYKWehrngsWuOa4du3No0=
 
 slash@^1.0.0:
   version "1.0.0"
