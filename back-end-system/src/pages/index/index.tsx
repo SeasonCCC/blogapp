@@ -7,13 +7,22 @@ import './index.css'
 const { Header, Sider, Content } = Layout
 
 interface IProps {
-  routes: object[];
+  routes?: object[];
+}
+
+interface IRoute {
+  component: JSX.Element;
+  path: string;
+  routes: {
+    component: JSX.Element;
+    path: string;
+  }[];
 }
 
 class Index extends React.Component<IProps, {}> {
   public state = {
     collapsed: false
-  };
+  }
 
   // private constructor (props: IndexProps) {
   //   super(props)
@@ -23,11 +32,21 @@ class Index extends React.Component<IProps, {}> {
     this.setState({
       collapsed: !this.state.collapsed
     })
-  };
-
-  public componentDidMount (): void {
-    // console.log(this.props)
   }
+
+  // public renderRouter (): void {
+  //   const { routes } = this.props
+  //   console.log(routes)
+  //   if (routes) {
+  //     routes.map((route: any, i: number) => {
+  //       const Component = (props: any): JSX.Element => (
+  //         <route.component {...props} routes={route.routes} />
+  //       )
+
+  //       return <Route path={route.path} key={i} render={Component} />
+  //     })
+  //   }
+  // }
 
   public render (): JSX.Element {
     return (
@@ -46,95 +65,32 @@ class Index extends React.Component<IProps, {}> {
             defaultSelectedKeys={['0']}
           >
             <Menu.Item key='0'>
-              <Link to='/dashboard' replace>
+              <Link to='/index/dashboard' replace>
                 <Icon type='dashboard' />
                 <span>Dashboard</span>
               </Link>
             </Menu.Item>
 
             <Menu.Item key='1'>
-              <Link to='/news' replace>
+              <Link to='/index/news' replace>
                 <Icon type='bars' />
                 <span>News</span>
               </Link>
             </Menu.Item>
 
             <Menu.Item key='2'>
-              <Link to='/tips' replace>
+              <Link to='/index/tips' replace>
                 <Icon type='bars' />
                 <span>Tips</span>
               </Link>
             </Menu.Item>
 
             <Menu.Item key='3'>
-              <Link to='/exposure' replace>
+              <Link to='/index/exposure' replace>
                 <Icon type='bars' />
                 <span>Exposure</span>
               </Link>
             </Menu.Item>
-
-            {/* <SubMenu
-              key='1'
-              title={
-                <span>
-                  <Icon type='bars' />
-                  <span>News</span>
-                </span>
-              }
-            >
-              <Menu.Item key='1'>
-                <Link to='/news' replace>
-                  <Icon type='file-add' />
-                  <span>Add News</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key='2'>
-                <Link to='/'>
-                  <Icon type='edit' />
-                  <span>Edit News</span>
-                </Link>
-              </Menu.Item>
-            </SubMenu> */}
-
-            {/* <SubMenu
-              key='sub2'
-              title={
-                <span>
-                  <Icon type='bars' />
-                  <span>Tips</span>
-                </span>
-              }
-            >
-              <Menu.Item key='3'>
-                <Link to='/tips' replace>
-                  <Icon type='file-add' />
-                  <span>Add Tips</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key='4'>
-                <Icon type='edit' />
-                <span>Edit Tips</span>
-              </Menu.Item>
-            </SubMenu> */}
-
-            {/* <SubMenu
-              key='sub3'
-              title={
-                <span>
-                  <Icon type='bars' />
-                  <span>Exposure</span>
-                </span>
-              }
-            >
-              <Menu.Item key='5'>
-                <Icon type='file-add' />
-                <span>Add Exposure</span>
-              </Menu.Item>
-              <Menu.Item key='6'>
-                <Icon type='edit' />
-                <span>Edit Exposure</span>
-              </Menu.Item>
-            </SubMenu> */}
 
             <Menu.Item key='4'>
               <Icon type='user' />
@@ -157,16 +113,20 @@ class Index extends React.Component<IProps, {}> {
             }}
           >
             <Switch>
-              {this.props.routes.map((route: any, i: number) => {
-                const Component = (props: any): JSX.Element => (
-                  <route.component {...props} routes={route.routes} />
-                )
+              {this.props.routes
+                ? this.props.routes.map((route: object, i: number) => {
+                  const Component = (): JSX.Element => (
+                    <route.component routes={route.routes} />
+                  )
 
-                return (
-                  <Route path={route.path} key={i} render={Component} />
-                )
-              })}
-              <Redirect to='/dashboard' />
+                  return (
+                    <Route path={route.path} key={i} render={Component} />
+                  )
+                })
+                : ''}
+
+              {/* {this.renderRouter} */}
+              <Redirect to='/index/dashboard' />
             </Switch>
           </Content>
         </Layout>

@@ -8,23 +8,23 @@ import Login from '../pages/login/login'
 const routes = [
   {
     component: Index,
-    path: '/',
+    path: '/index',
     routes: [
       {
         component: dashboard,
-        path: '/dashboard'
+        path: '/index/dashboard'
       },
       {
         component: News,
-        path: '/news'
+        path: '/index/news'
       },
       {
         component: Tips,
-        path: '/tips'
+        path: '/index/tips'
       },
       {
         component: Exposure,
-        path: '/exposure'
+        path: '/index/exposure'
       }
     ]
   },
