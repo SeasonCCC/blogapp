@@ -13,10 +13,7 @@ interface IProps {
 interface IRoute {
   component: JSX.Element;
   path: string;
-  routes: {
-    component: JSX.Element;
-    path: string;
-  }[];
+  routes?: any;
 }
 
 class Index extends React.Component<IProps, {}> {
@@ -114,7 +111,7 @@ class Index extends React.Component<IProps, {}> {
           >
             <Switch>
               {this.props.routes
-                ? this.props.routes.map((route: object, i: number) => {
+                ? this.props.routes.map((route: IRoute, i: number) => {
                   const Component = (): JSX.Element => (
                     <route.component routes={route.routes} />
                   )

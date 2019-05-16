@@ -8,11 +8,11 @@ import registerServiceWorker from './registerServiceWorker'
 
 import routes from './router/router'
 
-// interface IRoute {
-//   component: JSX.Element;
-//   path: string;
-//   routes?: any;
-// }
+interface IRoute {
+  component: JSX.Element;
+  path: string;
+  routes?: any;
+}
 
 class Main extends React.Component {
   public render (): JSX.Element {
