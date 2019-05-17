@@ -3,16 +3,16 @@ import * as ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import './index.css'
-// import Main from "./pages/main/main";
+// import Main from "./pages/index/index";
 import registerServiceWorker from './registerServiceWorker'
 
 import routes from './router/router'
 
-interface IRoute {
-  component: JSX.Element;
-  path: string;
-  routes?: any;
-}
+// interface IRoute {
+//   component: any;
+//   path: string;
+//   routes?: IRoute[];
+// }
 
 class Main extends React.Component {
   public render (): JSX.Element {

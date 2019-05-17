@@ -6,14 +6,14 @@ import './index.css'
 
 const { Header, Sider, Content } = Layout
 
-interface IProps {
-  routes?: object[];
+interface IRoute {
+  component: any;
+  path: string;
+  routes?: IRoute[];
 }
 
-interface IRoute {
-  component: JSX.Element;
-  path: string;
-  routes?: any;
+interface IProps {
+  routes?: IRoute[];
 }
 
 class Index extends React.Component<IProps, {}> {
@@ -30,20 +30,6 @@ class Index extends React.Component<IProps, {}> {
       collapsed: !this.state.collapsed
     })
   }
-
-  // public renderRouter (): void {
-  //   const { routes } = this.props
-  //   console.log(routes)
-  //   if (routes) {
-  //     routes.map((route: any, i: number) => {
-  //       const Component = (props: any): JSX.Element => (
-  //         <route.component {...props} routes={route.routes} />
-  //       )
-
-  //       return <Route path={route.path} key={i} render={Component} />
-  //     })
-  //   }
-  // }
 
   public render (): JSX.Element {
     return (
@@ -121,8 +107,6 @@ class Index extends React.Component<IProps, {}> {
                   )
                 })
                 : ''}
-
-              {/* {this.renderRouter} */}
               <Redirect to='/index/dashboard' />
             </Switch>
           </Content>
