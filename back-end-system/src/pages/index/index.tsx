@@ -1,5 +1,7 @@
 import { Icon, Layout, Menu } from 'antd'
 import * as React from 'react'
+// import routes from '../../router/router'
+
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
 import './index.css'
 // const SubMenu = Menu.SubMenu
@@ -7,7 +9,8 @@ import './index.css'
 const { Header, Sider, Content } = Layout
 
 interface IRoute {
-  component: any;
+  // component: typeof dashboard | typeof Exposure | typeof News| typeof Tips;
+  component: React.ReactType;
   path: string;
   routes?: IRoute[];
 }
