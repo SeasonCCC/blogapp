@@ -1,9 +1,9 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
-import { News } from './news.entity';
-import { NewsDTO } from './news.dto';
+import { News } from './news.entity'
+import { NewsDTO } from './news.dto'
 
 @Injectable()
 export class NewsService {
@@ -13,40 +13,40 @@ export class NewsService {
   ) {}
 
   async showAll() {
-    return await this.newsRepository.find();
+    return await this.newsRepository.find()
   }
 
   async create(data: NewsDTO) {
-    const news = await this.newsRepository.create(data);
-    await this.newsRepository.save(news);
-    return news;
+    const news = await this.newsRepository.create(data)
+    await this.newsRepository.save(news)
+    return news
   }
 
   async find(id: string) {
-    const news = await this.newsRepository.findOne(id);
+    const news = await this.newsRepository.findOne(id)
     if (!news) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
-    return news;
+    return news
   }
 
   async update(id: string, data: NewsDTO) {
-    const news = await this.newsRepository.findOne(id);
+    const news = await this.newsRepository.findOne(id)
     if (!news) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
 
-    await this.newsRepository.update(id, data);
-    return news;
+    await this.newsRepository.update(id, data)
+    return news
   }
 
   async delete(id: string) {
-    const news = await this.newsRepository.findOne(id);
+    const news = await this.newsRepository.findOne(id)
     if (!news) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
 
-    await this.newsRepository.delete(id);
-    return news;
+    await this.newsRepository.delete(id)
+    return news
   }
 }

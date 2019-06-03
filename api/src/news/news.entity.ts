@@ -1,24 +1,19 @@
-import {
-  Entity,
-  ObjectID,
-  ObjectIdColumn,
-  Column,
-} from 'typeorm';
+import { Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm'
 
 @Entity()
 export class News {
   @ObjectIdColumn()
-  id: ObjectID;
+  id: ObjectID
 
   @Column()
-  username: string;
+  username: string
 
   @Column()
-  password: string;
+  password: string
 
   @Column()
-  type: number;
+  type: number
 
   @Column()
-  createTime: string;
+  createTime: string
 }

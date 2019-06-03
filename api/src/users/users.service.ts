@@ -1,9 +1,9 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
-import { Users } from './users.entity';
-import { UsersDTO, UsersDO } from './users.dto';
+import { Users } from './users.entity'
+import { UsersDTO, UsersDO } from './users.dto'
 
 @Injectable()
 export class UsersService {
@@ -14,38 +14,38 @@ export class UsersService {
 
   async showAll(): Promise<UsersDO[]> {
     // return this.usersRepository.find();
-    const users = await this.usersRepository.find();
-    return users.map(user => user.toResponseObject(false));
+    const users = await this.usersRepository.find()
+    return users.map(user => user.toResponseObject(false))
   }
 
   async login(data: UsersDTO): Promise<UsersDO> {
-    const { username, password } = data;
-    const user = await this.usersRepository.findOne({ where: { username } });
+    const { username, password } = data
+    const user = await this.usersRepository.findOne({ where: { username } })
     if (!user || (await user.comparePassword(password))) {
       throw new HttpException(
         'Invalid username/password',
         HttpStatus.BAD_REQUEST,
-      );
+      )
     }
-    return user.toResponseObject(false);
+    return user.toResponseObject(false)
   }
 
   async register(data: UsersDTO): Promise<UsersDO> {
-    const { username } = data;
+    const { username } = data
     const user = await this.usersRepository.findOne({
       where: { username },
-    });
+    })
 
     if (user) {
-      throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
+      throw new HttpException('User already exist', HttpStatus.BAD_REQUEST)
     }
 
-    await this.usersRepository.save(data);
+    await this.usersRepository.save(data)
     const userInserted = await this.usersRepository.findOne({
       where: { username },
-    });
+    })
 
-    return userInserted.toResponseObject(false);
+    return userInserted.toResponseObject(false)
   }
 
   // async find(id: string) {

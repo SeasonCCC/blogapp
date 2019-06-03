@@ -1,25 +1,25 @@
-import { IsInt, IsNotEmpty, Min, Max } from 'class-validator';
+import { IsNotEmpty } from 'class-validator'
 
-export type UserRoleType = 0 | 1 | 2;
+export type UserRoleType = 0 | 1 | 2
 
 export class UsersDTO {
   @IsNotEmpty()
-  username: string;
+  username: string
 
   @IsNotEmpty()
-  password: string;
+  password: string
 
-  type: UserRoleType;
+  type: UserRoleType
 }
 
 export class UsersDO {
-  id: string;
+  id: string
 
-  username: string;
+  username: string
 
-  password: string;
+  password: string
 
-  type: UserRoleType;
+  type: UserRoleType
 
-  token?: string;
+  token?: string
 }
