@@ -49,7 +49,8 @@ export class Users {
   }
 
   async comparePassword(attempt: string) {
-    return await bcrypt.compare(attempt, this.password)
+    const result = await bcrypt.compare(attempt, this.password)
+    return result
   }
 
   private get token() {

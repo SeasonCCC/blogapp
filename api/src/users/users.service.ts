@@ -13,7 +13,6 @@ export class UsersService {
   ) {}
 
   async showAll(): Promise<UsersDO[]> {
-    // return this.usersRepository.find();
     const users = await this.usersRepository.find()
     return users.map(user => user.toResponseObject(false))
   }
