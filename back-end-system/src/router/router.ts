@@ -3,6 +3,7 @@ import Exposure from '../pages/index/exposure/exposure'
 import Index from '../pages/index/index'
 import News from '../pages/index/news/news'
 import Tips from '../pages/index/tips/tips'
+import Users from '../pages/index/users/users'
 import Login from '../pages/login/login'
 
 const routes = [
@@ -25,6 +26,10 @@ const routes = [
       {
         component: Exposure,
         path: '/index/exposure'
+      },
+      {
+        component: Users,
+        path: '/index/users'
       }
     ]
   },

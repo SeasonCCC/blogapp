@@ -2,7 +2,7 @@ import { Icon, Layout, Menu } from 'antd'
 import * as React from 'react'
 // import routes from '../../router/router'
 
-import { Link, Redirect, Route, Switch } from 'react-router-dom'
+import { Link, Redirect, Route, Switch, withRouter, RouteComponentProps } from 'react-router-dom'
 import './index.css'
 // const SubMenu = Menu.SubMenu
 
@@ -15,20 +15,36 @@ interface IRoute {
   routes?: IRoute[];
 }
 
-interface IProps {
+interface IProps extends RouteComponentProps {
   routes?: IRoute[];
 }
 
 class Index extends React.Component<IProps, {}> {
   public state = {
-    collapsed: false
+    collapsed: false,
+    key: '0'
+  };
+
+  public componentWillMount (): void {
+    // console.log(123)
+    let routeArr = [
+      '/index/dashboard',
+      '/index/news',
+      '/index/tips',
+      '/index/exposure',
+      '/index/users'
+    ]
+    this.setState({
+      key: routeArr.indexOf(this.props.location.pathname).toString()
+    })
+    console.log(this.props.location.pathname)
   }
 
-  // private constructor (props: IndexProps) {
+  // public constructor (props: IProps) {
   //   super(props)
   // }
 
-  public toggle = () => {
+  public toggle (): void {
     this.setState({
       collapsed: !this.state.collapsed
     })
@@ -47,8 +63,9 @@ class Index extends React.Component<IProps, {}> {
           <Menu
             theme='dark'
             mode='inline'
+            // openKeys={[this.state.key]}
             // defaultOpenKeys={['sub1', 'sub2', 'sub3']}
-            defaultSelectedKeys={['0']}
+            defaultSelectedKeys={[this.state.key]}
           >
             <Menu.Item key='0'>
               <Link to='/index/dashboard' replace>
@@ -79,8 +96,10 @@ class Index extends React.Component<IProps, {}> {
             </Menu.Item>
 
             <Menu.Item key='4'>
-              <Icon type='user' />
-              <span>Users</span>
+              <Link to='/index/users' replace>
+                <Icon type='user' />
+                <span>Users</span>
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -119,4 +138,4 @@ class Index extends React.Component<IProps, {}> {
   }
 }
 
-export default Index
+export default withRouter(Index)

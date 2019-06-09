@@ -99,12 +99,12 @@ class Dashboard extends React.Component {
         <Row gutter={16} style={{ padding: '16px 0' }}>
           <Col span={16}>
             <Card title='Data Analysis' bordered={false}>
-              <ReactEcharts
+              {/* <ReactEcharts
                 option={this.option}
                 style={{ height: '350px', width: '100%' }}
                 className='react_for_echarts'
                 theme='macarons'
-              />
+              /> */}
             </Card>
           </Col>
           <Col span={8}>
