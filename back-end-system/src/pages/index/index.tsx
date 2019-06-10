@@ -2,7 +2,15 @@ import { Icon, Layout, Menu } from 'antd'
 import * as React from 'react'
 // import routes from '../../router/router'
 
-import { Link, Redirect, Route, Switch, withRouter, RouteComponentProps } from 'react-router-dom'
+import {
+  Link,
+  Redirect,
+  Route,
+  Switch,
+  RouteComponentProps
+} from 'react-router-dom'
+
+import { withRouter } from '../../utils/withRouter'
 import './index.css'
 // const SubMenu = Menu.SubMenu
 
@@ -19,14 +27,14 @@ interface IProps extends RouteComponentProps {
   routes?: IRoute[];
 }
 
+@withRouter
 class Index extends React.Component<IProps, {}> {
   public state = {
     collapsed: false,
     key: '0'
-  };
+  }
 
   public componentWillMount (): void {
-    // console.log(123)
     let routeArr = [
       '/index/dashboard',
       '/index/news',
@@ -34,10 +42,11 @@ class Index extends React.Component<IProps, {}> {
       '/index/exposure',
       '/index/users'
     ]
+    let keyIndex = routeArr.indexOf(this.props.location.pathname).toString()
+
     this.setState({
-      key: routeArr.indexOf(this.props.location.pathname).toString()
+      key: keyIndex === '-1' ? '0' : keyIndex
     })
-    console.log(this.props.location.pathname)
   }
 
   // public constructor (props: IProps) {
@@ -138,4 +147,4 @@ class Index extends React.Component<IProps, {}> {
   }
 }
 
-export default withRouter(Index)
+export default Index

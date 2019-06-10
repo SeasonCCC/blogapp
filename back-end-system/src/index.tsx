@@ -20,8 +20,8 @@ class Main extends React.Component {
       <HashRouter>
         <Switch>
           {routes.map((route, i) => {
-            const Component = (): JSX.Element => (
-              <route.component routes={route.routes} />
+            const Component = (props: any): JSX.Element => (
+              <route.component {...props} routes={route.routes} />
             )
 
             return (
