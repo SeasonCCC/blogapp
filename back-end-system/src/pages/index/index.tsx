@@ -43,7 +43,7 @@ class Index extends React.Component<IProps, {}> {
       '/index/users'
     ]
     let keyIndex = routeArr.indexOf(this.props.location.pathname).toString()
-
+    console.log(this.props.location.pathname)
     this.setState({
       key: keyIndex === '-1' ? '0' : keyIndex
     })
@@ -129,8 +129,10 @@ class Index extends React.Component<IProps, {}> {
             <Switch>
               {this.props.routes
                 ? this.props.routes.map((route: IRoute, i: number) => {
-                  const Component = (): JSX.Element => (
-                    <route.component routes={route.routes} />
+                  const Component = (
+                    props: RouteComponentProps
+                  ): JSX.Element => (
+                    <route.component {...props} routes={route.routes} />
                   )
 
                   return (

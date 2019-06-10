@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
 
 import './index.css'
 // import Main from "./pages/index/index";
@@ -20,7 +20,9 @@ class Main extends React.Component {
       <HashRouter>
         <Switch>
           {routes.map((route, i) => {
-            const Component = (props: any): JSX.Element => (
+            const Component = (
+              props: RouteComponentProps
+            ): JSX.Element => (
               <route.component {...props} routes={route.routes} />
             )
 
