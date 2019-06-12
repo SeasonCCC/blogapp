@@ -6,9 +6,9 @@ import * as React from 'react'
 import './login.css'
 
 class Login extends React.Component<FormComponentProps, {}> {
-  public handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  public handleSubmit = (e: React.FormEvent<HTMLInputElement>): void => {
     e.preventDefault()
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, values): void => {
       if (!err) {
         console.log('Received values of form: ', values)
       }
@@ -36,6 +36,7 @@ class Login extends React.Component<FormComponentProps, {}> {
                   />
                 )}
               </Form.Item>
+
               <Form.Item>
                 {getFieldDecorator('password', {
                   rules: [

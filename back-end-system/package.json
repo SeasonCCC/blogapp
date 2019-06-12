@@ -36,8 +36,8 @@
   ],
   "devDependencies": {
     "@types/echarts": "^4.1.9",
-    "@typescript-eslint/eslint-plugin": "^1.4.2",
-    "@typescript-eslint/parser": "^1.4.2",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.11",
     "eslint-config-standard": "^12.0.0",
