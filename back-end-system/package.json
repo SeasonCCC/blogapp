@@ -3,21 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.6",
-    "@types/node": "11.9.4",
-    "@types/react": "16.8.4",
+    "@types/jest": "24.0.17",
+    "@types/node": "12.6.9",
+    "@types/react": "16.8.24",
     "@types/react-countup": "^4.0.1",
-    "@types/react-dom": "16.8.2",
-    "@types/react-router-dom": "^4.3.1",
-    "antd": "^3.13.5",
+    "@types/react-dom": "16.8.5",
+    "@types/react-router-dom": "^4.3.4",
+    "antd": "^3.21.2",
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
     "react": "^16.8.3",
-    "react-countup": "^4.1.1",
+    "react-countup": "^4.2.1",
     "react-dom": "^16.8.3",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5",
-    "typescript": "3.3.3333"
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "typescript": "3.5.3"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -35,20 +35,20 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/echarts": "^4.1.9",
-    "@typescript-eslint/eslint-plugin": "^1.10.2",
-    "@typescript-eslint/parser": "^1.10.2",
+    "@types/echarts": "^4.1.10",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
     "babel-plugin-import": "^1.11.0",
-    "customize-cra": "^0.2.11",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-config-standard-react": "^7.0.2",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-react": "^7.12.4",
+    "customize-cra": "^0.4.1",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-config-standard-react": "^8.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-standard": "^4.0.0",
     "node-sass": "^4.11.0",
     "react-app-rewired": "^2.1.0",
-    "standard": "^12.0.1"
+    "standard": "^13.1.0"
   }
 }

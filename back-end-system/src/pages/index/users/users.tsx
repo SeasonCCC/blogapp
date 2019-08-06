@@ -7,7 +7,7 @@ class Users extends React.Component {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text: string) => <a href='javascript:;'>{text}</a>
+      render: (text: string): JSX.Element => <div>{text}</div>
     },
     {
       title: 'Age',
@@ -23,30 +23,32 @@ class Users extends React.Component {
       title: 'Tags',
       key: 'tags',
       dataIndex: 'tags',
-      render: (tags: any) => (
+      render: (tags: any): JSX.Element => (
         <span>
-          {tags.map((tag: any) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green'
-            if (tag === 'loser') {
-              color = 'volcano'
+          {tags.map(
+            (tag: any): JSX.Element => {
+              let color = tag.length > 5 ? 'geekblue' : 'green'
+              if (tag === 'loser') {
+                color = 'volcano'
+              }
+              return (
+                <Tag color={color} key={tag}>
+                  {tag.toUpperCase()}
+                </Tag>
+              )
             }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            )
-          })}
+          )}
         </span>
       )
     },
     {
       title: 'Action',
       key: 'action',
-      render: (text: string, record: any) => (
+      render: (text: string, record: any): JSX.Element => (
         <span>
-          <a href='javascript:;'>Invite {record.name}</a>
+          <div>Invite {record.name}</div>
           <Divider type='vertical' />
-          <a href='javascript:;'>Delete</a>
+          <div>Delete</div>
         </span>
       )
     }

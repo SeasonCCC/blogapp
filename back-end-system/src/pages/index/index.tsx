@@ -34,18 +34,20 @@ class Index extends React.Component<IProps, {}> {
   }
 
   public componentWillMount (): void {
-    let routeArr = [
+    const routeArr = [
       '/index/dashboard',
       '/index/news',
       '/index/tips',
       '/index/exposure',
       '/index/users'
     ]
-    let keyIndex = routeArr.indexOf(this.props.location.pathname).toString()
-    console.log(this.props.location.pathname)
+    const keyIndex = routeArr.indexOf(this.props.location.pathname).toString()
+
     this.setState({
       key: keyIndex === '-1' ? '0' : keyIndex
     })
+
+    this.toggle = this.toggle.bind(this)
   }
 
   // public constructor (props: IProps) {
