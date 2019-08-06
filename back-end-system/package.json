@@ -23,7 +23,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test a --no-watchman",
-    "test:all": "set CI=true&&react-app-rewired test a",
+    "test:all": "cross-env CI=true react-app-rewired test a",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "babel-plugin-import": "^1.11.0",
+    "cross-env": "^5.2.0",
     "customize-cra": "^0.4.1",
     "eslint-config-standard": "^13.0.1",
     "eslint-config-standard-react": "^8.0.0",
