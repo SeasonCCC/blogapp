@@ -14,8 +14,10 @@ import { ValidationPipe } from '../shared/validation.pipe'
 
 @Controller('news')
 export class NewsController {
-  private readonly newsService: NewsService
-  // constructor(private readonly newsService: NewsService) {}
+  // private readonly newsService: NewsService
+  constructor(private readonly newsService: NewsService) {
+    this.newsService = newsService
+  }
 
   @Get()
   getAllNews() {
