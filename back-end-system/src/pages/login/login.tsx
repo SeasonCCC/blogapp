@@ -6,13 +6,15 @@ import * as React from 'react'
 import './login.css'
 
 class Login extends React.Component<FormComponentProps, {}> {
-  public handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  public handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values)
+    this.props.form.validateFields(
+      (err, values): void => {
+        if (!err) {
+          console.log('Received values of form: ', values)
+        }
       }
-    })
+    )
   };
 
   public render (): JSX.Element {
@@ -25,26 +27,39 @@ class Login extends React.Component<FormComponentProps, {}> {
               <Form.Item>
                 {getFieldDecorator('userName', {
                   rules: [
-                    { required: true, message: 'Please input your username!' }
+                    {
+                      required: true,
+                      message: 'Please input your username!'
+                    }
                   ]
                 })(
                   <Input
                     prefix={
-                      <Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />
+                      <Icon
+                        type='user'
+                        style={{ color: 'rgba(0,0,0,.25)' }}
+                      />
                     }
                     placeholder='Username'
                   />
                 )}
               </Form.Item>
+
               <Form.Item>
                 {getFieldDecorator('password', {
                   rules: [
-                    { required: true, message: 'Please input your Password!' }
+                    {
+                      required: true,
+                      message: 'Please input your Password!'
+                    }
                   ]
                 })(
                   <Input
                     prefix={
-                      <Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />
+                      <Icon
+                        type='lock'
+                        style={{ color: 'rgba(0,0,0,.25)' }}
+                      />
                     }
                     type='password'
                     placeholder='Password'
@@ -56,9 +71,7 @@ class Login extends React.Component<FormComponentProps, {}> {
                   initialValue: true,
                   valuePropName: 'checked'
                 })(<Checkbox>Remember me</Checkbox>)}
-                <a className='login-form-forgot' href=''>
-                  Forgot password
-                </a>
+                <div className='login-form-forgot'>Forgot password</div>
                 <Button
                   type='primary'
                   htmlType='submit'
@@ -66,7 +79,7 @@ class Login extends React.Component<FormComponentProps, {}> {
                 >
                   Log in
                 </Button>
-                Or <a href=''>register now!</a>
+                Or <Button href=''>register now!</Button>
               </Form.Item>
             </Form>
           </div>
