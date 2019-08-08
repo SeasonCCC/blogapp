@@ -15,7 +15,7 @@ export class NewsService {
   }
 
   async showAll() {
-    let news = await this.newsRepository.find()
+    const news = await this.newsRepository.find()
     return news
   }
 
