@@ -10,7 +10,9 @@ export class UsersService {
   constructor(
     @InjectRepository(Users)
     private usersRepository: Repository<Users>,
-  ) {}
+  ) {
+    this.usersRepository = usersRepository
+  }
 
   async showAll(): Promise<UsersDO[]> {
     const users = await this.usersRepository.find()

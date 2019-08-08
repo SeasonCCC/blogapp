@@ -10,10 +10,13 @@ export class NewsService {
   constructor(
     @InjectRepository(News)
     private newsRepository: Repository<News>,
-  ) {}
+  ) {
+    this.newsRepository = newsRepository
+  }
 
   async showAll() {
-    return await this.newsRepository.find()
+    const news = await this.newsRepository.find()
+    return news
   }
 
   async create(data: NewsDTO) {
