@@ -28,7 +28,7 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       )
     }
-    return user.toResponseObject(false)
+    return user.toResponseObject(true)
   }
 
   async register(data: UsersDTO): Promise<UsersDO> {
@@ -46,7 +46,7 @@ export class UsersService {
       where: { username },
     })
 
-    return userInserted.toResponseObject(false)
+    return userInserted.toResponseObject(true)
   }
 
   // async find(id: string) {
