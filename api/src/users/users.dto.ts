@@ -14,7 +14,7 @@ export class UsersDTO {
   type: UserRoleType
 }
 
-export class UsersDO {
+export class UsersRO {
   id: string
 
   username: string

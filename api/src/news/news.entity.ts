@@ -1,4 +1,12 @@
-import { Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm'
+import {
+  Entity,
+  ObjectID,
+  ObjectIdColumn,
+  Column,
+  CreateDateColumn,
+} from 'typeorm'
+
+export type NewsStatus = 0 | 1 | 2
 
 @Entity()
 export class News {
@@ -6,14 +14,20 @@ export class News {
   id: ObjectID
 
   @Column()
-  username: string
+  title: string
 
   @Column()
-  password: string
+  content: string
 
   @Column()
-  type: number
+  status: NewsStatus
 
-  @Column()
-  createTime: string
+  @CreateDateColumn()
+  createTime: Date
+
+  toResponseObject() {
+    const { id, title, content, status, createTime } = this
+    const responseObject: any = { id, title, content, status, createTime }
+    return responseObject
+  }
 }

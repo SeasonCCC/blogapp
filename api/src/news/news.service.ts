@@ -3,29 +3,33 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
 import { News } from './news.entity'
-import { NewsDTO } from './news.dto'
+import { Users } from 'src/users/users.entity'
+import { NewsDTO, NewsRO } from './news.dto'
 
 @Injectable()
 export class NewsService {
   constructor(
     @InjectRepository(News)
     private newsRepository: Repository<News>,
+    @InjectRepository(Users)
+    private usersRepository: Repository<Users>,
   ) {
     this.newsRepository = newsRepository
+    this.usersRepository = usersRepository
   }
 
-  async showAll() {
+  async showAll(): Promise<NewsRO[]> {
     const news = await this.newsRepository.find()
     return news
   }
 
-  async create(data: NewsDTO) {
+  async create(data: NewsDTO): Promise<NewsRO> {
     const news = await this.newsRepository.create(data)
     await this.newsRepository.save(news)
     return news
   }
 
-  async find(id: string) {
+  async findOne(id: string): Promise<NewsRO> {
     const news = await this.newsRepository.findOne(id)
     if (!news) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
@@ -33,7 +37,7 @@ export class NewsService {
     return news
   }
 
-  async update(id: string, data: NewsDTO) {
+  async update(id: string, data: NewsDTO): Promise<NewsRO> {
     const news = await this.newsRepository.findOne(id)
     if (!news) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
@@ -43,7 +47,7 @@ export class NewsService {
     return news
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<NewsRO> {
     const news = await this.newsRepository.findOne(id)
     if (!news) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
