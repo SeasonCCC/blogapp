@@ -1,7 +1,5 @@
-import { IsString, IsInt, IsNotEmpty } from 'class-validator'
+import { IsString, IsInt, IsNotEmpty, Min, Max } from 'class-validator'
 import { ObjectID } from 'typeorm'
-
-export type NewsStatus = 0 | 1 | 2
 
 export class NewsDTO {
   @IsNotEmpty()
@@ -14,7 +12,9 @@ export class NewsDTO {
 
   @IsNotEmpty()
   @IsInt()
-  status: NewsStatus
+  @Min(0)
+  @Max(3)
+  status: number
 }
 
 export class NewsRO {
@@ -24,7 +24,7 @@ export class NewsRO {
 
   content: string
 
-  status: NewsStatus
+  status: number
 
   createTime: Date
 }

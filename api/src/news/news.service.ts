@@ -19,12 +19,16 @@ export class NewsService {
   }
 
   async showAll(): Promise<NewsRO[]> {
-    const news = await this.newsRepository.find()
+    const news = await this.newsRepository.find({ relations: ['author'] })
     return news
   }
 
-  async create(data: NewsDTO): Promise<NewsRO> {
-    const news = await this.newsRepository.create(data)
+  async create(id: string, data: NewsDTO): Promise<NewsRO> {
+    // console.log(id)
+    const user = await this.usersRepository.findOne(id)
+    console.log(user)
+    const news = await this.newsRepository.create({ ...data, author: user })
+    console.log(news)
     await this.newsRepository.save(news)
     return news
   }

@@ -23,6 +23,7 @@ export class NewsController {
   }
 
   @Get()
+  @UseGuards(new AuthGuard())
   getAllNews(@User() user) {
     console.log(user)
     return this.newsService.showAll()
@@ -31,8 +32,8 @@ export class NewsController {
   @Post('addNews')
   @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
-  createNew(@Body() data: NewsDTO) {
-    return this.newsService.create(data)
+  createNew(@User() user, @Body() data: NewsDTO) {
+    return this.newsService.create(user.id, data)
   }
 
   @Get(':id')

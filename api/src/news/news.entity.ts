@@ -4,11 +4,11 @@ import {
   ObjectIdColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm'
+import { Users } from 'src/users/users.entity'
 
-export type NewsStatus = 0 | 1 | 2
-
-@Entity()
+@Entity('news')
 export class News {
   @ObjectIdColumn()
   id: ObjectID
@@ -20,14 +20,11 @@ export class News {
   content: string
 
   @Column()
-  status: NewsStatus
+  status: number
 
   @CreateDateColumn()
   createTime: Date
 
-  toResponseObject() {
-    const { id, title, content, status, createTime } = this
-    const responseObject: any = { id, title, content, status, createTime }
-    return responseObject
-  }
+  @OneToMany(() => Users, author => author.news)
+  author: Users
 }
