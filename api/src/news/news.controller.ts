@@ -7,10 +7,13 @@ import {
   Put,
   Delete,
   UsePipes,
+  UseGuards,
 } from '@nestjs/common'
 import { NewsService } from './news.service'
 import { NewsDTO } from './news.dto'
 import { ValidationPipe } from '../shared/validation.pipe'
+import { AuthGuard } from 'src/shared/auth.guard'
+import { User } from 'src/users/users.decorator'
 
 @Controller('news')
 export class NewsController {
@@ -20,11 +23,13 @@ export class NewsController {
   }
 
   @Get()
-  getAllNews() {
+  getAllNews(@User() user) {
+    console.log(user)
     return this.newsService.showAll()
   }
 
-  @Post()
+  @Post('addNews')
+  @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
   createNew(@Body() data: NewsDTO) {
     return this.newsService.create(data)
@@ -32,7 +37,7 @@ export class NewsController {
 
   @Get(':id')
   getNewById(@Param('id') id: string) {
-    return this.newsService.find(id)
+    return this.newsService.findOne(id)
   }
 
   @Put(':id')

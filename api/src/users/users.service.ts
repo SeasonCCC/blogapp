@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
 import { Users } from './users.entity'
-import { UsersDTO, UsersDO } from './users.dto'
+import { UsersDTO, UsersRO } from './users.dto'
 
 @Injectable()
 export class UsersService {
@@ -14,12 +14,12 @@ export class UsersService {
     this.usersRepository = usersRepository
   }
 
-  async showAll(): Promise<UsersDO[]> {
+  async showAll(): Promise<UsersRO[]> {
     const users = await this.usersRepository.find()
     return users.map(user => user.toResponseObject(false))
   }
 
-  async login(data: UsersDTO): Promise<UsersDO> {
+  async login(data: UsersDTO): Promise<UsersRO> {
     const { username, password } = data
     const user = await this.usersRepository.findOne({ where: { username } })
     if (!user || (await user.comparePassword(password))) {
@@ -28,10 +28,10 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       )
     }
-    return user.toResponseObject(false)
+    return user.toResponseObject(true)
   }
 
-  async register(data: UsersDTO): Promise<UsersDO> {
+  async register(data: UsersDTO): Promise<UsersRO> {
     const { username } = data
     const user = await this.usersRepository.findOne({
       where: { username },

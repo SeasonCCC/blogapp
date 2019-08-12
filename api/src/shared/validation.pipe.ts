@@ -43,7 +43,7 @@ export class ValidationPipe implements PipeTransform<any> {
     return errors
       .map(err => {
         for (const property in err.constraints) {
-          if (err.constraints.hasOwnProperty(property)) {
+          if (Object.prototype.hasOwnProperty.call(err.constraints, property)) {
             return err.constraints[property]
           }
         }

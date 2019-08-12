@@ -16,7 +16,8 @@ export class AuthGuard implements CanActivate {
       return false
     }
 
-    await this.validateToken(request.headers.authorization)
+    request.user = this.validateToken(request.headers.authorization)
+    return true
     // return validateToken(request)
   }
 
@@ -26,8 +27,7 @@ export class AuthGuard implements CanActivate {
     }
 
     const token = auth.split(' ')[1]
-    // const decoded = await jwt.verify(token, process.env.SECRET)
-    // console.log(decoded)
+
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
       return decoded
