@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty, IsString, Min, Max, IsInt } from 'class-validator'
 
 export type UserRoleType = 0 | 1 | 2
 
@@ -11,6 +11,10 @@ export class UsersDTO {
   @IsString()
   password: string
 
+  @IsNotEmpty()
+  @IsInt()
+  @Min(0)
+  @Max(2)
   type: UserRoleType
 }
 

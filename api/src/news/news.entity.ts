@@ -4,7 +4,7 @@ import {
   ObjectIdColumn,
   Column,
   CreateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from 'typeorm'
 import { Users } from 'src/users/users.entity'
 
@@ -25,6 +25,6 @@ export class News {
   @CreateDateColumn()
   createTime: Date
 
-  @OneToMany(() => Users, author => author.news)
+  @ManyToOne(() => Users, author => author.news)
   author: Users
 }

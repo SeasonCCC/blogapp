@@ -5,7 +5,7 @@ import {
   Column,
   CreateDateColumn,
   BeforeInsert,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
@@ -40,7 +40,7 @@ export class Users {
   @CreateDateColumn()
   createTime: Date
 
-  @ManyToOne(() => News, news => news.author)
+  @OneToMany(() => News, news => news.author)
   news: News[]
 
   toResponseObject(showToken: boolean = true) {
