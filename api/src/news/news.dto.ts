@@ -29,5 +29,5 @@ export class NewsRO {
 
   createTime: Date
 
-  authorId: ObjectID
+  authorId: string
 }

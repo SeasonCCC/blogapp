@@ -23,7 +23,7 @@ export class NewsService {
   // }
 
   async showAll(): Promise<NewsRO[]> {
-    const news = await this.newsRepository.find()
+    const news = await this.newsRepository.find({ relations: ['authorId'] })
     return news
   }
 

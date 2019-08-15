@@ -26,5 +26,5 @@ export class News {
   createTime: Date
 
   @ManyToOne(() => Users, author => author.news)
-  authorId: ObjectID
+  authorId: string
 }

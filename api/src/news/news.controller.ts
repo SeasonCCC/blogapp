@@ -24,8 +24,8 @@ export class NewsController {
 
   @Get()
   @UseGuards(new AuthGuard())
-  getAllNews(@User('id') id: string) {
-    console.log(id)
+  getAllNews() {
+    // console.log(id)
     return this.newsService.showAll()
   }
 
