@@ -18,20 +18,20 @@ export class NewsService {
     this.usersRepository = usersRepository
   }
 
-  private toResponseObject(news: News) {
-    return { ...news, author: news.author.toResponseObject(false) }
-  }
+  // private toResponseObject(news: News) {
+  //   return { ...news, author: news.author.toResponseObject(false) }
+  // }
 
   async showAll(): Promise<NewsRO[]> {
-    const news = await this.newsRepository.find({ relations: ['author'] })
-    return news.map(newsItem => this.toResponseObject(newsItem))
+    const news = await this.newsRepository.find()
+    return news
   }
 
   async create(id: string, data: NewsDTO): Promise<NewsRO> {
-    const user = await this.usersRepository.findOne(id)
-    const news = await this.newsRepository.create({ ...data, author: user })
+    // const user = await this.usersRepository.findOne(id)
+    const news = await this.newsRepository.create({ ...data, authorId: id })
     await this.newsRepository.save(news)
-    return this.toResponseObject(news)
+    return news
   }
 
   async findOne(id: string): Promise<NewsRO> {

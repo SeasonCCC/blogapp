@@ -1,6 +1,6 @@
 import { IsString, IsInt, IsNotEmpty, Min, Max } from 'class-validator'
 import { ObjectID } from 'typeorm'
-import { Users } from 'src/users/users.entity'
+// import { Users } from 'src/users/users.entity'
 
 export class NewsDTO {
   @IsNotEmpty()
@@ -29,5 +29,5 @@ export class NewsRO {
 
   createTime: Date
 
-  author: Users
+  authorId: ObjectID
 }

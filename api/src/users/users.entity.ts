@@ -40,7 +40,7 @@ export class Users {
   @CreateDateColumn()
   createTime: Date
 
-  @OneToMany(() => News, news => news.author)
+  @OneToMany(() => News, news => news.authorId)
   news: News[]
 
   toResponseObject(showToken: boolean = true) {
