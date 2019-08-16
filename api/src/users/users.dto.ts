@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, Min, Max, IsInt } from 'class-validator'
+import { News } from 'src/news/news.entity'
 
 export type UserRoleType = 0 | 1 | 2
 
@@ -26,6 +27,8 @@ export class UsersRO {
   password: string
 
   type: UserRoleType
+
+  news?: News[]
 
   token?: string
 }

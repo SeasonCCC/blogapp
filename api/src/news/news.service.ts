@@ -1,5 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { ObjectId } from 'mongodb'
 import { Repository } from 'typeorm'
 
 import { News } from './news.entity'
@@ -29,7 +30,10 @@ export class NewsService {
 
   async create(id: string, data: NewsDTO): Promise<NewsRO> {
     // const user = await this.usersRepository.findOne(id)
-    const news = await this.newsRepository.create({ ...data, authorId: id })
+    const news = await this.newsRepository.create({
+      ...data,
+      authorId: ObjectId(id),
+    })
     await this.newsRepository.save(news)
     return news
   }

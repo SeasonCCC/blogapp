@@ -5,11 +5,9 @@ import {
   Column,
   CreateDateColumn,
   BeforeInsert,
-  OneToMany,
 } from 'typeorm'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
-import { News } from 'src/news/news.entity'
 
 export type UserRoleType = 0 | 1 | 2
 
@@ -39,9 +37,6 @@ export class Users {
 
   @CreateDateColumn()
   createTime: Date
-
-  @OneToMany(() => News, news => news.authorId)
-  news: News[]
 
   toResponseObject(showToken: boolean = true) {
     const { id, username, password, type, createTime, token } = this

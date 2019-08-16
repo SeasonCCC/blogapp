@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { MongoRepository } from 'typeorm'
 
 import { Users } from './users.entity'
 import { UsersDTO, UsersRO } from './users.dto'
@@ -9,14 +9,35 @@ import { UsersDTO, UsersRO } from './users.dto'
 export class UsersService {
   constructor(
     @InjectRepository(Users)
-    private usersRepository: Repository<Users>,
+    private usersRepository: MongoRepository<Users>,
   ) {
     this.usersRepository = usersRepository
   }
 
-  async showAll(): Promise<UsersRO[]> {
-    const users = await this.usersRepository.find({ relations: ['news'] })
-    return users.map(user => user.toResponseObject(false))
+  async showAll() {
+    // const users = await this.usersRepository.find()
+    const usersCursor = await this.usersRepository.aggregateEntity([
+      {
+        $lookup: {
+          from: 'news',
+          localField: '_id',
+          foreignField: 'authorId',
+          as: 'news',
+        },
+      },
+    ])
+
+    var userArr: Array<any> = []
+
+    usersCursor.toArray((err, doc) => {
+      if (!err) {
+        userArr.push(doc)
+        console.log(doc, err)
+      }
+      console.log(userArr)
+    })
+
+    return userArr
   }
 
   async login(data: UsersDTO): Promise<UsersRO> {
@@ -48,32 +69,4 @@ export class UsersService {
 
     return userInserted.toResponseObject(true)
   }
-
-  // async find(id: string) {
-  //   const users = await this.usersRepository.findOne(id);
-  //   if (!users) {
-  //     throw new HttpException('Not found', HttpStatus.NOT_FOUND);
-  //   }
-  //   return users;
-  // }
-
-  // async update(id: string, data: UsersDTO) {
-  //   const users = await this.usersRepository.findOne(id);
-  //   if (!users) {
-  //     throw new HttpException('Not found', HttpStatus.NOT_FOUND);
-  //   }
-
-  //   await this.usersRepository.update(id, data);
-  //   return users;
-  // }
-
-  // async delete(id: string) {
-  //   const users = await this.usersRepository.findOne(id);
-  //   if (!users) {
-  //     throw new HttpException('Not found', HttpStatus.NOT_FOUND);
-  //   }
-
-  //   await this.usersRepository.delete(id);
-  //   return users;
-  // }
 }
