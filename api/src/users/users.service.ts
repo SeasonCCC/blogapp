@@ -26,7 +26,6 @@ export class UsersService {
         },
       },
     ])
-
     var userArr: Array<any> = []
 
     usersCursor.toArray((err, doc) => {
