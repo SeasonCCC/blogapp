@@ -30,10 +30,8 @@ export class Users {
     this.password = await bcrypt.hash(this.password, 10)
   }
 
-  @Column({
-    default: 0,
-  })
-  type: UserRoleType
+  @Column()
+  type: number
 
   @CreateDateColumn()
   createTime: Date

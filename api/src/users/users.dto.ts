@@ -1,22 +1,24 @@
+import { ApiModelProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsString, Min, Max, IsInt } from 'class-validator'
-import { News } from 'src/news/news.entity'
-
-export type UserRoleType = 0 | 1 | 2
+import { News } from '../news/news.entity'
 
 export class UsersDTO {
   @IsNotEmpty()
   @IsString()
+  @ApiModelProperty()
   username: string
 
   @IsNotEmpty()
   @IsString()
+  @ApiModelProperty()
   password: string
 
   @IsNotEmpty()
   @IsInt()
   @Min(0)
   @Max(2)
-  type: UserRoleType
+  @ApiModelProperty()
+  type: number
 }
 
 export class UsersRO {
@@ -26,7 +28,7 @@ export class UsersRO {
 
   password: string
 
-  type: UserRoleType
+  type: number
 
   news?: News[]
 

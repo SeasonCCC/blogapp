@@ -16,27 +16,20 @@ export class UsersService {
 
   async showAll() {
     // const users = await this.usersRepository.find()
-    const usersCursor = await this.usersRepository.aggregateEntity([
-      {
-        $lookup: {
-          from: 'news',
-          localField: '_id',
-          foreignField: 'authorId',
-          as: 'news',
+    const users = await this.usersRepository
+      .aggregate([
+        {
+          $lookup: {
+            from: 'news',
+            localField: '_id',
+            foreignField: 'authorId',
+            as: 'news',
+          },
         },
-      },
-    ])
-    var userArr: Array<any> = []
+      ])
+      .toArray()
 
-    usersCursor.toArray((err, doc) => {
-      if (!err) {
-        userArr.push(doc)
-        console.log(doc, err)
-      }
-      console.log(userArr)
-    })
-
-    return userArr
+    return users
   }
 
   async login(data: UsersDTO): Promise<UsersRO> {
