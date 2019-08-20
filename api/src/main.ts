@@ -1,12 +1,23 @@
-import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { Logger } from '@nestjs/common'
 
-const port = process.env.PORT || 3000
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  const port = process.env.PORT || 3000
+
+  const options = new DocumentBuilder()
+    .setTitle('Foodapp Api')
+    .setDescription('The Foodapp API Documents')
+    .setBasePath('api/v1')
+    .addBearerAuth()
+    .setVersion('1.0.0')
+    .build()
+
+  const document = SwaggerModule.createDocument(app, options)
+  SwaggerModule.setup('docs', app, document)
+
   await app.listen(port)
   Logger.log(`Server running on http://localhost:${port}`, 'Bootstrap')
 }

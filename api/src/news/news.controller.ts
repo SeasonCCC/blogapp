@@ -12,8 +12,8 @@ import {
 import { NewsService } from './news.service'
 import { NewsDTO } from './news.dto'
 import { ValidationPipe } from '../shared/validation.pipe'
-import { AuthGuard } from 'src/shared/auth.guard'
-import { User } from 'src/users/users.decorator'
+import { AuthGuard } from '../shared/auth.guard'
+import { User } from '../users/users.decorator'
 
 @Controller('news')
 export class NewsController {
