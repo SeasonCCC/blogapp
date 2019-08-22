@@ -9,8 +9,6 @@ import {
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 
-export type UserRoleType = 0 | 1 | 2
-
 @Entity('users')
 export class Users {
   @ObjectIdColumn()
@@ -37,8 +35,8 @@ export class Users {
   createTime: Date
 
   toResponseObject(showToken: boolean = true) {
-    const { id, username, password, type, createTime, token } = this
-    const responseObject: any = { id, username, password, type, createTime }
+    const { id, username, type, createTime, token } = this
+    const responseObject: any = { id, username, type, createTime }
 
     if (showToken) {
       responseObject.token = token
