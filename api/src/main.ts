@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new Logger(),
   })
+
   const port = process.env.PORT || 3000
 
   const options = new DocumentBuilder()

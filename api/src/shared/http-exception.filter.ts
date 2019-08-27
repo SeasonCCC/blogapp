@@ -3,9 +3,11 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
-  Logger,
 } from '@nestjs/common'
 import { Request, Response } from 'express'
+import { getLogger } from './log4js.config'
+
+const logger = getLogger('err')
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -22,7 +24,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message: exception.message,
     }
 
-    Logger.error(
+    logger.error(
       `${request.method} ${request.url}`,
       JSON.stringify(errorResponse),
       'HttpExceptionFilter',

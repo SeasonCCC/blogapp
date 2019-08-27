@@ -34,7 +34,7 @@ export class Users {
   @CreateDateColumn()
   createTime: Date
 
-  toResponseObject(showToken: boolean = true) {
+  async toResponseObject(showToken: boolean = true) {
     const { id, username, type, createTime, token } = this
     const responseObject: any = { id, username, type, createTime }
 

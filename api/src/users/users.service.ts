@@ -17,6 +17,7 @@ export class UsersService {
   private usersRepository: MongoRepository<Users>
 
   async showAll() {
+    // console.log(await bcrypt.hash('12345678', 10))
     // const users = await this.usersRepository.find()
     const users = await this.usersRepository
       .aggregate([
