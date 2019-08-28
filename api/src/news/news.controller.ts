@@ -23,9 +23,7 @@ export class NewsController {
   }
 
   @Get()
-  @UseGuards(new AuthGuard())
   getAllNews() {
-    // console.log(id)
     return this.newsService.showAll()
   }
 
@@ -42,12 +40,15 @@ export class NewsController {
   }
 
   @Put(':id')
+  @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
   updateNew(@Param('id') id: string, @Body() data: NewsDTO) {
     return this.newsService.update(id, data)
   }
 
   @Delete(':id')
+  @UseGuards(new AuthGuard())
+  @UsePipes(new ValidationPipe())
   deleteNew(@Param('id') id: string) {
     return this.newsService.delete(id)
   }

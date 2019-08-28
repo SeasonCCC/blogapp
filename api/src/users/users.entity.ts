@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   BeforeInsert,
+  UpdateDateColumn,
 } from 'typeorm'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
@@ -34,9 +35,12 @@ export class Users {
   @CreateDateColumn()
   createTime: Date
 
+  @UpdateDateColumn()
+  updateTime: Date
+
   async toResponseObject(showToken: boolean = true) {
-    const { id, username, type, createTime, token } = this
-    const responseObject: any = { id, username, type, createTime }
+    const { id, username, type, createTime, updateTime, token } = this
+    const responseObject: any = { id, username, type, createTime, updateTime }
 
     if (showToken) {
       responseObject.token = token

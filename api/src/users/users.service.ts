@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
 
 import { Users } from './users.entity'
-import { UsersDTO, UsersRO } from './users.dto'
+import { UsersDto, UsersRO, UpdateTypeDto } from './users.dto'
 
 @Injectable()
 export class UsersService {
@@ -17,7 +17,6 @@ export class UsersService {
   private usersRepository: MongoRepository<Users>
 
   async showAll() {
-    // console.log(await bcrypt.hash('12345678', 10))
     // const users = await this.usersRepository.find()
     const users = await this.usersRepository
       .aggregate([
@@ -35,7 +34,7 @@ export class UsersService {
     return users
   }
 
-  async login(data: UsersDTO): Promise<UsersRO> {
+  async login(data: UsersDto): Promise<UsersRO> {
     const { username, password } = data
     const user = await this.usersRepository.findOne({ where: { username } })
 
@@ -48,7 +47,7 @@ export class UsersService {
     return user.toResponseObject(true)
   }
 
-  async register(data: UsersDTO): Promise<UsersRO> {
+  async register(data: UsersDto): Promise<UsersRO> {
     const { username } = data
     const user = await this.usersRepository.findOne({
       where: { username },
@@ -66,5 +65,16 @@ export class UsersService {
     })
 
     return userInserted.toResponseObject(true)
+  }
+
+  async updateType(data: UpdateTypeDto) {
+    const user = await this.usersRepository.findOne(data.id)
+    if (!user) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND)
+    }
+
+    await this.usersRepository.update(data.id, { type: data.type })
+    user.type = data.type
+    return user
   }
 }
