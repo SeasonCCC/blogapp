@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { ValidationPipe } from '../shared/validation.pipe'
-import { UsersDTO } from './users.dto'
+import { UsersDto, UpdateTypeDto } from './users.dto'
 import { AuthGuard } from '../shared/auth.guard'
 
 @Controller('users')
@@ -25,13 +25,20 @@ export class UsersController {
 
   @Post('login')
   @UsePipes(new ValidationPipe())
-  login(@Body() data: UsersDTO) {
+  login(@Body() data: UsersDto) {
     return this.usersService.login(data)
   }
 
   @Post('register')
   @UsePipes(new ValidationPipe())
-  register(@Body() data: UsersDTO) {
+  register(@Body() data: UsersDto) {
     return this.usersService.register(data)
+  }
+
+  @Post('updateType')
+  @UsePipes(new ValidationPipe())
+  @UseGuards(new AuthGuard())
+  updateType(@Body() data: UpdateTypeDto) {
+    return this.usersService.updateType(data)
   }
 }
