@@ -20,7 +20,7 @@ export class UsersController {
   @Get()
   @UseGuards(new AuthGuard())
   getAllUsers() {
-    return this.usersService.showAll()
+    return this.usersService.getAllUsers()
   }
 
   @Post('login')

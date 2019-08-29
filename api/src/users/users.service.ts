@@ -16,10 +16,10 @@ export class UsersService {
   @InjectRepository(Users)
   private usersRepository: MongoRepository<Users>
 
-  async showAll() {
+  async getAllUsers() {
     // const users = await this.usersRepository.find()
     const users = await this.usersRepository
-      .aggregate([
+      .aggregateEntity([
         {
           $lookup: {
             from: 'news',
@@ -31,7 +31,15 @@ export class UsersService {
       ])
       .toArray()
 
-    return users
+    throw new HttpException(
+      {
+        data: users.map(user => user.toResponseObject(false)),
+        message: 'GetAllUsers:Success',
+      },
+      HttpStatus.OK,
+    )
+
+    // return users.map(user => user.toResponseObject(false))
   }
 
   async login(data: UsersDto): Promise<UsersRO> {
@@ -44,7 +52,16 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       )
     }
-    return user.toResponseObject(true)
+
+    throw new HttpException(
+      {
+        data: user.toResponseObject(true),
+        message: 'Login:Success',
+      },
+      HttpStatus.OK,
+    )
+
+    // return user.toResponseObject(true)
   }
 
   async register(data: UsersDto): Promise<UsersRO> {
@@ -64,7 +81,15 @@ export class UsersService {
       where: { username },
     })
 
-    return userInserted.toResponseObject(true)
+    throw new HttpException(
+      {
+        data: userInserted.toResponseObject(true),
+        message: 'Register:Success',
+      },
+      HttpStatus.OK,
+    )
+
+    // return userInserted.toResponseObject(true)
   }
 
   async updateType(data: UpdateTypeDto) {
@@ -73,8 +98,16 @@ export class UsersService {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
 
-    await this.usersRepository.update(data.id, { type: data.type })
     user.type = data.type
-    return user
+    await this.usersRepository.save(user)
+
+    throw new HttpException(
+      {
+        data: user,
+        message: 'UpdateType:Success',
+      },
+      HttpStatus.OK,
+    )
+    // return user
   }
 }
