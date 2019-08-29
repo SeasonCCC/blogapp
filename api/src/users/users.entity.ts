@@ -8,6 +8,7 @@ import {
 } from 'typeorm'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
+import { News } from 'src/news/news.entity'
 
 @Entity('users')
 export class Users {
@@ -34,26 +35,38 @@ export class Users {
   @Column()
   createTime: number
 
+  @Column()
+  updateTime: number
+
+  @Column()
+  news?: News[]
+
   @BeforeInsert()
   transfromCreateTime() {
     this.updateTime = this.createTime = Date.parse(new Date().toString()) / 1000
   }
-
-  @Column()
-  updateTime: number
 
   @BeforeUpdate()
   transfromUpdateTime() {
     this.updateTime = Date.parse(new Date().toString()) / 1000
   }
 
-  async toResponseObject(showToken: boolean = true) {
-    const { id, username, type, createTime, updateTime, token } = this
-    const responseObject: any = { id, username, type, createTime, updateTime }
+  toResponseObject(showToken: boolean = true) {
+    const { id, username, type, createTime, updateTime, news, token } = this
+    const responseObject: any = {
+      id,
+      username,
+      type,
+      createTime,
+      updateTime,
+      news,
+    }
 
     if (showToken) {
       responseObject.token = token
     }
+
+    // console.log(responseObject)
     return responseObject
   }
 
