@@ -3,9 +3,8 @@ import {
   ObjectID,
   ObjectIdColumn,
   Column,
-  CreateDateColumn,
   BeforeInsert,
-  UpdateDateColumn,
+  BeforeUpdate,
 } from 'typeorm'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
@@ -32,11 +31,21 @@ export class Users {
   @Column()
   type: number
 
-  @CreateDateColumn()
-  createTime: Date
+  @Column()
+  createTime: number
 
-  @UpdateDateColumn()
-  updateTime: Date
+  @BeforeInsert()
+  transfromCreateTime() {
+    this.updateTime = this.createTime = Date.parse(new Date().toString()) / 1000
+  }
+
+  @Column()
+  updateTime: number
+
+  @BeforeUpdate()
+  transfromUpdateTime() {
+    this.updateTime = Date.parse(new Date().toString()) / 1000
+  }
 
   async toResponseObject(showToken: boolean = true) {
     const { id, username, type, createTime, updateTime, token } = this

@@ -73,8 +73,8 @@ export class UsersService {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
 
-    await this.usersRepository.update(data.id, { type: data.type })
     user.type = data.type
+    await this.usersRepository.save(user)
     return user
   }
 }
