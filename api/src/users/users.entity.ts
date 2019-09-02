@@ -24,11 +24,6 @@ export class Users {
   @Column()
   password: string
 
-  @BeforeInsert()
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10)
-  }
-
   @Column()
   type: number
 
@@ -40,6 +35,11 @@ export class Users {
 
   @Column()
   news?: News[]
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10)
+  }
 
   @BeforeInsert()
   transfromCreateTime() {

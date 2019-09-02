@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb'
 import { Repository } from 'typeorm'
 
 import { News } from './news.entity'
-import { NewsDTO, NewsRO } from './news.dto'
+import { NewsDTO, NewsRO, UpdateNewsDto } from './news.dto'
 
 @Injectable()
 export class NewsService {
@@ -16,17 +16,20 @@ export class NewsService {
   // ) {
   //   this.newsRepository = newsRepository
   // }
-
-  // private toResponseObject(news: News) {
-  //   return { ...news, author: news.author.toResponseObject(false) }
-  // }
-
   @InjectRepository(News)
   private newsRepository: Repository<News>
 
   async showAll(): Promise<NewsRO[]> {
-    const news = await this.newsRepository.find({ relations: ['authorId'] })
-    return news
+    const news = await this.newsRepository.find()
+    // return news
+
+    throw new HttpException(
+      {
+        data: news,
+        message: 'GetAllNews:Success',
+      },
+      HttpStatus.OK,
+    )
   }
 
   async create(id: string, data: NewsDTO): Promise<NewsRO> {
@@ -35,7 +38,13 @@ export class NewsService {
       authorId: ObjectId(id),
     })
     await this.newsRepository.save(news)
-    return news
+    throw new HttpException(
+      {
+        data: news,
+        message: 'GetAllNews:Success',
+      },
+      HttpStatus.OK,
+    )
   }
 
   async findOne(id: string): Promise<NewsRO> {
@@ -43,17 +52,33 @@ export class NewsService {
     if (!news) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
-    return news
+    throw new HttpException(
+      {
+        data: news,
+        message: `Find ${id} News:Success`,
+      },
+      HttpStatus.OK,
+    )
   }
 
-  async update(id: string, data: NewsDTO): Promise<NewsRO> {
+  async update(data: UpdateNewsDto): Promise<NewsRO> {
+    const { id } = data
     const news = await this.newsRepository.findOne(id)
     if (!news) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
 
-    await this.newsRepository.update(id, data)
-    return news
+    delete data.id
+    const updatedNews = { ...news, ...data }
+
+    const res = await this.newsRepository.save(updatedNews)
+    throw new HttpException(
+      {
+        data: res,
+        message: `Update ${id} News:Success`,
+      },
+      HttpStatus.OK,
+    )
   }
 
   async delete(id: string): Promise<NewsRO> {
@@ -63,6 +88,12 @@ export class NewsService {
     }
 
     await this.newsRepository.delete(id)
-    return news
+    throw new HttpException(
+      {
+        data: news,
+        message: `Delete ${id} News:Success`,
+      },
+      HttpStatus.OK,
+    )
   }
 }

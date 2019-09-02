@@ -4,13 +4,12 @@ import {
   Post,
   Body,
   Param,
-  Put,
   Delete,
   UsePipes,
   UseGuards,
 } from '@nestjs/common'
 import { NewsService } from './news.service'
-import { NewsDTO } from './news.dto'
+import { NewsDTO, UpdateNewsDto } from './news.dto'
 import { ValidationPipe } from '../shared/validation.pipe'
 import { AuthGuard } from '../shared/auth.guard'
 import { User } from '../users/users.decorator'
@@ -39,11 +38,11 @@ export class NewsController {
     return this.newsService.findOne(id)
   }
 
-  @Put(':id')
+  @Post('updateNews')
   @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
-  updateNew(@Param('id') id: string, @Body() data: NewsDTO) {
-    return this.newsService.update(id, data)
+  updateNew(@Body() data: UpdateNewsDto) {
+    return this.newsService.update(data)
   }
 
   @Delete(':id')
