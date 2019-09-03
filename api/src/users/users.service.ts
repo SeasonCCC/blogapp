@@ -56,7 +56,7 @@ export class UsersService {
     throw new HttpException(
       {
         data: user.toResponseObject(true),
-        message: 'Login:Success',
+        message: `Login ${username} :Success`,
       },
       HttpStatus.OK,
     )
@@ -84,7 +84,7 @@ export class UsersService {
     throw new HttpException(
       {
         data: userInserted.toResponseObject(true),
-        message: 'Register:Success',
+        message: `Register ${username} :Success`,
       },
       HttpStatus.OK,
     )
@@ -104,7 +104,7 @@ export class UsersService {
     throw new HttpException(
       {
         data: user,
-        message: 'UpdateType:Success',
+        message: `Update ${data.id} Type:Success`,
       },
       HttpStatus.OK,
     )

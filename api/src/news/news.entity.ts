@@ -3,7 +3,8 @@ import {
   ObjectID,
   ObjectIdColumn,
   Column,
-  CreateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm'
 
 @Entity('news')
@@ -20,9 +21,22 @@ export class News {
   @Column()
   status: number
 
-  @CreateDateColumn()
-  createTime: Date
+  @Column()
+  createTime: number
+
+  @Column()
+  updateTime: number
 
   @ObjectIdColumn()
-  authorId: ObjectID
+  authorId?: ObjectID
+
+  @BeforeInsert()
+  transfromCreateTime() {
+    this.createTime = Date.parse(new Date().toString()) / 1000
+  }
+
+  @BeforeUpdate()
+  transfromUpdateTime() {
+    this.updateTime = Date.parse(new Date().toString()) / 1000
+  }
 }

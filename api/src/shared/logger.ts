@@ -3,7 +3,7 @@ import { getLogger } from './log4js.config'
 
 const logger = getLogger()
 
-export class Logger implements LoggerService {
+export class CustomLogger implements LoggerService {
   log(message: string) {
     logger.debug(message)
   }

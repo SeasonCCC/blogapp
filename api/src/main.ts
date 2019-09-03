@@ -1,12 +1,14 @@
 import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
-import { Logger } from './shared/logger'
+import { CustomLogger } from './shared/logger'
 // import { Logger } from '@nestjs/common'
 
 async function bootstrap() {
+  const logger = new CustomLogger()
+
   const app = await NestFactory.create(AppModule, {
-    logger: new Logger(),
+    logger: logger,
   })
 
   const port = process.env.PORT || 3000
@@ -23,6 +25,6 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document)
 
   await app.listen(port)
-  // Logger.log(`Server running on http://localhost:${port}`, 'Bootstrap')
+  logger.debug(`Server running on http://localhost:${port}`)
 }
 bootstrap()
