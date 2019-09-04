@@ -4,7 +4,7 @@ language:
 
 # 使用的node版本
 node_js:
- - "10.15.3"
+ - "10.16.3"
 
 # 仓库的分支
 branches:

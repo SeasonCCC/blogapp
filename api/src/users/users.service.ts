@@ -1,6 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
+import { ObjectId } from 'mongodb'
 
 import { Users } from './users.entity'
 import { UsersDto, UsersRO, UpdateTypeDto } from './users.dto'
@@ -17,7 +18,6 @@ export class UsersService {
   private usersRepository: MongoRepository<Users>
 
   async getAllUsers() {
-    // const users = await this.usersRepository.find()
     const users = await this.usersRepository
       .aggregateEntity([
         {
@@ -38,8 +38,32 @@ export class UsersService {
       },
       HttpStatus.OK,
     )
+  }
 
-    // return users.map(user => user.toResponseObject(false))
+  async findOne(id: string) {
+    const user = await this.usersRepository
+      .aggregateEntity([
+        {
+          $lookup: {
+            from: 'news',
+            localField: '_id',
+            foreignField: 'authorId',
+            as: 'news',
+          },
+        },
+        {
+          $match: { _id: ObjectId(id) },
+        },
+      ])
+      .toArray()
+
+    throw new HttpException(
+      {
+        data: user[0].toResponseObject(false),
+        message: `Find ${id} user:Success`,
+      },
+      HttpStatus.OK,
+    )
   }
 
   async login(data: UsersDto): Promise<UsersRO> {
@@ -60,8 +84,6 @@ export class UsersService {
       },
       HttpStatus.OK,
     )
-
-    // return user.toResponseObject(true)
   }
 
   async register(data: UsersDto): Promise<UsersRO> {
@@ -88,8 +110,6 @@ export class UsersService {
       },
       HttpStatus.OK,
     )
-
-    // return userInserted.toResponseObject(true)
   }
 
   async updateType(data: UpdateTypeDto) {
@@ -108,6 +128,9 @@ export class UsersService {
       },
       HttpStatus.OK,
     )
-    // return user
+  }
+
+  async changePassword(password: string, user: Users) {
+    console.log(password, user)
   }
 }
