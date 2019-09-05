@@ -2,7 +2,8 @@ import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { CustomLogger } from './shared/logger'
-// import { Logger } from '@nestjs/common'
+
+declare const module: any
 
 async function bootstrap() {
   const logger = new CustomLogger()
@@ -11,7 +12,9 @@ async function bootstrap() {
     logger: logger,
   })
 
-  const port = process.env.PORT || 3000
+  console.log(process.env.PORT)
+
+  const port = process.env.PORT || 4000
 
   const options = new DocumentBuilder()
     .setTitle('Foodapp Api')
@@ -26,5 +29,10 @@ async function bootstrap() {
 
   await app.listen(port)
   logger.debug(`Server running on http://localhost:${port}`)
+
+  if (module.hot) {
+    module.hot.accept()
+    module.hot.dispose(() => app.close())
+  }
 }
 bootstrap()
