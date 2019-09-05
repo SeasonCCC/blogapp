@@ -5,11 +5,13 @@ import {
   Body,
   UsePipes,
   UseGuards,
+  Param,
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { ValidationPipe } from '../shared/validation.pipe'
 import { UsersDto, UpdateTypeDto } from './users.dto'
 import { AuthGuard } from '../shared/auth.guard'
+import { User } from './users.decorator'
 
 @Controller('users')
 export class UsersController {
@@ -21,6 +23,12 @@ export class UsersController {
   @UseGuards(new AuthGuard())
   getAllUsers() {
     return this.usersService.getAllUsers()
+  }
+
+  @Get(':id')
+  @UseGuards(new AuthGuard())
+  getUserById(@Param('id') id: string) {
+    return this.usersService.findOne(id)
   }
 
   @Post('login')
@@ -40,5 +48,13 @@ export class UsersController {
   @UseGuards(new AuthGuard())
   updateType(@Body() data: UpdateTypeDto) {
     return this.usersService.updateType(data)
+  }
+
+  @Post('changePassword')
+  @UsePipes(new ValidationPipe())
+  @UseGuards(new AuthGuard())
+  changePassword(@Body('password') password: string, @User() user) {
+    console.log(password, user)
+    // return this.usersService.changePassword(password, user)
   }
 }

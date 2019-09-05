@@ -6,5 +6,6 @@
   "entities": ["./src/**/*.entity{.ts,.js}"],
   "synchronize": true,
   "logging": true,
-  "useNewUrlParser": true
+  "useNewUrlParser": true,
+  "keepConnectionAlive": true
 }
