@@ -12,8 +12,6 @@ async function bootstrap() {
     logger: logger,
   })
 
-  console.log(process.env.PORT)
-
   const port = process.env.PORT || 4000
 
   const options = new DocumentBuilder()

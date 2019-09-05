@@ -1,8 +1,8 @@
 import { APP_FILTER } from '@nestjs/core'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
+// import { AppController } from './app.controller'
+// import { AppService } from './app.service'
 import { NewsModule } from './news/news.module'
 import { UsersModule } from './users/users.module'
 import { HttpExceptionFilter } from './shared/http-exception.filter'
@@ -20,14 +20,13 @@ import { Users } from './users/users.entity'
       synchronize: true,
       logging: true,
       useNewUrlParser: true,
-      keepConnectionAlive: true,
     }),
     NewsModule,
     UsersModule,
   ],
-  controllers: [AppController],
+  // controllers: [AppController],
   providers: [
-    AppService,
+    // AppService,
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
