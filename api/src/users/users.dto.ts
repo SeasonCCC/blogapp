@@ -36,6 +36,18 @@ export class UpdateTypeDto {
   type: number
 }
 
+export class ChangePassowrdDto {
+  @IsNotEmpty()
+  @IsString()
+  @ApiModelProperty()
+  oldPassword: string
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiModelProperty()
+  newPassword: string
+}
+
 export class UsersRO {
   id: string
 

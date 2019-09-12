@@ -6,10 +6,11 @@ import {
   UsePipes,
   UseGuards,
   Param,
+  HttpCode,
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { ValidationPipe } from '../shared/validation.pipe'
-import { UsersDto, UpdateTypeDto } from './users.dto'
+import { UsersDto, UpdateTypeDto, ChangePassowrdDto } from './users.dto'
 import { AuthGuard } from '../shared/auth.guard'
 import { User } from './users.decorator'
 
@@ -20,6 +21,7 @@ export class UsersController {
   }
 
   @Get()
+  @HttpCode(200)
   @UseGuards(new AuthGuard())
   getAllUsers() {
     return this.usersService.getAllUsers()
@@ -53,8 +55,14 @@ export class UsersController {
   @Post('changePassword')
   @UsePipes(new ValidationPipe())
   @UseGuards(new AuthGuard())
-  changePassword(@Body('password') password: string, @User() user) {
-    console.log(password, user)
-    // return this.usersService.changePassword(password, user)
+  changePassword(@Body() data: ChangePassowrdDto, @User('id') id: string) {
+    return this.usersService.changePassword(data, id)
+  }
+
+  @Post('resetPassword')
+  @UsePipes(new ValidationPipe())
+  @UseGuards(new AuthGuard())
+  resetPassword(@Body() data: ChangePassowrdDto, @User('id') id: string) {
+    return this.usersService.changePassword(data, id)
   }
 }

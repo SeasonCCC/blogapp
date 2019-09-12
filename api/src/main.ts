@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { CustomLogger } from './shared/logger'
+import { TransformInterceptor } from './shared/transform.interceptor'
 
 declare const module: any
 
@@ -11,6 +12,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: logger,
   })
+
+  app.useGlobalInterceptors(new TransformInterceptor())
 
   const port = process.env.PORT || 4000
 

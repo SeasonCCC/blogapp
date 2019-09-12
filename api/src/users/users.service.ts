@@ -4,7 +4,12 @@ import { MongoRepository } from 'typeorm'
 import { ObjectId } from 'mongodb'
 
 import { Users } from './users.entity'
-import { UsersDto, UsersRO, UpdateTypeDto } from './users.dto'
+import {
+  UsersDto,
+  UsersRO,
+  UpdateTypeDto,
+  ChangePassowrdDto,
+} from './users.dto'
 
 @Injectable()
 export class UsersService {
@@ -31,13 +36,7 @@ export class UsersService {
       ])
       .toArray()
 
-    throw new HttpException(
-      {
-        data: users.map(user => user.toResponseObject(false)),
-        message: 'GetAllUsers:Success',
-      },
-      HttpStatus.OK,
-    )
+    return users.map(user => user.toResponseObject(false))
   }
 
   async findOne(id: string) {
@@ -57,13 +56,7 @@ export class UsersService {
       ])
       .toArray()
 
-    throw new HttpException(
-      {
-        data: user[0].toResponseObject(false),
-        message: `Find ${id} user:Success`,
-      },
-      HttpStatus.OK,
-    )
+    return user[0].toResponseObject(false)
   }
 
   async login(data: UsersDto): Promise<UsersRO> {
@@ -106,7 +99,7 @@ export class UsersService {
     throw new HttpException(
       {
         data: userInserted.toResponseObject(true),
-        message: `Register ${username} :Success`,
+        message: `Register ${username}:Success`,
       },
       HttpStatus.OK,
     )
@@ -130,7 +123,34 @@ export class UsersService {
     )
   }
 
-  async changePassword(password: string, user: Users) {
-    console.log(password, user)
+  async changePassword(data: ChangePassowrdDto, id: string) {
+    const { oldPassword, newPassword } = data
+    const user = await this.usersRepository.findOne(id)
+    if (!user) {
+      throw new HttpException('User Not found', HttpStatus.NOT_FOUND)
+    }
+
+    if (oldPassword === newPassword) {
+      throw new HttpException(
+        'New password cannot be equal to old password',
+        HttpStatus.BAD_REQUEST,
+      )
+    }
+
+    if (!(await user.comparePassword(oldPassword))) {
+      throw new HttpException('Invalid old password', HttpStatus.BAD_REQUEST)
+    }
+
+    user.password = newPassword
+    user.hashPassword()
+    await this.usersRepository.save(user)
+
+    throw new HttpException(
+      {
+        data: user,
+        message: `ChangePassword:Success`,
+      },
+      HttpStatus.OK,
+    )
   }
 }

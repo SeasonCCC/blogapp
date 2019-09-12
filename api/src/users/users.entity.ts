@@ -66,7 +66,6 @@ export class Users {
       responseObject.token = token
     }
 
-    // console.log(responseObject)
     return responseObject
   }
 
