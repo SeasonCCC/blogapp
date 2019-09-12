@@ -36,13 +36,7 @@ export class UsersService {
       ])
       .toArray()
 
-    throw new HttpException(
-      {
-        data: users.map(user => user.toResponseObject(false)),
-        message: 'GetAllUsers:Success',
-      },
-      HttpStatus.OK,
-    )
+    return users.map(user => user.toResponseObject(false))
   }
 
   async findOne(id: string) {
@@ -62,13 +56,7 @@ export class UsersService {
       ])
       .toArray()
 
-    throw new HttpException(
-      {
-        data: user[0].toResponseObject(false),
-        message: `Find ${id}:Success`,
-      },
-      HttpStatus.OK,
-    )
+    return user[0].toResponseObject(false)
   }
 
   async login(data: UsersDto): Promise<UsersRO> {
