@@ -96,13 +96,7 @@ export class UsersService {
       where: { username },
     })
 
-    throw new HttpException(
-      {
-        data: userInserted.toResponseObject(true),
-        message: `Register ${username}:Success`,
-      },
-      HttpStatus.OK,
-    )
+    return userInserted.toResponseObject(true)
   }
 
   async updateType(data: UpdateTypeDto) {
@@ -152,5 +146,18 @@ export class UsersService {
       },
       HttpStatus.OK,
     )
+  }
+
+  async resetPassword(id: string) {
+    const user = await this.usersRepository.findOne(id)
+    if (!user) {
+      throw new HttpException('User Not found', HttpStatus.NOT_FOUND)
+    }
+
+    user.password = '12345678'
+    user.hashPassword()
+    await this.usersRepository.save(user)
+
+    return user.toResponseObject(false)
   }
 }

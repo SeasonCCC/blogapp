@@ -34,18 +34,21 @@ export class UsersController {
   }
 
   @Post('login')
+  @HttpCode(200)
   @UsePipes(new ValidationPipe())
   login(@Body() data: UsersDto) {
     return this.usersService.login(data)
   }
 
   @Post('register')
+  @HttpCode(200)
   @UsePipes(new ValidationPipe())
   register(@Body() data: UsersDto) {
     return this.usersService.register(data)
   }
 
   @Post('updateType')
+  @HttpCode(200)
   @UsePipes(new ValidationPipe())
   @UseGuards(new AuthGuard())
   updateType(@Body() data: UpdateTypeDto) {
@@ -53,6 +56,7 @@ export class UsersController {
   }
 
   @Post('changePassword')
+  @HttpCode(200)
   @UsePipes(new ValidationPipe())
   @UseGuards(new AuthGuard())
   changePassword(@Body() data: ChangePassowrdDto, @User('id') id: string) {
@@ -60,9 +64,10 @@ export class UsersController {
   }
 
   @Post('resetPassword')
+  @HttpCode(200)
   @UsePipes(new ValidationPipe())
-  @UseGuards(new AuthGuard())
-  resetPassword(@Body() data: ChangePassowrdDto, @User('id') id: string) {
-    return this.usersService.changePassword(data, id)
+  resetPassword(@Body('id') id: string) {
+    // return id
+    return this.usersService.resetPassword(id)
   }
 }
