@@ -7,7 +7,7 @@ import {
 import { Request, Response } from 'express'
 import { getLogger } from './log4js.config'
 
-const resLogger = getLogger()
+const resLogger = getLogger('req')
 const errLogger = getLogger('err')
 const othLogger = getLogger('oth')
 

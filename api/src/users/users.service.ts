@@ -70,13 +70,15 @@ export class UsersService {
       )
     }
 
-    throw new HttpException(
-      {
-        data: user.toResponseObject(true),
-        message: `Login ${username} :Success`,
-      },
-      HttpStatus.OK,
-    )
+    return user.toResponseObject(true)
+
+    // throw new HttpException(
+    //   {
+    //     data: user.toResponseObject(true),
+    //     message: `Login ${username} :Success`,
+    //   },
+    //   HttpStatus.OK,
+    // )
   }
 
   async register(data: UsersDto): Promise<UsersRO> {
@@ -96,13 +98,7 @@ export class UsersService {
       where: { username },
     })
 
-    throw new HttpException(
-      {
-        data: userInserted.toResponseObject(true),
-        message: `Register ${username}:Success`,
-      },
-      HttpStatus.OK,
-    )
+    return userInserted.toResponseObject(true)
   }
 
   async updateType(data: UpdateTypeDto) {
@@ -114,13 +110,7 @@ export class UsersService {
     user.type = data.type
     await this.usersRepository.save(user)
 
-    throw new HttpException(
-      {
-        data: user,
-        message: `Update ${data.id} Type:Success`,
-      },
-      HttpStatus.OK,
-    )
+    return user
   }
 
   async changePassword(data: ChangePassowrdDto, id: string) {
@@ -145,12 +135,6 @@ export class UsersService {
     user.hashPassword()
     await this.usersRepository.save(user)
 
-    throw new HttpException(
-      {
-        data: user,
-        message: `ChangePassword:Success`,
-      },
-      HttpStatus.OK,
-    )
+    return user
   }
 }

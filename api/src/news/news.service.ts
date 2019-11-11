@@ -20,16 +20,19 @@ export class NewsService {
   private newsRepository: Repository<News>
 
   async showAll(): Promise<NewsRO[]> {
-    const news = await this.newsRepository.find()
-    // return news
+    const news = (await this.newsRepository.find()) as NewsRO[]
+    return news
+    // return new Promise<NewsRO[]>(resolve => {
+    //   resolve(news);
+    // });
 
-    throw new HttpException(
-      {
-        data: news,
-        message: 'GetAllNews:Success',
-      },
-      HttpStatus.OK,
-    )
+    // throw new HttpException(
+    //   {
+    //     data: news,
+    //     message: 'GetAllNews:Success',
+    //   },
+    //   HttpStatus.OK,
+    // )
   }
 
   async create(id: string, data: NewsDTO): Promise<NewsRO> {

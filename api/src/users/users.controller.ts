@@ -6,7 +6,6 @@ import {
   UsePipes,
   UseGuards,
   Param,
-  HttpCode,
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { ValidationPipe } from '../shared/validation.pipe'
@@ -21,7 +20,6 @@ export class UsersController {
   }
 
   @Get()
-  @HttpCode(200)
   @UseGuards(new AuthGuard())
   getAllUsers() {
     return this.usersService.getAllUsers()

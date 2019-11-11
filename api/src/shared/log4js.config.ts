@@ -29,6 +29,7 @@ log4js.configure({
   },
   categories: {
     default: { appenders: ['stdout'], level: 'debug' },
+    req: { appenders: ['stdout', 'req'], level: 'debug' },
     err: { appenders: ['stdout', 'err'], level: 'error' },
     oth: { appenders: ['stdout', 'oth'], level: 'info' },
   },
