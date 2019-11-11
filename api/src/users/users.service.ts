@@ -137,4 +137,17 @@ export class UsersService {
 
     return user
   }
+
+  async resetPassword(id: string) {
+    const user = await this.usersRepository.findOne(id)
+    if (!user) {
+      throw new HttpException('User Not found', HttpStatus.NOT_FOUND)
+    }
+
+    user.password = '12345678'
+    user.hashPassword()
+    await this.usersRepository.save(user)
+
+    return user.toResponseObject(false)
+  }
 }
