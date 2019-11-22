@@ -1,18 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing'
+/* eslint-disable no-undef */
+
+import { Test } from '@nestjs/testing'
 import { NewsController } from './news.controller'
+import { NewsService } from './news.service'
+import { NewsRO } from './news.dto'
 
 describe('News Controller', () => {
-  let controller: NewsController
+  let newsController: NewsController
+  let newsService: NewsService
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       controllers: [NewsController],
+      providers: [NewsService],
     }).compile()
 
-    controller = module.get<NewsController>(NewsController)
+    newsService = module.get<NewsService>(NewsService)
+    newsController = module.get<NewsController>(NewsController)
   })
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined()
+  describe('findAll', () => {
+    it('should return an array of news', async () => {
+      const result = [] as NewsRO[]
+      jest.spyOn(newsService, 'showAll').mockImplementation(async () => result)
+      expect(await newsController.getAllNews()).toBe(result)
+    })
   })
 })
