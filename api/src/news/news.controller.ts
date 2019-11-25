@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { NewsService } from './news.service'
-import { NewsDTO, UpdateNewsDto } from './news.dto'
+import { NewsDTO, UpdateNewsDto, NewsRO } from './news.dto'
 import { ValidationPipe } from '../shared/validation.pipe'
 import { AuthGuard } from '../shared/auth.guard'
 import { User } from '../users/users.decorator'
@@ -22,7 +22,7 @@ export class NewsController {
   }
 
   @Get()
-  getAllNews() {
+  getAllNews(): Promise<NewsRO[]> {
     return this.newsService.showAll()
   }
 
