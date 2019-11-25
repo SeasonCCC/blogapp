@@ -16,6 +16,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor())
 
   const port = process.env.PORT || 4000
+  console.log(process.env.PORT)
 
   const options = new DocumentBuilder()
     .setTitle('Foodapp Api')
@@ -31,9 +32,9 @@ async function bootstrap() {
   await app.listen(port)
   logger.debug(`Server running on http://localhost:${port}`)
 
-  if (module.hot) {
-    module.hot.accept()
-    module.hot.dispose(() => app.close())
-  }
+  // if (module.hot) {
+  //   module.hot.accept()
+  //   module.hot.dispose(() => app.close())
+  // }
 }
 bootstrap()

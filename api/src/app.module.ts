@@ -1,6 +1,7 @@
 import { APP_FILTER } from '@nestjs/core'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigService } from './config/config.service'
 // import { AppController } from './app.controller'
 // import { AppService } from './app.service'
 import { NewsModule } from './news/news.module'
@@ -21,6 +22,7 @@ import { Users } from './users/users.entity'
       logging: process.env.TYPEORM_LOGGING === 'true',
       useNewUrlParser: true,
       keepConnectionAlive: true,
+      // useUnifiedTopology: true,
     }),
     NewsModule,
     UsersModule,
@@ -32,6 +34,13 @@ import { Users } from './users/users.entity'
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
     },
+    {
+      provide: ConfigService,
+      useValue: new ConfigService(
+        `${process.env.NODE_ENV || 'development'}.env`,
+      ),
+    },
   ],
+  exports: [ConfigService],
 })
 export class AppModule {}
