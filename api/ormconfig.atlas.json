@@ -1,8 +1,0 @@
-{
-  "type": "mongodb",
-  "url": "mongodb+srv://season:season@cluster0-i7op0.mongodb.net/foodapp?retryWrites=true",
-  "database": "foodapp",
-  "entities": ["./src/**/*.entity{.ts,.js}"],
-  "synchronize": true,
-  "useNewUrlParser": true
-}

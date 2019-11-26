@@ -1,7 +1,6 @@
 import { APP_FILTER } from '@nestjs/core'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigService } from './config/config.service'
 // import { AppController } from './app.controller'
 // import { AppService } from './app.service'
 import { NewsModule } from './news/news.module'
@@ -9,6 +8,13 @@ import { UsersModule } from './users/users.module'
 import { HttpExceptionFilter } from './shared/http-exception.filter'
 import { News } from './news/news.entity'
 import { Users } from './users/users.entity'
+import { ConfigModule } from './config/config.module'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+// import { resolve } from 'path'
+// import { config } from 'dotenv'
+
+// config({ path: resolve(__dirname, '../.env') })
 
 @Module({
   imports: [
@@ -26,21 +32,15 @@ import { Users } from './users/users.entity'
     }),
     NewsModule,
     UsersModule,
+    ConfigModule,
   ],
-  // controllers: [AppController],
+  controllers: [AppController],
   providers: [
-    // AppService,
+    AppService,
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
     },
-    {
-      provide: ConfigService,
-      useValue: new ConfigService(
-        `${process.env.NODE_ENV || 'development'}.env`,
-      ),
-    },
   ],
-  exports: [ConfigService],
 })
 export class AppModule {}
