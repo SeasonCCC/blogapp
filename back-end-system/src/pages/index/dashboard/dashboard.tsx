@@ -2,7 +2,7 @@ import { Card, Col, Row } from 'antd'
 import * as React from 'react'
 import './dashboard.module.scss'
 import NumberCard from './components/numberCard'
-import ReactEcharts from 'echarts-for-react'
+// import ReactEcharts from 'echarts-for-react'
 // import echarts from 'echarts/lib/echarts'
 // import 'echarts/lib/chart/line'
 

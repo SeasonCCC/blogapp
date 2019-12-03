@@ -1,7 +1,7 @@
 import { Card, Icon } from 'antd'
 // import PropTypes from 'prop-types'
 import React from 'react'
-import CountUp from 'react-countup'
+// import CountUp from 'react-countup'
 import styles from './numberCard.module.scss'
 
 interface INumberCardProps {
