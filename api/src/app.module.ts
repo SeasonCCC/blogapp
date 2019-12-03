@@ -11,10 +11,10 @@ import { Users } from './users/users.entity'
 import { ConfigModule } from './config/config.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-// import { resolve } from 'path'
-// import { config } from 'dotenv'
+import { resolve } from 'path'
+import { config } from 'dotenv'
 
-// config({ path: resolve(__dirname, '../.env') })
+config({ path: resolve(__dirname, '../.env') })
 
 @Module({
   imports: [
@@ -28,7 +28,7 @@ import { AppService } from './app.service'
       logging: process.env.TYPEORM_LOGGING === 'true',
       useNewUrlParser: true,
       keepConnectionAlive: true,
-      // useUnifiedTopology: true,
+      useUnifiedTopology: true,
     }),
     NewsModule,
     UsersModule,
