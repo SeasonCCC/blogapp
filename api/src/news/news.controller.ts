@@ -23,7 +23,7 @@ export class NewsController {
 
   @Get()
   getAllNews(): Promise<NewsRO[]> {
-    console.log(process.env.TYPEORM_HOST)
+    // console.log(process.env.TYPEORM_HOST)
     return this.newsService.showAll()
   }
 
