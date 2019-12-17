@@ -6,7 +6,7 @@ import { NewsService } from './news.service'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { News } from './news.entity'
 import { Users } from '../users/users.entity'
-import { NewsRO } from './news.dto'
+// import { NewsRO } from './news'
 
 describe('News Controller', () => {
   let newsController: NewsController

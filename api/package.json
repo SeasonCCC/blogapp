@@ -36,6 +36,7 @@
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.1.0",
+    "mo": "^1.7.3",
     "moment": "^2.24.0",
     "puppeteer-core": "^2.0.0",
     "reflect-metadata": "^0.1.13",

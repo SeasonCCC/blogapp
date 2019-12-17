@@ -4,7 +4,8 @@ import { ObjectId } from 'mongodb'
 import { Repository } from 'typeorm'
 
 import { News } from './news.entity'
-import { NewsDTO, NewsRO, UpdateNewsDto } from './news.dto'
+import { NewsDTO, UpdateNewsDto } from './news.dto'
+import { NewsRO } from './news'
 
 @Injectable()
 export class NewsService {

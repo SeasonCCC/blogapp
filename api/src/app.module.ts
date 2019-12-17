@@ -13,6 +13,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { resolve } from 'path'
 import { config } from 'dotenv'
+import { BlogModule } from './blog/blog.module'
 
 config({ path: resolve(__dirname, '../.env') })
 
@@ -33,6 +34,7 @@ config({ path: resolve(__dirname, '../.env') })
     NewsModule,
     UsersModule,
     ConfigModule,
+    BlogModule,
   ],
   controllers: [AppController],
   providers: [
