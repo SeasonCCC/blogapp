@@ -81,7 +81,7 @@ export class BlogService {
     const page = await browser.newPage()
 
     for (const dataItem of data) {
-      for (let index = 1; index < 1000; index++) {
+      for (let index = 1; index < 2; index++) {
         await page.goto(`${dataItem.url}page/${index}`, {
           waitUntil: 'domcontentloaded',
         })
