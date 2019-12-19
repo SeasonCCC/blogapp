@@ -8,6 +8,8 @@ import { UsersModule } from './users/users.module'
 import { HttpExceptionFilter } from './shared/http-exception.filter'
 import { News } from './news/news.entity'
 import { Users } from './users/users.entity'
+import { Blog } from './blog/blog.entity'
+
 import { ConfigModule } from './config/config.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -24,7 +26,7 @@ config({ path: resolve(__dirname, '../.env') })
       host: process.env.TYPEORM_HOST,
       port: parseInt(process.env.TYPEORM_PORT),
       database: process.env.TYPEORM_DATABASE,
-      entities: [News, Users],
+      entities: [News, Users, Blog],
       synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
       logging: process.env.TYPEORM_LOGGING === 'true',
       useNewUrlParser: true,

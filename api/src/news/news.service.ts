@@ -37,7 +37,7 @@ export class NewsService {
   }
 
   async create(id: string, data: NewsDTO): Promise<NewsRO> {
-    const news = await this.newsRepository.create({
+    const news = this.newsRepository.create({
       ...data,
       authorId: ObjectId(id),
     })

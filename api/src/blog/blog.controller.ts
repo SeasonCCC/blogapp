@@ -9,14 +9,17 @@ export class BlogController {
   }
 
   @Get()
-  getBlog(): Promise<IBlogContent[][]> {
-    return this.blogService.getLatestBlogs()
+  getBlog(): Promise<IBlogContent[]> {
+    return this.blogService.getAllBlogs()
+  }
+
+  @Get('saveBlogs')
+  saveBlogs() {
+    return this.blogService.saveBlogs()
   }
 
   @Get(':s')
   searchBlog(@Param('s') s: string) {
-    // console.log(s)
-    // return s
-    return this.blogService.searchBlogs(s)
+    return this.blogService.searchBlogsOnline(s)
   }
 }

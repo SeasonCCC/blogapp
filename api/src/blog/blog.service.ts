@@ -1,10 +1,20 @@
 import { Injectable } from '@nestjs/common'
 import * as puppeteer from 'puppeteer-core'
+import { Blog } from './blog.entity'
 import { IBlogContent, IBlogData } from './blog'
 import { data } from './data'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
 @Injectable()
 export class BlogService {
+  @InjectRepository(Blog)
+  private blogRepository: Repository<Blog>
+
+  async getAllBlogs(): Promise<IBlogContent[]> {
+    return this.blogRepository.find()
+  }
+
   async getLatestBlogs(): Promise<IBlogContent[][]> {
     const browser = await puppeteer.launch({
       headless: true,
@@ -25,7 +35,7 @@ export class BlogService {
     return contentList
   }
 
-  async searchBlogs(s: string): Promise<IBlogContent[][]> {
+  async searchBlogsOnline(s: string): Promise<IBlogContent[][]> {
     const browser = await puppeteer.launch({
       headless: true,
       executablePath:
@@ -39,18 +49,64 @@ export class BlogService {
         waitUntil: 'domcontentloaded',
       })
 
+      // const itemElement = {
+      //    name: dataItem.name,
+      //   item: dataItem.searchItem || dataItem.item,
+      //   title: dataItem.searchTitle || dataItem.title,
+      //   link: dataItem.searchLink || dataItem.link,
+      //   date: dataItem.searchDate || dataItem.date,
+      // }
+
       const itemElement = {
-        item: dataItem.searchItem || dataItem.item,
-        title: dataItem.searchTitle || dataItem.title,
-        link: dataItem.searchLink || dataItem.link,
-        date: dataItem.searchDate || dataItem.date,
+        name: dataItem.name,
+        item: dataItem.item,
+        title: dataItem.title,
+        link: dataItem.link,
+        date: dataItem.date,
       }
 
       contentList.push(await this.getData(page, itemElement))
     }
 
-    // browser.close()
+    browser.close()
     return contentList
+  }
+
+  async saveBlogs() {
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath:
+        'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    })
+    const page = await browser.newPage()
+
+    for (const dataItem of data) {
+      for (let index = 1; index < 1000; index++) {
+        await page.goto(`${dataItem.url}page/${index}`, {
+          waitUntil: 'domcontentloaded',
+        })
+
+        const contentList = await this.getData(page, dataItem)
+
+        if (contentList.length === 0) {
+          return false
+        }
+
+        for (const content of contentList) {
+          const blog = await this.blogRepository.findOne({
+            title: content.title,
+            link: content.link,
+          })
+
+          if (!blog) {
+            const newBlog = this.blogRepository.create(content)
+            await this.blogRepository.save(newBlog)
+          }
+        }
+      }
+    }
+
+    browser.close()
   }
 
   private async getData(
@@ -71,6 +127,7 @@ export class BlogService {
             title: con.querySelector(dataItem.title).innerHTML,
             link: con.querySelector(dataItem.link).getAttribute('href'),
             date: con.querySelector(dataItem.date).innerHTML,
+            source: dataItem.name,
           })
         })
         return itemHtml
