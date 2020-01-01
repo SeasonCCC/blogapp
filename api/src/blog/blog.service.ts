@@ -80,33 +80,36 @@ export class BlogService {
     })
     const page = await browser.newPage()
 
-    for (const dataItem of data) {
-      for (let index = 1; index < 2; index++) {
-        await page.goto(`${dataItem.url}page/${index}`, {
-          waitUntil: 'domcontentloaded',
-        })
+    page.on('response', async res => {
+      if (res.status() !== 404) {
+        for (const dataItem of data) {
+          for (let index = 28; index < 30; index++) {
+            await page.goto(`${dataItem.url}page/${index}`, {
+              waitUntil: 'domcontentloaded',
+            })
 
-        const contentList = await this.getData(page, dataItem)
+            const contentList = await this.getData(page, dataItem)
 
-        if (contentList.length === 0) {
-          return false
-        }
+            if (contentList.length === 0) {
+              return false
+            }
 
-        for (const content of contentList) {
-          const blog = await this.blogRepository.findOne({
-            title: content.title,
-            link: content.link,
-          })
+            for (const content of contentList) {
+              const blog = await this.blogRepository.findOne({
+                title: content.title,
+                link: content.link,
+              })
 
-          if (!blog) {
-            const newBlog = this.blogRepository.create(content)
-            await this.blogRepository.save(newBlog)
+              if (!blog) {
+                const newBlog = this.blogRepository.create(content)
+                await this.blogRepository.save(newBlog)
+              }
+            }
           }
         }
       }
-    }
-
-    browser.close()
+      browser.close()
+    })
   }
 
   private async getData(
