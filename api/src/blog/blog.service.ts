@@ -74,42 +74,41 @@ export class BlogService {
 
   async saveBlogs() {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       executablePath:
         'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
     })
     const page = await browser.newPage()
 
-    page.on('response', async res => {
-      if (res.status() !== 404) {
-        for (const dataItem of data) {
-          for (let index = 28; index < 30; index++) {
-            await page.goto(`${dataItem.url}page/${index}`, {
-              waitUntil: 'domcontentloaded',
-            })
+    for (const dataItem of data) {
+      for (let index = 1; index < 200; index++) {
+        const result = await page.goto(`${dataItem.url}page/${index}`, {
+          waitUntil: 'domcontentloaded',
+        })
 
-            const contentList = await this.getData(page, dataItem)
+        if (result.status() === 404) return false
 
-            if (contentList.length === 0) {
-              return false
-            }
+        const contentList = await this.getData(page, dataItem)
+        if (contentList.length === 0) {
+          return false
+        }
 
-            for (const content of contentList) {
-              const blog = await this.blogRepository.findOne({
-                title: content.title,
-                link: content.link,
-              })
-
-              if (!blog) {
-                const newBlog = this.blogRepository.create(content)
-                await this.blogRepository.save(newBlog)
-              }
-            }
+        for (const content of contentList) {
+          const blog = await this.blogRepository.findOne({
+            title: content.title,
+            link: content.link,
+          })
+          console.log(blog)
+          if (!blog) {
+            const newBlog = this.blogRepository.create(content)
+            await this.blogRepository.save(newBlog)
+          } else {
+            return false
           }
         }
       }
-      browser.close()
-    })
+    }
+    browser.close()
   }
 
   private async getData(
