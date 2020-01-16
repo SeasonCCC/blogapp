@@ -13,6 +13,11 @@ export class BlogController {
     return this.blogService.getAllBlogs()
   }
 
+  @Get('getLatestBlogs')
+  getLatestBlogs(): Promise<IBlogContent[][]> {
+    return this.blogService.getLatestBlogs()
+  }
+
   @Get('saveBlogs')
   saveBlogs() {
     return this.blogService.saveBlogs()
