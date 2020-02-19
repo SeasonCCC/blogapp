@@ -1,23 +1,23 @@
-import { ApiModelProperty } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsString, Min, Max, IsInt, Length } from 'class-validator'
 import { News } from '../news/news.entity'
 
 export class UsersDto {
   @IsNotEmpty()
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   username: string
 
   @IsNotEmpty()
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   password: string
 
   @IsNotEmpty()
   @IsInt()
   @Min(0)
   @Max(2)
-  @ApiModelProperty()
+  @ApiProperty()
   type: number
 }
 
@@ -25,26 +25,26 @@ export class UpdateTypeDto {
   @IsNotEmpty()
   @IsString()
   @Length(24)
-  @ApiModelProperty()
+  @ApiProperty()
   id: string
 
   @IsNotEmpty()
   @IsInt()
   @Min(0)
   @Max(2)
-  @ApiModelProperty()
+  @ApiProperty()
   type: number
 }
 
 export class ChangePassowrdDto {
   @IsNotEmpty()
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   oldPassword: string
 
   @IsNotEmpty()
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   newPassword: string
 }
 

@@ -1,23 +1,23 @@
 import { IsString, IsInt, IsNotEmpty, Min, Max, Length } from 'class-validator'
-import { ApiModelProperty } from '@nestjs/swagger'
-// import { Users } from 'src/users/users.entity'
+import { ApiProperty } from '@nestjs/swagger'
+// import { Users } from 'src/users/users.entity'ApiProperty
 
 export class NewsDTO {
   @IsNotEmpty()
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   title: string
 
   @IsNotEmpty()
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   content: string
 
   @IsNotEmpty()
   @IsInt()
   @Min(0)
   @Max(3)
-  @ApiModelProperty()
+  @ApiProperty()
   status: number
 }
 
@@ -25,20 +25,20 @@ export class UpdateNewsDto {
   @IsNotEmpty()
   @IsString()
   @Length(24)
-  @ApiModelProperty()
+  @ApiProperty()
   id: string
 
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   title?: string
 
   @IsString()
-  @ApiModelProperty()
+  @ApiProperty()
   content?: string
 
   @IsInt()
   @Min(0)
   @Max(3)
-  @ApiModelProperty()
+  @ApiProperty()
   status?: number
 }
