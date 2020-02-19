@@ -98,7 +98,7 @@ export class BlogService {
             title: content.title,
             link: content.link,
           })
-          console.log(blog)
+          // console.log(blog)
           if (!blog) {
             const newBlog = this.blogRepository.create(content)
             await this.blogRepository.save(newBlog)
