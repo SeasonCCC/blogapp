@@ -2,6 +2,8 @@ import { APP_FILTER } from '@nestjs/core'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule } from '@nestjs/config'
+import { GraphQLModule } from '@nestjs/graphql'
+import { resolve } from 'path'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -13,7 +15,6 @@ import { Users } from './users/users.entity'
 import { Blog } from './blog/blog.entity'
 import { HttpExceptionFilter } from './shared/http-exception.filter'
 
-import { resolve } from 'path'
 import { config } from 'dotenv'
 
 config({ path: resolve(__dirname, '../.env') })
@@ -36,6 +37,17 @@ config({ path: resolve(__dirname, '../.env') })
     UsersModule,
     BlogModule,
     ConfigModule.forRoot(),
+    GraphQLModule.forRoot({
+      // path: '/graphql',
+      // include: [NewsModule],
+      // installSubscriptionHandlers: true,
+      typePaths: ['./**/*.graphql'],
+      // definitions: {
+      //   path: join(process.cwd(), 'src/graphql.ts'),
+      //   outputAs: 'class',
+      // },
+      autoSchemaFile: 'schema.gql',
+    }),
   ],
   controllers: [AppController],
   providers: [
