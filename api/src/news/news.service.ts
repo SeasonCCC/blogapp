@@ -52,17 +52,19 @@ export class NewsService {
   }
 
   async findOne(id: string): Promise<NewsRO> {
-    const news = await this.newsRepository.findOne(id)
+    const news = (await this.newsRepository.findOne(id)) as NewsRO
     if (!news) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND)
     }
-    throw new HttpException(
-      {
-        data: news,
-        message: `Find ${id} News:Success`,
-      },
-      HttpStatus.OK,
-    )
+
+    return news
+    // throw new HttpException(
+    //   {
+    //     data: news,
+    //     message: `Find ${id} News:Success`,
+    //   },
+    //   HttpStatus.OK,
+    // )
   }
 
   async update(data: UpdateNewsDto): Promise<NewsRO> {

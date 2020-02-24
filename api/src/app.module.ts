@@ -40,12 +40,9 @@ config({ path: resolve(__dirname, '../.env') })
     GraphQLModule.forRoot({
       // path: '/graphql',
       // include: [NewsModule],
-      // installSubscriptionHandlers: true,
       typePaths: ['./**/*.graphql'],
-      // definitions: {
-      //   path: join(process.cwd(), 'src/graphql.ts'),
-      //   outputAs: 'class',
-      // },
+      context: ({ req }) => ({ req }),
+      installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
     }),
   ],

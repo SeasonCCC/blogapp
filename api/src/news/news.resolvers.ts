@@ -1,9 +1,11 @@
 // app.resolvers.ts
-import { Query, Resolver } from '@nestjs/graphql'
+import { Query, Resolver, Args } from '@nestjs/graphql'
 import { NewsService } from './news.service'
-// import { ParseIntPipe } from '@nestjs/common'
+import { ValidationPipe } from '../shared/validation.pipe'
+import { AuthGuard } from '../shared/auth.guard'
 import { NewsRO } from './news'
 import { News } from './news.graphql'
+import { UsePipes, UseGuards } from '@nestjs/common'
 
 @Resolver(() => News)
 export class NewsResolver {
@@ -17,13 +19,16 @@ export class NewsResolver {
     return news
   }
 
-  // @Query('getNews')
-  // findOneById(
-  //   @Args('id', ParseIntPipe)
-  //   id: number,
-  // ) {
-  //   return id.toString()
-  // }
+  @Query(() => News)
+  @UsePipes(new ValidationPipe())
+  @UseGuards(new AuthGuard())
+  async getNewsById(
+    @Args({ name: 'id', type: () => String })
+    id: string,
+  ): Promise<NewsRO> {
+    const news = (await this.newsService.findOne(id)) as NewsRO
+    return news
+  }
 
   // query { hello }
   // @Query()

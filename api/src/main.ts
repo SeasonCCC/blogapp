@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core'
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+// import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { CustomLogger } from './shared/logger'
 // import { TransformInterceptor } from './shared/transform.interceptor'
@@ -19,18 +19,16 @@ async function bootstrap() {
 
   // config({ path: resolve(__dirname, '../.env') })
   // console.log(process.env.PORT)
-  const options = new DocumentBuilder()
-    .setTitle('Foodapp Api')
-    .setDescription('The Foodapp API Documents')
-    .setBasePath('api/v1')
-    .addBearerAuth()
-    .setVersion('1.0.0')
-    .build()
+  // const options = new DocumentBuilder()
+  //   .setTitle('Foodapp Api')
+  //   .setDescription('The Foodapp API Documents')
+  //   .setBasePath('api/v1')
+  //   .addBearerAuth()
+  //   .setVersion('1.0.0')
+  //   .build()
 
-  const document = SwaggerModule.createDocument(app, options)
-  SwaggerModule.setup('docs', app, document)
-
-  // console.log(app.get('ConfigService'))
+  // const document = SwaggerModule.createDocument(app, options)
+  // SwaggerModule.setup('docs', app, document)
 
   const port = 4000
   await app.listen(port)
