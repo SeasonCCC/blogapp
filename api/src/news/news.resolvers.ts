@@ -14,6 +14,7 @@ export class NewsResolver {
   }
 
   @Query(() => [News])
+  @UseGuards(new AuthGuard())
   async getNews(): Promise<NewsRO[]> {
     const news = (await this.newsService.showAll()) as NewsRO[]
     return news

@@ -41,7 +41,7 @@ config({ path: resolve(__dirname, '../.env') })
       // path: '/graphql',
       // include: [NewsModule],
       typePaths: ['./**/*.graphql'],
-      context: ({ req }) => ({ req }),
+      context: ({ req, res }) => ({ req, res }),
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
     }),

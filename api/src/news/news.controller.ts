@@ -23,6 +23,7 @@ export class NewsController {
   }
 
   @Get()
+  @UseGuards(new AuthGuard())
   getAllNews(): Promise<NewsRO[]> {
     return this.newsService.showAll()
   }

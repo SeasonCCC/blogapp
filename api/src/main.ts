@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core'
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { CustomLogger } from './shared/logger'
-// import { TransformInterceptor } from './shared/transform.interceptor'
+import { TransformInterceptor } from './shared/transform.interceptor'
 // import { resolve } from 'path'
 // import { config } from 'dotenv'
 
@@ -15,7 +15,7 @@ async function bootstrap() {
     logger: logger,
   })
 
-  // app.useGlobalInterceptors(new TransformInterceptor())
+  app.useGlobalInterceptors(new TransformInterceptor())
 
   // config({ path: resolve(__dirname, '../.env') })
   // console.log(process.env.PORT)
