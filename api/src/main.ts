@@ -1,21 +1,21 @@
-import { NestFactory } from '@nestjs/core'
+import { NestFactory } from '@nestjs/core';
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
-import { AppModule } from './app.module'
-import { CustomLogger } from './shared/logger'
-import { TransformInterceptor } from './shared/transform.interceptor'
+import { AppModule } from './app.module';
+import CustomLogger from './shared/logger';
+import { TransformInterceptor } from './shared/transform.interceptor';
 // import { resolve } from 'path'
 // import { config } from 'dotenv'
 
-declare const module: any
+declare const module: any;
 
 async function bootstrap() {
-  const logger = new CustomLogger()
+  const logger = new CustomLogger();
 
   const app = await NestFactory.create(AppModule, {
-    logger: logger,
-  })
+    logger,
+  });
 
-  app.useGlobalInterceptors(new TransformInterceptor())
+  app.useGlobalInterceptors(new TransformInterceptor());
 
   // config({ path: resolve(__dirname, '../.env') })
   // console.log(process.env.PORT)
@@ -30,13 +30,13 @@ async function bootstrap() {
   // const document = SwaggerModule.createDocument(app, options)
   // SwaggerModule.setup('docs', app, document)
 
-  const port = 4000
-  await app.listen(port)
-  logger.debug(`Server running on http://localhost:${port}`)
+  const port = 4000;
+  await app.listen(port);
+  logger.debug(`Server running on http://localhost:${port}`);
 
   if (module.hot) {
-    module.hot.accept()
-    module.hot.dispose(() => app.close())
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
   }
 }
-bootstrap()
+bootstrap();

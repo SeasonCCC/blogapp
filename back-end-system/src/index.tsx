@@ -1,46 +1,33 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {
+  HashRouter, Route, Switch, Redirect,
+} from 'react-router-dom';
 
-import './index.css'
-// import Main from "./pages/index/index";
-import registerServiceWorker from './registerServiceWorker'
+import './index.scss';
+import routes from './router/router';
 
-import routes from './router/router'
+// import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-// interface IRoute {
-//   component: any;
-//   path: string;
-//   routes?: IRoute[];
-// }
+ReactDOM.render(
+  <HashRouter>
+    <Switch>
+      {routes.map((route): JSX.Element => (
+        <Route
+          path={route.path}
+          key={route.path}
+          exact={route.path === '/login'}
+          render={route.component}
+        />
+      ))}
+      <Redirect to="/login" />
+    </Switch>
+  </HashRouter>,
+  document.getElementById('root'),
+);
 
-class Main extends React.Component {
-  public render (): JSX.Element {
-    return (
-      <HashRouter>
-        <Switch>
-          {routes.map((route, i): JSX.Element => {
-            const Component = (
-              props: RouteComponentProps
-            ): JSX.Element => (
-              <route.component {...props} routes={route.routes} />
-            )
-
-            return (
-              <Route
-                path={route.path}
-                key={i}
-                exact={route.path === '/login'}
-                render={Component}
-              />
-            )
-          })}
-          <Redirect to='/login' />
-        </Switch>
-      </HashRouter>
-    )
-  }
-}
-
-ReactDOM.render(<Main />, document.getElementById('root') as HTMLElement)
-registerServiceWorker()
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

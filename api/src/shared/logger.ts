@@ -1,26 +1,26 @@
-import { LoggerService } from '@nestjs/common'
-import { getLogger } from './log4js.config'
+import { LoggerService } from '@nestjs/common';
+import getLogger from './log4js.config';
 
-const logger = getLogger()
+const logger = getLogger();
 
-export class CustomLogger implements LoggerService {
-  log(message: string) {
-    logger.debug(message)
+export default class CustomLogger implements LoggerService {
+  log(message: string): void {
+    logger.debug(message);
   }
 
-  error(message: string, trace: string) {
-    logger.error(message, trace)
+  error(message: string, trace: string): void {
+    logger.error(message, trace);
   }
 
-  warn(message: string) {
-    logger.warn(message)
+  warn(message: string): void {
+    logger.warn(message);
   }
 
-  debug(message: string) {
-    logger.debug(message)
+  debug(message: string): void {
+    logger.debug(message);
   }
 
-  verbose(message: string) {
-    logger.info(message)
+  verbose(message: string): void {
+    logger.info(message);
   }
 }

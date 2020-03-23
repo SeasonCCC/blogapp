@@ -1,42 +1,36 @@
-import dashboard from '../pages/index/dashboard/dashboard'
-import Exposure from '../pages/index/exposure/exposure'
-import Index from '../pages/index/index'
-import News from '../pages/index/news/news'
-import Tips from '../pages/index/tips/tips'
-import Users from '../pages/index/users/users'
-import Login from '../pages/login/login'
+import Login from '../pages/login/login';
 
 const routes = [
-  {
-    component: Index,
-    path: '/index',
-    routes: [
-      {
-        component: dashboard,
-        path: '/index/dashboard'
-      },
-      {
-        component: News,
-        path: '/index/news'
-      },
-      {
-        component: Tips,
-        path: '/index/tips'
-      },
-      {
-        component: Exposure,
-        path: '/index/exposure'
-      },
-      {
-        component: Users,
-        path: '/index/users'
-      }
-    ]
-  },
+  // {
+  //   component: Main,
+  //   path: '/main',
+  //   routes: [
+  //     {
+  //       component: dashboard,
+  //       path: '/main/dashboard',
+  //     },
+  //     {
+  //       component: News,
+  //       path: '/main/news',
+  //     },
+  //     {
+  //       component: Tips,
+  //       path: '/main/tips',
+  //     },
+  //     {
+  //       component: Exposure,
+  //       path: '/main/exposure',
+  //     },
+  //     {
+  //       component: Users,
+  //       path: '/main/users',
+  //     },
+  //   ],
+  // },
   {
     component: Login,
-    path: '/login'
-  }
-]
+    path: '/login',
+  },
+];
 
-export default routes
+export default routes;

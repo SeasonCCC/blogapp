@@ -1,6 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsString, Min, Max, IsInt, Length } from 'class-validator'
-import { News } from '../news/news.entity'
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsNotEmpty, IsString, Min, Max, IsInt, Length,
+} from 'class-validator';
+import { News } from '../news/news.entity';
 
 export class UsersDto {
   @IsNotEmpty()

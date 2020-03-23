@@ -9,13 +9,13 @@ import { UsePipes, UseGuards } from '@nestjs/common'
 
 @Resolver(() => News)
 export class NewsResolver {
-  constructor(private readonly newsService: NewsService) {
+  constructor (private readonly newsService: NewsService) {
     this.newsService = newsService
   }
 
   @Query(() => [News])
   @UseGuards(new AuthGuard())
-  async getNews(): Promise<NewsRO[]> {
+  async getNews (): Promise<NewsRO[]> {
     const news = (await this.newsService.showAll()) as NewsRO[]
     return news
   }
@@ -23,9 +23,9 @@ export class NewsResolver {
   @Query(() => News)
   @UsePipes(new ValidationPipe())
   @UseGuards(new AuthGuard())
-  async getNewsById(
+  async getNewsById (
     @Args({ name: 'id', type: () => String })
-    id: string,
+      id: string
   ): Promise<NewsRO> {
     const news = (await this.newsService.findOne(id)) as NewsRO
     return news

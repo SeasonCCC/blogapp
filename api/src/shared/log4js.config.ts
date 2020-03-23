@@ -1,4 +1,5 @@
-import * as log4js from 'log4js'
+import * as log4js from 'log4js';
+
 log4js.configure({
   appenders: {
     stdout: { type: 'stdout' },
@@ -33,8 +34,8 @@ log4js.configure({
     err: { appenders: ['stdout', 'err'], level: 'error' },
     oth: { appenders: ['stdout', 'oth'], level: 'info' },
   },
-})
+});
 
-export function getLogger(name?: string) {
-  return log4js.getLogger(name || 'default')
+export default function getLogger(name?: string): log4js.Logger {
+  return log4js.getLogger(name || 'default');
 }
