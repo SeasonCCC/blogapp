@@ -1,30 +1,16 @@
 import React, { useState } from 'react';
 import {
-  Form, Input, Checkbox, Button,
+  Form, Input, Button,
 } from 'antd';
+import { withRouter } from 'react-router';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.scss';
-// const layout = {
-//   labelCol: { span: 8 },
-//   wrapperCol: { span: 16 },
-// };
-// const tailLayout = {
-//   wrapperCol: { offset: 8, span: 16 },
-// };
 
 const Login = () => {
-// const [form] = Form.useForm();
-
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
 
-  // const onFinishFailed = (errorInfo: string) => {
-  //   console.log('Failed:', errorInfo);
-  // };
-
-  // const { form } = this.props;
-  // const { getFieldDecorator } = form;
   return (
     <div className="login">
       <div className="login-container">
@@ -102,4 +88,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default withRouter(Login);
