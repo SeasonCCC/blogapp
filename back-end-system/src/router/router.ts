@@ -1,6 +1,8 @@
 import Login from '../pages/login/login';
 import Main from '../pages/main/main';
 import dashboard from '../pages/main/dashboard/dashboard';
+import projects from '../pages/main/projects/projects';
+
 
 const routes: IRoute[] = [
   {
@@ -10,6 +12,10 @@ const routes: IRoute[] = [
       {
         component: dashboard,
         path: '/main/dashboard',
+      },
+      {
+        component: projects,
+        path: '/main/projects',
       },
     ],
     // routes: [

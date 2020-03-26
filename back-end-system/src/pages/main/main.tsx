@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu } from 'antd';
-import { DashboardOutlined, BarChartOutlined, UserSwitchOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined, UserSwitchOutlined, ProjectFilled, FileTextFilled, AppstoreAddOutlined,
+} from '@ant-design/icons';
 import { withRouter } from 'react-router';
 import {
   Link,
@@ -14,15 +16,24 @@ import './main.scss';
 const { Header, Sider, Content } = Layout;
 // const CountContext = createContext(null);
 
-const Main = (props: any) => {
-  const { routes } = props;
+const Main = (props: RouteComponentProps & {routes: IRoute[]}) => {
+  const { routes, location } = props;
   const [collapsed, setCollapsed] = useState(false);
-  const [key] = useState('0');
 
+  const routeArr = [
+    '/main/dashboard',
+    '/main/projects',
+    '/main/articles',
+    '/main/others',
+    '/main/users',
+  ];
 
-  // useEffect(() => {
-  //   console.log(props.routes);
-  // });
+  const keyIndex = routeArr.indexOf(location.pathname).toString();
+  const [key, setKey] = useState(() => (keyIndex === '-1' ? '0' : keyIndex));
+
+  useEffect(() => {
+    setKey(keyIndex === '-1' ? '0' : keyIndex);
+  }, [props]);
 
   return (
     <Layout>
@@ -36,35 +47,34 @@ const Main = (props: any) => {
         <Menu
           theme="dark"
           mode="inline"
-          openKeys={[key]}
-          defaultOpenKeys={['sub1', 'sub2', 'sub3']}
-          defaultSelectedKeys={['0']}
+          defaultSelectedKeys={[key]}
+          selectedKeys={[key]}
         >
           <Menu.Item key="0">
-            <Link to="/index/dashboard" replace>
+            <Link to="/main/dashboard" replace>
               <DashboardOutlined />
               <span>Dashboard</span>
             </Link>
           </Menu.Item>
 
           <Menu.Item key="1">
-            <Link to="/index/news" replace>
-              <BarChartOutlined />
-              <span>News</span>
+            <Link to="/main/projects" replace>
+              <ProjectFilled />
+              <span>Projects</span>
             </Link>
           </Menu.Item>
 
           <Menu.Item key="2">
-            <Link to="/index/tips" replace>
-              <BarChartOutlined />
-              <span>Tips</span>
+            <Link to="/main/articles" replace>
+              <FileTextFilled />
+              <span>Articles</span>
             </Link>
           </Menu.Item>
 
           <Menu.Item key="3">
-            <Link to="/index/exposure" replace>
-              <BarChartOutlined />
-              <span>Exposure</span>
+            <Link to="/main/others" replace>
+              <AppstoreAddOutlined />
+              <span>Others</span>
             </Link>
           </Menu.Item>
 
