@@ -14,7 +14,6 @@ import {
 import './main.scss';
 
 const { Header, Sider, Content } = Layout;
-// const CountContext = createContext(null);
 
 const Main = (props: RouteComponentProps & {routes: IRoute[]}) => {
   const { routes, location } = props;
@@ -32,8 +31,15 @@ const Main = (props: RouteComponentProps & {routes: IRoute[]}) => {
   const [key, setKey] = useState(() => (keyIndex === '-1' ? '0' : keyIndex));
 
   useEffect(() => {
-    setKey(keyIndex === '-1' ? '0' : keyIndex);
-  }, [props]);
+    if (location.pathname !== '/main/details') {
+      setKey(keyIndex === '-1' ? '0' : keyIndex);
+    }
+    // if (location.pathname !== '/main/details' && keyIndex !== '-1') {
+    //   setKey(keyIndex);
+    // } else if (keyIndex === '-1') {
+    //   setKey('0');
+    // }
+  }, [props, keyIndex]);
 
   return (
     <Layout>

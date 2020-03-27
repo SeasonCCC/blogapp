@@ -2,6 +2,8 @@ import Login from '../pages/login/login';
 import Main from '../pages/main/main';
 import dashboard from '../pages/main/dashboard/dashboard';
 import projects from '../pages/main/projects/projects';
+import articles from '../pages/main/articles/articles';
+import details from '../pages/main/details/details';
 
 
 const routes: IRoute[] = [
@@ -17,29 +19,15 @@ const routes: IRoute[] = [
         component: projects,
         path: '/main/projects',
       },
+      {
+        component: articles,
+        path: '/main/articles',
+      },
+      {
+        component: details,
+        path: '/main/details',
+      },
     ],
-    // routes: [
-    // {
-    //   component: dashboard,
-    //   path: '/main/dashboard',
-    // },
-    // {
-    //   component: News,
-    //   path: '/main/news',
-    // },
-    // {
-    //   component: Tips,
-    //   path: '/main/tips',
-    // },
-    // {
-    //   component: Exposure,
-    //   path: '/main/exposure',
-    // },
-    // {
-    //   component: Users,
-    //   path: '/main/users',
-    // },
-    // ],
   },
   {
     component: Login,

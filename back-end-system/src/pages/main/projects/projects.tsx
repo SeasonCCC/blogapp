@@ -1,31 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import './projects.scss';
-import { Table, Tag } from 'antd';
-
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+import { Table, Tag, Button } from 'antd';
+import { RouteComponentProps } from 'react-router-dom';
 
 const columns = [
   {
@@ -80,7 +57,51 @@ const columns = [
   },
 ];
 
-const Projects = () => (
-  <Table columns={columns} dataSource={data} />
-);
+const Projects = (props: RouteComponentProps) => {
+  const [data, setData] = useState([
+    {
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+      tags: ['nice', 'developer'],
+    },
+    {
+      key: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+      tags: ['loser'],
+    },
+    {
+      key: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+      tags: ['cool', 'teacher'],
+    },
+  ]);
+
+  const handleAdd = () => {
+    props.history.push('/main/details');
+    // const newData = {
+    //   key: '1',
+    //   name: 'John Brown',
+    //   age: 32,
+    //   address: 'New York No. 1 Lake Park',
+    //   tags: ['nice', 'developer'],
+    // };
+
+    // setData([...data, newData]);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
+        Add a row
+      </Button>
+      <Table columns={columns} dataSource={data} />
+    </div>
+  );
+};
 export default withRouter(Projects);
