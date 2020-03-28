@@ -61,9 +61,9 @@ const Details = () => (
               </Upload>
             </Form.Item>
 
-            <Form.Item label="Button">
-              <Button>Button</Button>
-            </Form.Item>
+            {/* <Form.Item label="Button" labelCol={{ span: 2 }}> */}
+            <Button type="primary">Submit</Button>
+            {/* </Form.Item> */}
           </Form>
         </Card>
       </Col>

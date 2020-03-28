@@ -85,7 +85,7 @@ const Main = (props: RouteComponentProps & {routes: IRoute[]}) => {
           </Menu.Item>
 
           <Menu.Item key="4">
-            <Link to="/index/users" replace>
+            <Link to="/main/users" replace>
               <UserSwitchOutlined />
               <span>Users</span>
             </Link>
@@ -104,7 +104,7 @@ const Main = (props: RouteComponentProps & {routes: IRoute[]}) => {
         <Content
           style={{
             margin: '24px 16px',
-            minHeight: 950,
+            minHeight: 900,
           }}
         >
           <Switch>

@@ -5,32 +5,39 @@ import {
 } from 'react-router-dom';
 
 import './index.scss';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
 import routesSetting from './router/router';
 // import * as serviceWorker from './serviceWorker';
 
+const client = new ApolloClient({
+  uri: 'https://w5xlvm3vzz.lp.gql.zone/graphql',
+});
 
 ReactDOM.render(
-  <HashRouter>
-    <Switch>
-      {routesSetting.map((route: IRoute): JSX.Element => {
-        const Component = (
-          props: RouteComponentProps,
-        // eslint-disable-next-line react/jsx-props-no-spreading
-        ): JSX.Element => (<route.component {...props} routes={route.routes} />);
+  <ApolloProvider client={client}>
+    <HashRouter>
+      <Switch>
+        {routesSetting.map((route: IRoute): JSX.Element => {
+          const Component = (
+            props: RouteComponentProps,
+            // eslint-disable-next-line react/jsx-props-no-spreading
+          ): JSX.Element => (<route.component {...props} routes={route.routes} />);
 
-        return (
-          <Route
-            path={route.path}
-            key={route.path}
-            exact={route.path === '/login'}
+          return (
+            <Route
+              path={route.path}
+              key={route.path}
+              exact={route.path === '/login'}
             // component={route.component}
-            render={Component}
-          />
-        );
-      })}
-      <Redirect to="/login" />
-    </Switch>
-  </HashRouter>,
+              render={Component}
+            />
+          );
+        })}
+        <Redirect to="/login" />
+      </Switch>
+    </HashRouter>
+  </ApolloProvider>,
   document.getElementById('root'),
 );
 

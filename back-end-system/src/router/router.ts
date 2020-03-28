@@ -3,6 +3,7 @@ import Main from '../pages/main/main';
 import dashboard from '../pages/main/dashboard/dashboard';
 import projects from '../pages/main/projects/projects';
 import articles from '../pages/main/articles/articles';
+import users from '../pages/main/users/users';
 import details from '../pages/main/details/details';
 
 
@@ -22,6 +23,10 @@ const routes: IRoute[] = [
       {
         component: articles,
         path: '/main/articles',
+      },
+      {
+        component: users,
+        path: '/main/users',
       },
       {
         component: details,
