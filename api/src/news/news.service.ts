@@ -1,14 +1,14 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { ObjectId } from 'mongodb'
-import { Repository } from 'typeorm'
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ObjectId } from 'mongodb';
+import { Repository } from 'typeorm';
 
-import { News } from './news.entity'
-import { NewsDTO, UpdateNewsDto } from './news.dto'
-import { NewsRO } from './news'
+import { News } from './news.entity';
+import { NewsDTO, UpdateNewsDto } from './news.dto';
+import { NewsRO } from './news.d';
 
 @Injectable()
-export class NewsService {
+export default class NewsService {
   // constructor(
   //   @InjectRepository(News)
   //   private newsRepository: Repository<News>,
@@ -21,8 +21,8 @@ export class NewsService {
   private newsRepository: Repository<News>
 
   async showAll(): Promise<NewsRO[]> {
-    const news = (await this.newsRepository.find()) as NewsRO[]
-    return news
+    const news = (await this.newsRepository.find()) as NewsRO[];
+    return news;
     // return new Promise<NewsRO[]>(resolve => {
     //   resolve(news);
     // });
@@ -40,24 +40,24 @@ export class NewsService {
     const news = this.newsRepository.create({
       ...data,
       authorId: ObjectId(id),
-    })
-    await this.newsRepository.save(news)
+    });
+    await this.newsRepository.save(news);
     throw new HttpException(
       {
         data: news,
         message: 'GetAllNews:Success',
       },
       HttpStatus.OK,
-    )
+    );
   }
 
   async findOne(id: string): Promise<NewsRO> {
-    const news = (await this.newsRepository.findOne(id)) as NewsRO
+    const news = (await this.newsRepository.findOne(id)) as NewsRO;
     if (!news) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND)
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
 
-    return news
+    return news;
     // throw new HttpException(
     //   {
     //     data: news,
@@ -68,38 +68,38 @@ export class NewsService {
   }
 
   async update(data: UpdateNewsDto): Promise<NewsRO> {
-    const { id } = data
-    const news = await this.newsRepository.findOne(id)
+    const { id } = data;
+    const news = await this.newsRepository.findOne(id);
     if (!news) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND)
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
 
-    delete data.id
-    const updatedNews = { ...news, ...data }
+    delete data.id;
+    const updatedNews = { ...news, ...data };
 
-    const res = await this.newsRepository.save(updatedNews)
+    const res = await this.newsRepository.save(updatedNews);
     throw new HttpException(
       {
         data: res,
         message: `Update ${id} News:Success`,
       },
       HttpStatus.OK,
-    )
+    );
   }
 
   async delete(id: string): Promise<NewsRO> {
-    const news = await this.newsRepository.findOne(id)
+    const news = await this.newsRepository.findOne(id);
     if (!news) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND)
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
 
-    await this.newsRepository.delete(id)
+    await this.newsRepository.delete(id);
     throw new HttpException(
       {
         data: news,
         message: `Delete ${id} News:Success`,
       },
       HttpStatus.OK,
-    )
+    );
   }
 }

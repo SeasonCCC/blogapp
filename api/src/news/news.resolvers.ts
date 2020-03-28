@@ -1,34 +1,34 @@
 // app.resolvers.ts
-import { Query, Resolver, Args } from '@nestjs/graphql'
-import { NewsService } from './news.service'
-import { ValidationPipe } from '../shared/validation.pipe'
-import { AuthGuard } from '../shared/auth.guard'
-import { NewsRO } from './news'
-import { News } from './news.graphql'
-import { UsePipes, UseGuards } from '@nestjs/common'
+import { Query, Resolver, Args } from '@nestjs/graphql';
+import { UsePipes, UseGuards } from '@nestjs/common';
+import NewsService from './news.service';
+import ValidationPipe from '../shared/validation.pipe';
+import { AuthGuard } from '../shared/auth.guard';
+import { NewsRO } from './news.d';
+import News from './news.graphql';
 
 @Resolver(() => News)
-export class NewsResolver {
-  constructor (private readonly newsService: NewsService) {
-    this.newsService = newsService
+export default class NewsResolver {
+  constructor(private readonly newsService: NewsService) {
+    this.newsService = newsService;
   }
 
   @Query(() => [News])
-  @UseGuards(new AuthGuard())
-  async getNews (): Promise<NewsRO[]> {
-    const news = (await this.newsService.showAll()) as NewsRO[]
-    return news
+  // @UseGuards(new AuthGuard())
+  async getNews(): Promise<NewsRO[]> {
+    const news = (await this.newsService.showAll()) as NewsRO[];
+    return news;
   }
 
   @Query(() => News)
   @UsePipes(new ValidationPipe())
   @UseGuards(new AuthGuard())
-  async getNewsById (
+  async getNewsById(
     @Args({ name: 'id', type: () => String })
-      id: string
+      id: string,
   ): Promise<NewsRO> {
-    const news = (await this.newsService.findOne(id)) as NewsRO
-    return news
+    const news = (await this.newsService.findOne(id)) as NewsRO;
+    return news;
   }
 
   // query { hello }

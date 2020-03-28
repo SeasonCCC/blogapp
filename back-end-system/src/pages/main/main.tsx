@@ -12,12 +12,28 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 import './main.scss';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 
 const { Header, Sider, Content } = Layout;
 
-const Main = (props: RouteComponentProps & {routes: IRoute[]}) => {
+const EXCHANGE_RATES = gql`
+  {
+    getNews {
+      id
+      title
+      content
+      status
+      createTime
+      authorId
+    }
+  }
+`;
+
+const Main = (props: RouteComponentProps & { routes: IRoute[] }) => {
   const { routes, location } = props;
   const [collapsed, setCollapsed] = useState(false);
+  const { loading, error, data } = useQuery(EXCHANGE_RATES);
 
   const routeArr = [
     '/main/dashboard',
@@ -34,12 +50,11 @@ const Main = (props: RouteComponentProps & {routes: IRoute[]}) => {
     if (location.pathname !== '/main/details') {
       setKey(keyIndex === '-1' ? '0' : keyIndex);
     }
-    // if (location.pathname !== '/main/details' && keyIndex !== '-1') {
-    //   setKey(keyIndex);
-    // } else if (keyIndex === '-1') {
-    //   setKey('0');
-    // }
   }, [props, keyIndex]);
+
+  useEffect(() => {
+    console.log(loading, error, data);
+  }, [loading, error, data]);
 
   return (
     <Layout>

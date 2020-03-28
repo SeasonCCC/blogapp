@@ -10,7 +10,7 @@ import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export default class ValidationPipe implements PipeTransform<any> {
-  async transform(value: any, { metatype }: ArgumentMetadata): any {
+  async transform(value: any, { metatype }: ArgumentMetadata): Promise<any> {
     if (value instanceof Object && this.isEmpty(value)) {
       throw new HttpException(
         'Validation Failed: No body submitted',

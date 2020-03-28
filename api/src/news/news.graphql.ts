@@ -1,8 +1,10 @@
-import { Field, ObjectType } from 'type-graphql'
-import { IsString, IsInt, IsNotEmpty, Min, Max, Length } from 'class-validator'
+import { Field, ObjectType } from 'type-graphql';
+import {
+  IsString, IsInt, IsNotEmpty, Min, Max, Length,
+} from 'class-validator';
 
 @ObjectType()
-export class News {
+export default class News {
   @Field({ nullable: false })
   @IsString()
   @Length(24)

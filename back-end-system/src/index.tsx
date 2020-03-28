@@ -11,7 +11,7 @@ import routesSetting from './router/router';
 // import * as serviceWorker from './serviceWorker';
 
 const client = new ApolloClient({
-  uri: 'https://w5xlvm3vzz.lp.gql.zone/graphql',
+  uri: 'http://localhost:4000/graphql',
 });
 
 ReactDOM.render(
