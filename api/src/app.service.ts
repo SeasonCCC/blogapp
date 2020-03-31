@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common';
 // import { ConfigService } from './config/config.service'
 
 @Injectable()
-export class AppService {
+export default class AppService {
   // private config: ConfigService
   // constructor(config: ConfigService) {
   // Please take note that this check is case sensitive!
@@ -11,6 +11,6 @@ export class AppService {
   // }
 
   getHello(): string {
-    return 'Hello World!' + process.env.PORT
+    return `Hello World!${process.env.PORT}`;
   }
 }

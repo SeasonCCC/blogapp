@@ -1,12 +1,22 @@
 module.exports = {
-  extends: ['plugin:@typescript-eslint/recommended', 'airbnb', 'airbnb/hooks'],
-  plugins: [
-    '@typescript-eslint' // Let's us override rules below.
-  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json', // Required to have rules that rely on Types.
-    tsconfigRootDir: './'
+    project: 'tsconfig.json',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: [
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'airbnb', 
+    'airbnb/hooks'
+  ],
+  root: true,
+  env: {
+    node: true,
+    jest: true,
   },
   settings: {
     'import/resolver': {
@@ -29,6 +39,9 @@ module.exports = {
         js: 'never',
         jsx: 'never'
       }
-    ]
-  }
-}
+    ],
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+};

@@ -5,16 +5,15 @@ import {
   HttpException,
   HttpStatus,
   ExecutionContext,
-} from '@nestjs/common'
-import * as jwt from 'jsonwebtoken'
-import { GqlExecutionContext } from '@nestjs/graphql'
+} from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export default class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request =
-      context.switchToHttp().getRequest() ||
-      GqlExecutionContext.create(context).getContext().req
+    const request = context.switchToHttp().getRequest()
+      || GqlExecutionContext.create(context).getContext().req;
 
     // console.log(GqlExecutionContext.create(context).getContext().res)
 
@@ -25,31 +24,31 @@ export class AuthGuard implements CanActivate {
 
     // const ctx = GqlExecutionContext.create(context)
     // const request = ctx.getContext().req
-    const authorization = request.get('Authorization')
+    const authorization = request.get('Authorization');
 
     if (!authorization) {
-      return false
+      return false;
     }
 
-    request.user = await this.validateToken(authorization)
-    return true
+    request.user = await this.validateToken(authorization);
+    return true;
     // return validateToken(request)
   }
 
   async validateToken(auth: string) {
     if (auth.split(' ')[0] !== 'token') {
-      throw new HttpException('Invalid token', HttpStatus.FORBIDDEN)
+      throw new HttpException('Invalid token', HttpStatus.FORBIDDEN);
     }
 
-    const token = auth.split(' ')[1]
+    const token = auth.split(' ')[1];
 
     try {
-      const decoded = await jwt.verify(token, process.env.SECRET)
+      const decoded = await jwt.verify(token, process.env.SECRET);
       // const decoded = await jwt.verify(token, '12345678')
-      return decoded
+      return decoded;
     } catch (error) {
-      const msg = `Token error: ${error.message || error.name}`
-      throw new HttpException(msg, HttpStatus.FORBIDDEN)
+      const msg = `Token error: ${error.message || error.name}`;
+      throw new HttpException(msg, HttpStatus.FORBIDDEN);
     }
   }
 }

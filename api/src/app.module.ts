@@ -1,21 +1,18 @@
 import { APP_FILTER } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+// import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { resolve } from 'path';
 
 import { config } from 'dotenv';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import AppController from './app.controller';
+import AppService from './app.service';
 import NewsModule from './news/news.module';
-import { UsersModule } from './users/users.module';
-import { BlogModule } from './blog/blog.module';
+import UsersModule from './users/users.module';
 import { News } from './news/news.entity';
 import { Users } from './users/users.entity';
-import { Blog } from './blog/blog.entity';
 import HttpExceptionFilter from './shared/http-exception.filter';
-
 
 config({ path: resolve(__dirname, '../.env') });
 
@@ -26,7 +23,7 @@ config({ path: resolve(__dirname, '../.env') });
       host: process.env.TYPEORM_HOST,
       port: Number(process.env.TYPEORM_PORT),
       database: process.env.TYPEORM_DATABASE,
-      entities: [News, Users, Blog],
+      entities: [News, Users],
       synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
       logging: process.env.TYPEORM_LOGGING === 'true',
       useNewUrlParser: true,
@@ -35,11 +32,7 @@ config({ path: resolve(__dirname, '../.env') });
     }),
     NewsModule,
     UsersModule,
-    BlogModule,
-    ConfigModule.forRoot(),
     GraphQLModule.forRoot({
-      // path: '/graphql',
-      // include: [NewsModule],
       typePaths: ['./**/*.graphql'],
       context: ({ req, res }) => ({ req, res }),
       installSubscriptionHandlers: true,

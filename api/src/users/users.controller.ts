@@ -10,17 +10,17 @@ import {
 import { UsersService } from './users.service';
 import ValidationPipe from '../shared/validation.pipe';
 import { UsersDto, UpdateTypeDto, ChangePassowrdDto } from './users.dto';
-import { AuthGuard } from '../shared/auth.guard';
+import AuthGuard from '../shared/auth.guard';
 import { User } from './users.decorator';
 
 @Controller('users')
-export class UsersController {
+export default class UsersController {
   constructor(private readonly usersService: UsersService) {
     this.usersService = usersService;
   }
 
   @Get()
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   getAllUsers() {
     return this.usersService.getAllUsers();
   }

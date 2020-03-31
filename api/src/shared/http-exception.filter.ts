@@ -4,6 +4,7 @@ import {
   ArgumentsHost,
   HttpException,
 } from '@nestjs/common';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Request, Response } from 'express';
 import getLogger from './log4js.config';
 
@@ -30,8 +31,8 @@ export default class HttpExceptionFilter implements ExceptionFilter {
     };
 
     if (status >= 200 && status <= 206) {
-      resObj.data = message.data;
-      resObj.message = message.message;
+      resObj.data = message;
+      resObj.message = message;
 
       resLogger.debug(
         `${request.method} ${request.url}`,

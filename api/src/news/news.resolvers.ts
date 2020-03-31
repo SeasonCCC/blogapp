@@ -3,7 +3,7 @@ import { Query, Resolver, Args } from '@nestjs/graphql';
 import { UsePipes, UseGuards } from '@nestjs/common';
 import NewsService from './news.service';
 import ValidationPipe from '../shared/validation.pipe';
-import { AuthGuard } from '../shared/auth.guard';
+import AuthGuard from '../shared/auth.guard';
 import { NewsRO } from './news.d';
 import News from './news.graphql';
 

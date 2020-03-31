@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 // import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import AppModule from './app.module';
+// eslint-disable-next-line import/extensions
 import CustomLogger from './shared/logger';
 import { TransformInterceptor } from './shared/transform.interceptor';
 // import { resolve } from 'path'
@@ -15,7 +16,7 @@ async function bootstrap() {
     logger,
   });
 
-  app.useGlobalInterceptors(new TransformInterceptor());
+  // app.useGlobalInterceptors(new TransformInterceptor());
 
   // config({ path: resolve(__dirname, '../.env') })
   // console.log(process.env.PORT)

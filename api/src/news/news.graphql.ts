@@ -1,4 +1,4 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   IsString, IsInt, IsNotEmpty, Min, Max, Length,
 } from 'class-validator';
