@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import AppModule from './app.module';
 // eslint-disable-next-line import/extensions
 import CustomLogger from './shared/logger';
-import { TransformInterceptor } from './shared/transform.interceptor';
+// import TransformInterceptor from './shared/transform.interceptor';
 // import { resolve } from 'path'
 // import { config } from 'dotenv'
 

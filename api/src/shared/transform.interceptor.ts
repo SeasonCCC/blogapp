@@ -3,9 +3,10 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
+  BadGatewayException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { GqlExecutionContext } from '@nestjs/graphql';
 import getLogger from './log4js.config';
@@ -17,14 +18,13 @@ export interface Response<T> {
 }
 
 @Injectable()
-export class TransformInterceptor<T>
+export default class TransformInterceptor<T>
 implements NestInterceptor<T, Response<T>> {
   intercept(
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<Response<T>> {
-    // console.log(context.switchToHttp().getRequest())
-
+    console.log(1231321);
     // const request =
     //   JSON.stringify(context.switchToHttp().getRequest()) !== '{}'
     //     ? context.switchToHttp().getRequest()
@@ -55,7 +55,6 @@ implements NestInterceptor<T, Response<T>> {
         // )
 
         // return resData
-
         resLogger.debug(
           `${request.method} ${request.url}`,
           JSON.stringify(data),
