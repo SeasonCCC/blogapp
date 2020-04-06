@@ -1,16 +1,16 @@
 /* eslint-disable no-undef */
 
-import { Test } from '@nestjs/testing'
-import { NewsController } from './news.controller'
-import { NewsService } from './news.service'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { News } from './news.entity'
-import { Users } from '../users/users.entity'
+import { Test } from '@nestjs/testing';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { NewsController } from './news.controller';
+import { NewsService } from './news.service';
+import { News } from './news.entity';
+import { Users } from '../users/users.entity';
 // import { NewsRO } from './news'
 
 describe('News Controller', () => {
-  let newsController: NewsController
-  let newsService: NewsService
+  let newsController: NewsController;
+  let newsService: NewsService;
 
   beforeEach(async () => {
     // newsService = new NewsService()
@@ -32,17 +32,17 @@ describe('News Controller', () => {
       ],
       controllers: [NewsController],
       providers: [NewsService],
-    }).compile()
+    }).compile();
 
-    newsService = module.get<NewsService>(NewsService)
-    newsController = module.get<NewsController>(NewsController)
-  })
+    newsService = module.get<NewsService>(NewsService);
+    newsController = module.get<NewsController>(NewsController);
+  });
 
   describe('findAll', () => {
     it('should return an array of news', async () => {
-      const result = []
-      jest.spyOn(newsService, 'showAll').mockImplementation(() => result as any)
-      expect(await newsController.getAllNews()).toBe(result)
-    })
-  })
-})
+      const result = [];
+      jest.spyOn(newsService, 'showAll').mockImplementation(() => result as any);
+      expect(await newsController.getAllNews()).toBe(result);
+    });
+  });
+});

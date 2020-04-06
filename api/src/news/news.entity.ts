@@ -5,7 +5,7 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
-} from 'typeorm'
+} from 'typeorm';
 
 @Entity('news')
 export class News {
@@ -32,11 +32,11 @@ export class News {
 
   @BeforeInsert()
   transfromCreateTime() {
-    this.createTime = Date.parse(new Date().toString()) / 1000
+    this.createTime = Date.parse(new Date().toString()) / 1000;
   }
 
   @BeforeUpdate()
   transfromUpdateTime() {
-    this.updateTime = Date.parse(new Date().toString()) / 1000
+    this.updateTime = Date.parse(new Date().toString()) / 1000;
   }
 }

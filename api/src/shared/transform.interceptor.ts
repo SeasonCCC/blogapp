@@ -3,10 +3,9 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-  BadGatewayException,
 } from '@nestjs/common';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { GqlExecutionContext } from '@nestjs/graphql';
 import getLogger from './log4js.config';
@@ -24,7 +23,6 @@ implements NestInterceptor<T, Response<T>> {
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<Response<T>> {
-    console.log(1231321);
     // const request =
     //   JSON.stringify(context.switchToHttp().getRequest()) !== '{}'
     //     ? context.switchToHttp().getRequest()
@@ -34,35 +32,75 @@ implements NestInterceptor<T, Response<T>> {
     //   JSON.stringify(context.switchToHttp().getResponse()) !== '{}'
     //     ? context.switchToHttp().getResponse()
     //     : GqlExecutionContext.create(context).getContext().res
+    const req = context.switchToHttp().getRequest();
+    const res = context.switchToHttp().getRequest();
+
+    if (req) {
+      const { url, method } = req;
+      const { statusCode } = res;
+
+      return next.handle().pipe(
+        map((data) => {
+          const resData = {
+            statusCode,
+            timestamp: new Date().toLocaleString(),
+            path: url,
+            data,
+            message: `${method} ${url} success`,
+          };
+
+          resLogger.debug(
+            `${method} ${url}`,
+            JSON.stringify(resData),
+            'TransformInterceptor-Rest',
+          );
+
+          return resData;
+        }),
+      );
+    }
 
     const request = GqlExecutionContext.create(context).getContext().req;
-    // const response = GqlExecutionContext.create(context).getContext().res;
 
     return next.handle().pipe(
       map((data) => {
-        // const resData = {
-        //   statusCode: response.statusCode,
-        //   timestamp: new Date().toLocaleString(),
-        //   path: request.url,
-        //   data,
-        //   message: `${request.method} ${request.url} success`,
-        // }
-
-        // resLogger.debug(
-        //   `${request.method} ${request.url}`,
-        //   JSON.stringify(resData),
-        //   'TransformInterceptor',
-        // )
-
-        // return resData
         resLogger.debug(
           `${request.method} ${request.url}`,
           JSON.stringify(data),
-          'TransformInterceptor',
+          'TransformInterceptor-Graphql',
         );
-
         return data;
       }),
     );
+
+
+    // const response = GqlExecutionContext.create(context).getContext().res;
+
+    // return next.handle().pipe(
+    //   map((data) => {
+    //     // const resData = {
+    //     //   statusCode: response.statusCode,
+    //     //   timestamp: new Date().toLocaleString(),
+    //     //   path: request.url,
+    //     //   data,
+    //     //   message: `${request.method} ${request.url} success`,
+    //     // }
+
+    //     // resLogger.debug(
+    //     //   `${request.method} ${request.url}`,
+    //     //   JSON.stringify(resData),
+    //     //   'TransformInterceptor',
+    //     // )
+
+    //     // return resData
+
+    //     resLogger.debug(
+    //       `${request.method} ${request.url}`,
+    //       JSON.stringify(data),
+    //       'TransformInterceptor',
+    //     );
+    //     return data;
+    //   }),
+    // );
   }
 }
