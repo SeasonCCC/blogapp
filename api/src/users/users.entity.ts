@@ -8,10 +8,10 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { News } from 'src/news/news.entity';
+import News from '../news/news.entity';
 
 @Entity('users')
-export class Users {
+export default class Users {
   @ObjectIdColumn()
   id: ObjectID
 
@@ -61,7 +61,7 @@ export class Users {
       type,
       createTime,
       updateTime,
-      news,
+      // news,
     };
 
     if (showToken) {

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ObjectId } from 'mongodb';
 import { Repository } from 'typeorm';
 
-import { News } from './news.entity';
+import News from './news.entity';
 import { NewsDTO, UpdateNewsDto } from './news.dto';
 import { NewsRO } from './news.d';
 
@@ -22,6 +22,7 @@ export default class NewsService {
 
   async showAll(): Promise<NewsRO[]> {
     const news = (await this.newsRepository.find()) as NewsRO[];
+    // console.log(news);
     return news;
     // return new Promise<NewsRO[]>(resolve => {
     //   resolve(news);

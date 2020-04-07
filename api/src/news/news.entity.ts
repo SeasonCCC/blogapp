@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity('news')
-export class News {
+export default class News {
   @ObjectIdColumn()
   id: ObjectID
 

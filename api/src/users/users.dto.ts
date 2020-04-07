@@ -1,7 +1,7 @@
 import {
   IsNotEmpty, IsString, Min, Max, IsInt, Length,
 } from 'class-validator';
-import { News } from '../news/news.entity';
+import News from '../news/news.entity';
 
 export class UsersDto {
   @IsNotEmpty()

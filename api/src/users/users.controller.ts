@@ -7,7 +7,7 @@ import {
   UseGuards,
   Param,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import UsersService from './users.service';
 import ValidationPipe from '../shared/validation.pipe';
 import { UsersDto, UpdateTypeDto, ChangePassowrdDto } from './users.dto';
 import AuthGuard from '../shared/auth.guard';

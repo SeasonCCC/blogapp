@@ -33,7 +33,7 @@ implements NestInterceptor<T, Response<T>> {
     //     ? context.switchToHttp().getResponse()
     //     : GqlExecutionContext.create(context).getContext().res
     const req = context.switchToHttp().getRequest();
-    const res = context.switchToHttp().getRequest();
+    const res = context.switchToHttp().getResponse();
 
     if (req) {
       const { url, method } = req;

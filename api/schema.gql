@@ -14,4 +14,14 @@ type News {
 type Query {
   getNews: [News!]!
   getNewsById(id: String!): News!
+  getUsers: [Users!]!
+}
+
+type Users {
+  id: String!
+  username: String!
+  password: String!
+  type: Float!
+  createTime: Float!
+  updateTime: Float!
 }

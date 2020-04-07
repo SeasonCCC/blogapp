@@ -6,8 +6,8 @@ import NewsController from './news.controller';
 import NewsService from './news.service';
 import NewsResolver from './news.resolvers';
 
-import { News } from './news.entity';
-import { Users } from '../users/users.entity';
+import News from './news.entity';
+import Users from '../users/users.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([News, Users])],

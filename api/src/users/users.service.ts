@@ -1,9 +1,9 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MongoRepository } from 'typeorm';
+import { MongoRepository, Repository } from 'typeorm';
 import { ObjectId } from 'mongodb';
 
-import { Users } from './users.entity';
+import Users from './users.entity';
 import {
   UsersDto,
   UsersRO,
@@ -12,7 +12,7 @@ import {
 } from './users.dto';
 
 @Injectable()
-export class UsersService {
+export default class UsersService {
   // constructor(
   //   @InjectRepository(Users)
   //   private usersRepository: MongoRepository<Users>,
@@ -23,6 +23,9 @@ export class UsersService {
   private usersRepository: MongoRepository<Users>
 
   async getAllUsers() {
+    // const users = await this.usersRepository.find();
+    // return users;
+
     const users = await this.usersRepository
       .aggregateEntity([
         {
