@@ -15,6 +15,7 @@ type Query {
   getNews: [News!]!
   getNewsById(id: String!): News!
   getUsers: [Users!]!
+  getUserById(id: String!): Users!
 }
 
 type Users {

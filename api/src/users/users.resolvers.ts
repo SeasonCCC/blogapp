@@ -20,16 +20,17 @@ export default class UsersResolver {
     return users;
   }
 
-  // @Query()
-  // @UsePipes(new ValidationPipe())
-  // @UseGuards(new AuthGuard())
-  // async getNewsById(
-  //   @Args({ name: 'id', type: () => String })
-  //     id: string,
-  // ): Promise<NewsRO> {
-  //   const news = (await this.usersService.findOne(id)) as NewsRO;
-  //   return news;
-  // }
+  @Query(() => Users)
+  @UsePipes(new ValidationPipe())
+  @UseGuards(new AuthGuard())
+  async getUserById(
+    @Args({ name: 'id', type: () => String })
+      id: string,
+  ): Promise<UsersRO> {
+    const user = (await this.usersService.findOne(id)) as UsersRO;
+    // console.log(user);
+    return user;
+  }
 
   // // mutation { addCat(cat: {name: "ajanuw", age: 12}) { id name age } }
   // @Mutation()
