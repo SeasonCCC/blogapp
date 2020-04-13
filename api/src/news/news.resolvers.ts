@@ -22,7 +22,7 @@ export default class NewsResolver {
 
   @Query(() => News)
   @UsePipes(new ValidationPipe())
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   async getNewsById(
     @Args({ name: 'id', type: () => String })
       id: string,

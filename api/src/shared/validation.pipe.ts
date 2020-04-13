@@ -42,6 +42,7 @@ export default class ValidationPipe implements PipeTransform<any> {
   private formatErrors(errors: any[]) {
     return errors
       .map((err) => {
+        // eslint-disable-next-line no-restricted-syntax
         for (const property in err.constraints) {
           if (Object.prototype.hasOwnProperty.call(err.constraints, property)) {
             return err.constraints[property];
