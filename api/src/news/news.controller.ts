@@ -1,3 +1,10 @@
+/*
+ * @Author: Season
+ * @Date: 2019-12-17 21:54:46
+ * @LastEditTime: 2020-04-13 22:14:04
+ * @LastEditors: Season
+ * @FilePath: \api\src\news\news.controller.ts
+ */
 import {
   Controller,
   Get,
@@ -23,7 +30,7 @@ export default class NewsController {
   }
 
   @Get()
-  // @UseGuards(new AuthGuard())
+  @UseGuards(new AuthGuard())
   getAllNews(): Promise<NewsRO[]> {
     return this.newsService.showAll();
   }

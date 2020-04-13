@@ -1,3 +1,10 @@
+/*
+ * @Author: Season
+ * @Date: 2020-04-07 21:10:04
+ * @LastEditTime: 2020-04-13 21:15:41
+ * @LastEditors: Season
+ * @FilePath: \api\src\users\users.entity.ts
+ */
 import {
   Entity,
   ObjectID,
@@ -43,7 +50,8 @@ export default class Users {
 
   @BeforeInsert()
   transfromCreateTime() {
-    this.updateTime = this.createTime = Date.parse(new Date().toString()) / 1000;
+    this.updateTime = Date.parse(new Date().toString()) / 1000;
+    this.createTime = Date.parse(new Date().toString()) / 1000;
   }
 
   @BeforeUpdate()
@@ -61,7 +69,7 @@ export default class Users {
       type,
       createTime,
       updateTime,
-      // news,
+      news,
     };
 
     if (showToken) {

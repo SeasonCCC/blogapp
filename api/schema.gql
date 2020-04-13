@@ -24,4 +24,5 @@ type Users {
   type: Float!
   createTime: Float!
   updateTime: Float!
+  news: [News!]!
 }

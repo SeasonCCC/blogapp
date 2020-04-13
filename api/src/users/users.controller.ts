@@ -1,3 +1,10 @@
+/*
+ * @Author: Season
+ * @Date: 2020-04-07 21:10:04
+ * @LastEditTime: 2020-04-13 22:15:43
+ * @LastEditors: Season
+ * @FilePath: \api\src\users\users.controller.ts
+ */
 import {
   Controller,
   Get,
@@ -20,7 +27,7 @@ export default class UsersController {
   }
 
   @Get()
-  // @UseGuards(new AuthGuard())
+  @UseGuards(new AuthGuard())
   getAllUsers() {
     return this.usersService.getAllUsers();
   }

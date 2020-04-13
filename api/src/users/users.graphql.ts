@@ -1,8 +1,15 @@
+/*
+ * @Author: Season
+ * @Date: 2020-04-07 21:10:04
+ * @LastEditTime: 2020-04-13 21:20:27
+ * @LastEditors: Season
+ * @FilePath: \api\src\users\users.graphql.ts
+ */
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
   IsString, IsInt, IsNotEmpty, Min, Max, Length,
 } from 'class-validator';
-// import News from '../news/news.graphql';
+import News from '../news/news.graphql';
 
 @ObjectType()
 export default class Users {
@@ -33,4 +40,7 @@ export default class Users {
 
   @Field()
   updateTime: number
+
+  @Field(() => [News])
+  news: News[]
 }

@@ -1,3 +1,11 @@
+/*
+ * @Author: Season
+ * @Date: 2020-04-07 21:10:04
+ * @LastEditTime: 2020-04-13 21:25:07
+ * @LastEditors: Season
+ * @FilePath: \api\src\users\users.resolvers.ts
+ * @可以输入预定的版权声明、个性签名、空行等
+ */
 // app.resolvers.ts
 import { Query, Resolver, Args } from '@nestjs/graphql';
 import { UsePipes, UseGuards } from '@nestjs/common';
@@ -14,7 +22,7 @@ export default class UsersResolver {
   }
 
   @Query(() => [Users])
-  // @UseGuards(new AuthGuard())
+  @UseGuards(new AuthGuard())
   async getUsers(): Promise<UsersRO[]> {
     const users = (await this.usersService.getAllUsers()) as UsersRO[];
     return users;
