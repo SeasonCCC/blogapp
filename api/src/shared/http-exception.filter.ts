@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-01 16:25:22
- * @LastEditTime: 2020-04-13 22:23:49
+ * @LastEditTime: 2020-04-14 22:10:33
  * @LastEditors: Season
  * @FilePath: \api\src\shared\http-exception.filter.ts
  */
@@ -12,7 +12,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { GqlExceptionFilter, GqlArgumentsHost, GqlExecutionContext } from '@nestjs/graphql';
+// import { GqlExceptionFilter, GqlArgumentsHost, GqlExecutionContext } from '@nestjs/graphql';
 import getLogger from './log4js.config';
 
 const resLogger = getLogger('req');
@@ -66,12 +66,12 @@ export default class HttpExceptionFilter implements ExceptionFilter {
       }
 
       response.status(status).json(errorResponse);
-    } else {
-      // const gqlHost = GqlArgumentsHost.create(host);
-      console.log(exception);
-      // request = GqlExecutionContext.create(gqlHost).getContext().req;
-      // console.log(`${request.method} ${request.url}`);
-      return exception;
+      // return true;
     }
+    // const gqlHost = GqlArgumentsHost.create(host);
+    // console.log(exception);
+    // request = GqlExecutionContext.create(gqlHost).getContext().req;
+    // console.log(`${request.method} ${request.url}`);
+    return exception;
   }
 }

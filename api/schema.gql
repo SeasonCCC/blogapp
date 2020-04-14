@@ -16,14 +16,16 @@ type Query {
   getNewsById(id: String!): News!
   getUsers: [Users!]!
   getUserById(id: String!): Users!
+  login(type: Float!, password: String!, username: String!): Users!
 }
 
 type Users {
   id: String!
   username: String!
-  password: String!
+  password: String
   type: Float!
   createTime: Float!
   updateTime: Float!
+  token: String!
   news: [News!]!
 }
