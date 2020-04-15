@@ -1,8 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-14 11:36:38
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-15 09:30:10
  * @FilePath: \api\src\users\users.graphql.ts
  */
 import { Field, ObjectType } from '@nestjs/graphql';

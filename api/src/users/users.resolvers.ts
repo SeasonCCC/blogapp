@@ -1,15 +1,14 @@
 /*
  * @Author: Season
- * @Date: 2020-04-14 08:52:31
- * @LastEditTime: 2020-04-14 11:43:37
+ * @Date: 2020-04-07 21:10:04
+ * @LastEditTime: 2020-04-15 09:30:19
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
 // app.resolvers.ts
 import { Query, Resolver, Args } from '@nestjs/graphql';
-import { UsePipes, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import UsersService from './users.service';
-import ValidationPipe from '../shared/validation.pipe';
 import AuthGuard from '../shared/auth.guard';
 import { UsersRO } from './users.d';
 import Users from './users.graphql';
@@ -28,7 +27,6 @@ export default class UsersResolver {
   }
 
   @Query(() => Users)
-  @UsePipes(new ValidationPipe())
   @UseGuards(new AuthGuard())
   async getUserById(
     @Args({ name: 'id', type: () => String })
@@ -39,7 +37,6 @@ export default class UsersResolver {
   }
 
   @Query(() => Users)
-  @UsePipes(new ValidationPipe())
   async login(
     @Args({ name: 'username', type: () => String })
       username: string,
