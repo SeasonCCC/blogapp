@@ -1,3 +1,9 @@
+/*
+ * @Author: Season
+ * @Date: 2020-03-26 09:45:18
+ * @LastEditTime: 2020-04-14 10:46:52
+ * @FilePath: \api\src\shared\logger.ts
+ */
 import { LoggerService } from '@nestjs/common';
 import getLogger from './log4js.config';
 

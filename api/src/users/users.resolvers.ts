@@ -1,11 +1,10 @@
 /*
  * @Author: Season
- * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-13 21:25:07
- * @LastEditors: Season
+ * @Date: 2020-04-14 08:52:31
+ * @LastEditTime: 2020-04-14 11:43:37
  * @FilePath: \api\src\users\users.resolvers.ts
- * @可以输入预定的版权声明、个性签名、空行等
  */
+
 // app.resolvers.ts
 import { Query, Resolver, Args } from '@nestjs/graphql';
 import { UsePipes, UseGuards } from '@nestjs/common';
@@ -36,7 +35,25 @@ export default class UsersResolver {
       id: string,
   ): Promise<UsersRO> {
     const user = (await this.usersService.findOne(id)) as UsersRO;
-    // console.log(user);
+    return user;
+  }
+
+  @Query(() => Users)
+  @UsePipes(new ValidationPipe())
+  async login(
+    @Args({ name: 'username', type: () => String })
+      username: string,
+      @Args({ name: 'password', type: () => String })
+      password: string,
+      @Args({ name: 'type', type: () => Number })
+      type: number,
+  ): Promise<UsersRO> {
+    const data = {
+      username,
+      password,
+      type,
+    };
+    const user = (await this.usersService.login(data)) as unknown as UsersRO;
     return user;
   }
 

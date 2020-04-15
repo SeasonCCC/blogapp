@@ -1,3 +1,9 @@
+/*
+ * @Author: Season
+ * @Date: 2020-03-26 09:45:18
+ * @LastEditTime: 2020-04-14 10:47:18
+ * @FilePath: \api\src\shared\log4js.config.ts
+ */
 import * as log4js from 'log4js';
 
 log4js.configure({

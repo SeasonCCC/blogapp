@@ -1,8 +1,8 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-13 21:20:27
- * @LastEditors: Season
+ * @LastEditTime: 2020-04-14 11:36:38
+ * @LastEditors: Please set LastEditors
  * @FilePath: \api\src\users\users.graphql.ts
  */
 import { Field, ObjectType } from '@nestjs/graphql';
@@ -23,7 +23,7 @@ export default class Users {
   @IsString()
   username: string
 
-  @Field()
+  @Field({ nullable: true })
   @IsNotEmpty()
   @IsString()
   password: string
@@ -40,6 +40,9 @@ export default class Users {
 
   @Field()
   updateTime: number
+
+  @Field()
+  token: string
 
   @Field(() => [News])
   news: News[]

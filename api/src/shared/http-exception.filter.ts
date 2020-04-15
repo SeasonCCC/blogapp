@@ -1,8 +1,10 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable consistent-return */
 /*
  * @Author: Season
  * @Date: 2020-04-01 16:25:22
- * @LastEditTime: 2020-04-13 22:23:49
- * @LastEditors: Season
+ * @LastEditTime: 2020-04-14 11:05:28
+ * @LastEditors: Please set LastEditors
  * @FilePath: \api\src\shared\http-exception.filter.ts
  */
 import {
@@ -12,7 +14,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { GqlExceptionFilter, GqlArgumentsHost, GqlExecutionContext } from '@nestjs/graphql';
+// import { GqlExceptionFilter, GqlArgumentsHost, GqlExecutionContext } from '@nestjs/graphql';
 import getLogger from './log4js.config';
 
 const resLogger = getLogger('req');
@@ -67,10 +69,14 @@ export default class HttpExceptionFilter implements ExceptionFilter {
 
       response.status(status).json(errorResponse);
     } else {
-      // const gqlHost = GqlArgumentsHost.create(host);
-      console.log(exception);
-      // request = GqlExecutionContext.create(gqlHost).getContext().req;
-      // console.log(`${request.method} ${request.url}`);
+      // const httpRequest = this.getRequestFromCtx(ctx);
+      // console.log(httpRequest);
+      errLogger.error(
+        // `${request.method} ${request.url}`,
+        JSON.stringify(exception),
+        'HttpExceptionFilter',
+      );
+
       return exception;
     }
   }

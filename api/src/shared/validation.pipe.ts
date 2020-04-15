@@ -1,3 +1,9 @@
+/*
+ * @Author: Season
+ * @Date: 2020-04-02 10:14:20
+ * @LastEditTime: 2020-04-14 11:50:12
+ * @FilePath: \api\src\shared\validation.pipe.ts
+ */
 import {
   PipeTransform,
   Injectable,
@@ -31,6 +37,7 @@ export default class ValidationPipe implements PipeTransform<any> {
         HttpStatus.BAD_REQUEST,
       );
     }
+
     return value;
   }
 
@@ -48,6 +55,7 @@ export default class ValidationPipe implements PipeTransform<any> {
             return err.constraints[property];
           }
         }
+        return true;
       })
       .join(',');
   }
