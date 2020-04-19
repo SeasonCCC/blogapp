@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Mutation {
+  updateType(type: Float!, id: String!): Users!
+}
+
 type News {
   id: String!
   title: String!

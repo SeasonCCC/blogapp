@@ -1,12 +1,14 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-15 09:30:19
+ * @LastEditTime: 2020-04-19 22:05:32
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
 // app.resolvers.ts
-import { Query, Resolver, Args } from '@nestjs/graphql';
+import {
+  Query, Resolver, Args, Mutation,
+} from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import UsersService from './users.service';
 import AuthGuard from '../shared/auth.guard';
@@ -51,6 +53,22 @@ export default class UsersResolver {
       type,
     };
     const user = (await this.usersService.login(data)) as unknown as UsersRO;
+    return user;
+  }
+
+  @Mutation(() => Users)
+  @UseGuards(new AuthGuard())
+  async updateType(
+    @Args({ name: 'id', type: () => String })
+      id: string,
+      @Args({ name: 'type', type: () => Number })
+      type: number,
+  ): Promise<UsersRO> {
+    const data = {
+      id,
+      type,
+    };
+    const user = await this.usersService.updateType(data);
     return user;
   }
 
