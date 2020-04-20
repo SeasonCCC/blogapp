@@ -147,7 +147,7 @@ export default class UsersService {
       throw new HttpException('User Not found', HttpStatus.NOT_FOUND);
     }
 
-    user.password = '12345678';
+    user.password = '123456';
     user.hashPassword();
     await this.usersRepository.save(user);
 

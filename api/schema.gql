@@ -4,6 +4,8 @@
 
 type Mutation {
   updateType(type: Float!, id: String!): Users!
+  changePassword(newPassword: String!, oldPassword: String!, id: String!): Users!
+  resetPassword(id: String!): Users!
 }
 
 type News {

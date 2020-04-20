@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-19 22:05:32
+ * @LastEditTime: 2020-04-20 22:12:56
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
@@ -42,9 +42,9 @@ export default class UsersResolver {
   async login(
     @Args({ name: 'username', type: () => String })
       username: string,
-      @Args({ name: 'password', type: () => String })
+    @Args({ name: 'password', type: () => String })
       password: string,
-      @Args({ name: 'type', type: () => Number })
+    @Args({ name: 'type', type: () => Number })
       type: number,
   ): Promise<UsersRO> {
     const data = {
@@ -61,7 +61,7 @@ export default class UsersResolver {
   async updateType(
     @Args({ name: 'id', type: () => String })
       id: string,
-      @Args({ name: 'type', type: () => Number })
+    @Args({ name: 'type', type: () => Number })
       type: number,
   ): Promise<UsersRO> {
     const data = {
@@ -69,6 +69,34 @@ export default class UsersResolver {
       type,
     };
     const user = await this.usersService.updateType(data);
+    return user;
+  }
+
+  @Mutation(() => Users)
+  @UseGuards(new AuthGuard())
+  async changePassword(
+    @Args({ name: 'id', type: () => String })
+      id: string,
+    @Args({ name: 'oldPassword', type: () => String })
+      oldPassword: string,
+    @Args({ name: 'newPassword', type: () => String })
+      newPassword: string,
+  ): Promise<UsersRO> {
+    const data = {
+      oldPassword,
+      newPassword,
+    };
+    const user = await this.usersService.changePassword(data, id);
+    return user;
+  }
+
+  @Mutation(() => Users)
+  @UseGuards(new AuthGuard())
+  async resetPassword(
+    @Args({ name: 'id', type: () => String })
+      id: string,
+  ): Promise<UsersRO> {
+    const user = await this.usersService.resetPassword(id);
     return user;
   }
 
