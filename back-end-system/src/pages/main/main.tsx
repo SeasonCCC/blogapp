@@ -17,23 +17,23 @@ import { useQuery } from '@apollo/react-hooks';
 
 const { Header, Sider, Content } = Layout;
 
-const EXCHANGE_RATES = gql`
-  {
-    getNews {
-      id
-      title
-      content
-      status
-      createTime
-      authorId
-    }
-  }
-`;
+// const EXCHANGE_RATES = gql`
+//   {
+//     getNews {
+//       id
+//       title
+//       content
+//       status
+//       createTime
+//       authorId
+//     }
+//   }
+// `;
 
 const Main = (props: RouteComponentProps & { routes: IRoute[] }) => {
   const { routes, location } = props;
   const [collapsed, setCollapsed] = useState(false);
-  const { loading, error, data } = useQuery(EXCHANGE_RATES);
+  // const { loading, error, data } = useQuery(EXCHANGE_RATES);
 
   const routeArr = [
     '/main/dashboard',
@@ -52,9 +52,9 @@ const Main = (props: RouteComponentProps & { routes: IRoute[] }) => {
     }
   }, [props, keyIndex]);
 
-  useEffect(() => {
-    console.log(loading, error, data);
-  }, [loading, error, data]);
+  // useEffect(() => {
+  //   console.log(loading, error, data);
+  // }, [loading, error, data]);
 
   return (
     <Layout>

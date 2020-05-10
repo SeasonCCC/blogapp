@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import './users.scss';
 import { Table, Tag, Button } from 'antd';
 import { RouteComponentProps } from 'react-router-dom';
+
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+
+const EXCHANGE_RATES = gql`
+  {
+    getUsers {
+      username
+    }
+  }
+`;
 
 const columns = [
   {
@@ -57,7 +68,12 @@ const columns = [
 ];
 
 const Users = (props: RouteComponentProps) => {
-  const [data, setData] = useState([
+  const { loading, error, data } = useQuery(EXCHANGE_RATES);
+  useEffect(() => {
+    console.log(loading, error, data);
+  }, [loading, error, data]);
+
+  const [dataList, setDataList] = useState([
     {
       key: '1',
       username: 'John Brown',
@@ -99,7 +115,7 @@ const Users = (props: RouteComponentProps) => {
       <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
         Add user
       </Button>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={dataList} />
     </div>
   );
 };
