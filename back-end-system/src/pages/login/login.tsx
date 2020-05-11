@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Form, Input, Button,
 } from 'antd';
@@ -6,9 +6,35 @@ import { withRouter } from 'react-router';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.scss';
 
+import { gql } from 'apollo-boost';
+import { useLazyQuery } from '@apollo/react-hooks';
+
+const EXCHANGE_RATES = gql`
+  query doLogin ($username: String!, $password: String!, $type: Float!){
+    login(username: $username, password: $password, type: $type) {
+      id
+      username
+      password
+      type
+      createTime
+      updateTime
+      token
+    }
+  }`;
+
 const Login = () => {
+  const [
+    login,
+    { loading, error, data },
+  ] = useLazyQuery(EXCHANGE_RATES);
+
+  useEffect(() => {
+    console.log(loading, error, data);
+  }, [loading, error, data]);
+
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    login({ variables: { username: values.username, password: values.password, type: 1 } });
+    // console.log(loading, error, data);
   };
 
   return (
