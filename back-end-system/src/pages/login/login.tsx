@@ -28,9 +28,13 @@ const Login = () => {
     { loading, error, data },
   ] = useLazyQuery(EXCHANGE_RATES);
 
-  useEffect(() => {
-    console.log(loading, error, data);
-  }, [loading, error, data]);
+  if (data) {
+    console.log(data);
+  }
+
+  // useEffect(() => {
+  //   console.log(loading, error, data);
+  // }, [loading, error, data]);
 
   const onFinish = (values: any) => {
     login({ variables: { username: values.username, password: values.password, type: 1 } });
