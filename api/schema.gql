@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Mutation {
+  updateType(type: Float!, id: String!): Users!
+  changePassword(newPassword: String!, oldPassword: String!, id: String!): Users!
+  resetPassword(id: String!): Users!
+}
+
 type News {
   id: String!
   title: String!
@@ -9,6 +15,14 @@ type News {
   status: Float!
   createTime: Float!
   authorId: String!
+}
+
+type Query {
+  getNews: [News!]!
+  getNewsById(id: String!): News!
+  getUsers: [Users!]!
+  getUserById(id: String!): Users!
+  login(type: Float!, password: String!, username: String!): Users!
 }
 
 type Users {
@@ -20,18 +34,4 @@ type Users {
   updateTime: Float!
   token: String!
   news: [News!]!
-}
-
-type Query {
-  getNews: [News!]!
-  getNewsById(id: String!): News!
-  getUsers: [Users!]!
-  getUserById(id: String!): Users!
-  login(type: Float!, password: String!, username: String!): Users!
-}
-
-type Mutation {
-  updateType(type: Float!, id: String!): Users!
-  changePassword(newPassword: String!, oldPassword: String!, id: String!): Users!
-  resetPassword(id: String!): Users!
 }

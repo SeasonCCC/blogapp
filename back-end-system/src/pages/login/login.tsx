@@ -25,7 +25,7 @@ const EXCHANGE_RATES = gql`
 const Login = () => {
   const [
     login,
-    { loading, error, data },
+    { error, data },
   ] = useLazyQuery(EXCHANGE_RATES);
 
   if (data) {
@@ -38,7 +38,6 @@ const Login = () => {
 
   const onFinish = (values: any) => {
     login({ variables: { username: values.username, password: values.password, type: 1 } });
-    // console.log(loading, error, data);
   };
 
   return (

@@ -12,8 +12,8 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 import './main.scss';
-import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+// import { gql } from 'apollo-boost';
+// import { useQuery } from '@apollo/react-hooks';
 
 const { Header, Sider, Content } = Layout;
 
