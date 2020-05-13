@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  Form, Input, Button,
+  Form, Input, Button, Radio,
 } from 'antd';
 import { withRouter } from 'react-router';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -28,16 +28,13 @@ const Login = () => {
     { error, data },
   ] = useLazyQuery(EXCHANGE_RATES);
 
-  if (data) {
-    console.log(data);
-  }
-
-  // useEffect(() => {
-  //   console.log(loading, error, data);
-  // }, [loading, error, data]);
+  useEffect(() => {
+    console.log(error, data);
+  }, [error, data]);
 
   const onFinish = (values: any) => {
-    login({ variables: { username: values.username, password: values.password, type: 1 } });
+    console.log(values);
+    login({ variables: { username: values.username, password: values.password, type: values.type } });
   };
 
   return (
@@ -61,11 +58,12 @@ const Login = () => {
                 placeholder="Password"
               />
             </Form.Item>
-            {/* <Form.Item>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-            </Form.Item> */}
+            <Form.Item label="Type" name="type">
+              <Radio.Group>
+                <Radio.Button value={0}>普通用户</Radio.Button>
+                <Radio.Button value={1}>管理员</Radio.Button>
+              </Radio.Group>
+            </Form.Item>
 
             <Form.Item>
               <Button type="primary" htmlType="submit" className="login-form-button">
