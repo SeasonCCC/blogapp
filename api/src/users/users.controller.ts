@@ -1,8 +1,8 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-05-14 18:08:39
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-05-14 21:59:58
+ * @LastEditors: Season
  * @FilePath: \api\src\users\users.controller.ts
  */
 import {
@@ -43,6 +43,7 @@ export default class UsersController {
   @UsePipes(new ValidationPipe())
   @UseGuards(LocalAuthGuard)
   login(@Body() data: UsersDto) {
+    console.log(process.env.SECRET);
     return this.usersService.login(data);
   }
 

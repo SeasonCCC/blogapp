@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-02 10:14:20
- * @LastEditTime: 2020-05-14 15:19:25
+ * @LastEditTime: 2020-05-14 22:38:59
  * @FilePath: \api\src\app.module.ts
  */
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';

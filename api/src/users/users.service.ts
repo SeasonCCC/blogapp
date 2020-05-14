@@ -23,7 +23,13 @@ export default class UsersService {
   @InjectRepository(Users)
   private usersRepository: MongoRepository<Users>
 
-  private jwtService: JwtService
+  // private jwtService: JwtService
+
+  constructor(
+    private readonly jwtService: JwtService,
+  ) {
+    this.jwtService = jwtService;
+  }
 
   async getAllUsers() {
     // const users = await this.usersRepository.find();
@@ -76,16 +82,19 @@ export default class UsersService {
       );
     }
 
+    // console.log(this.jwtService);
+
     return {
       token: this.jwtService.sign({ username: user.username, id: user.id }),
     };
   }
 
   async validateUser(username: string, pass: string): Promise<any> {
-    console.log(username);
+    // console.log(username);
     const user = await this.usersRepository.findOne({ where: { username } });
     if (user && (await user.comparePassword(pass))) {
       const { password, ...result } = user;
+      // console.log(result);
       return result;
     }
     return null;
