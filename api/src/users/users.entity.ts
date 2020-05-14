@@ -1,8 +1,8 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-13 21:15:41
- * @LastEditors: Season
+ * @LastEditTime: 2020-05-14 09:33:03
+ * @LastEditors: Please set LastEditors
  * @FilePath: \api\src\users\users.entity.ts
  */
 import {
@@ -85,7 +85,11 @@ export default class Users {
   }
 
   private get token() {
-    const { id, username } = this;
-    return jwt.sign({ id, username }, process.env.SECRET, { expiresIn: '7d' });
+    const {
+      id, username, type,
+    } = this;
+    return jwt.sign({
+      id, username, type,
+    }, process.env.SECRET, { expiresIn: '7d' });
   }
 }

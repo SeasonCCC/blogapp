@@ -1,8 +1,8 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-13 22:15:43
- * @LastEditors: Season
+ * @LastEditTime: 2020-05-14 18:08:39
+ * @LastEditors: Please set LastEditors
  * @FilePath: \api\src\users\users.controller.ts
  */
 import {
@@ -19,6 +19,7 @@ import ValidationPipe from '../shared/validation.pipe';
 import { UsersDto, UpdateTypeDto, ChangePassowrdDto } from './users.dto';
 import AuthGuard from '../shared/auth.guard';
 import { User } from './users.decorator';
+import LocalAuthGuard from './local-auth.guard';
 
 @Controller('users')
 export default class UsersController {
@@ -40,9 +41,16 @@ export default class UsersController {
 
   @Post('login')
   @UsePipes(new ValidationPipe())
+  @UseGuards(LocalAuthGuard)
   login(@Body() data: UsersDto) {
     return this.usersService.login(data);
   }
+
+  // @Post('login')
+  // @UsePipes(new ValidationPipe())
+  // login(@Body() data: UsersDto) {
+  //   return this.usersService.login(data);
+  // }
 
   @Post('register')
   @UsePipes(new ValidationPipe())

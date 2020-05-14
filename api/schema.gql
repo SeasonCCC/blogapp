@@ -23,11 +23,11 @@ type Users {
 }
 
 type Query {
-  getNews: [News!]!
-  getNewsById(id: String!): News!
   getUsers: [Users!]!
   getUserById(id: String!): Users!
   login(type: Float!, password: String!, username: String!): Users!
+  getNews: [News!]!
+  getNewsById(id: String!): News!
 }
 
 type Mutation {

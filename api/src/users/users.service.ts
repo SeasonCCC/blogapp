@@ -2,6 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { ObjectId } from 'mongodb';
+import { JwtService } from '@nestjs/jwt';
 
 import Users from './users.entity';
 import {
@@ -21,6 +22,8 @@ export default class UsersService {
   // }
   @InjectRepository(Users)
   private usersRepository: MongoRepository<Users>
+
+  private jwtService: JwtService
 
   async getAllUsers() {
     // const users = await this.usersRepository.find();
@@ -62,7 +65,7 @@ export default class UsersService {
     return user[0].toResponseObject(false);
   }
 
-  async login(data: UsersDto): Promise<UsersRO> {
+  async login(data: UsersDto): Promise<{token: string}> {
     const { username, password } = data;
 
     const user = await this.usersRepository.findOne({ where: { username } });
@@ -73,16 +76,34 @@ export default class UsersService {
       );
     }
 
-    return user.toResponseObject(true);
-
-    // throw new HttpException(
-    //   {
-    //     data: user.toResponseObject(true),
-    //     message: `Login ${username} :Success`,
-    //   },
-    //   HttpStatus.OK,
-    // )
+    return {
+      token: this.jwtService.sign({ username: user.username, id: user.id }),
+    };
   }
+
+  async validateUser(username: string, pass: string): Promise<any> {
+    console.log(username);
+    const user = await this.usersRepository.findOne({ where: { username } });
+    if (user && (await user.comparePassword(pass))) {
+      const { password, ...result } = user;
+      return result;
+    }
+    return null;
+  }
+
+  // async login(data: UsersDto): Promise<UsersRO> {
+  //   const { username, password } = data;
+
+  //   const user = await this.usersRepository.findOne({ where: { username } });
+  //   if (!user || !(await user.comparePassword(password))) {
+  //     throw new HttpException(
+  //       'Invalid username/password',
+  //       HttpStatus.BAD_REQUEST,
+  //     );
+  //   }
+
+  //   return user.toResponseObject(true);
+  // }
 
   async register(data: UsersDto): Promise<UsersRO> {
     const { username } = data;

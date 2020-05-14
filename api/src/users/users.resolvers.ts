@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-04-20 22:12:56
+ * @LastEditTime: 2020-05-14 18:06:02
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
@@ -14,6 +14,7 @@ import UsersService from './users.service';
 import AuthGuard from '../shared/auth.guard';
 import { UsersRO } from './users.d';
 import Users from './users.graphql';
+import LocalAuthGuard from './local-auth.guard';
 
 @Resolver(() => Users)
 export default class UsersResolver {
@@ -37,6 +38,25 @@ export default class UsersResolver {
     const user = (await this.usersService.findOne(id)) as UsersRO;
     return user;
   }
+
+  // @Query(() => Users)
+  // @UseGuards(LocalAuthGuard)
+  // async login(
+  //   @Args({ name: 'username', type: () => String })
+  //     username: string,
+  //   @Args({ name: 'password', type: () => String })
+  //     password: string,
+  //   @Args({ name: 'type', type: () => Number })
+  //     type: number,
+  // ): Promise<{token: string}> {
+  //   const data = {
+  //     username,
+  //     password,
+  //     type,
+  //   };
+  //   const token = (await this.usersService.login(data));
+  //   return token;
+  // }
 
   @Query(() => Users)
   async login(

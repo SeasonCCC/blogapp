@@ -1,3 +1,9 @@
+/*
+ * @Author: Season
+ * @Date: 2020-04-02 10:14:20
+ * @LastEditTime: 2020-05-14 09:44:58
+ * @FilePath: \api\src\shared\auth.guard.ts
+ */
 import {
   Injectable,
   CanActivate,
@@ -32,6 +38,8 @@ export default class AuthGuard implements CanActivate {
 
     request.user = await this.validateToken(authorization);
     return true;
+    // console.log(request.user);
+    // return request.user;
     // return validateToken(request)
   }
 
@@ -44,6 +52,7 @@ export default class AuthGuard implements CanActivate {
 
     try {
       const decoded = await jwt.verify(token, process.env.SECRET);
+      // console.log(decoded);
       // const decoded = await jwt.verify(token, '12345678')
       return decoded;
     } catch (error) {
