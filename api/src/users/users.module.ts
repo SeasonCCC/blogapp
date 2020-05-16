@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-02 10:14:20
- * @LastEditTime: 2020-05-14 22:39:12
+ * @LastEditTime: 2020-05-16 11:17:31
  * @FilePath: \api\src\users\users.module.ts
  */
 import { Module } from '@nestjs/common';
@@ -15,8 +15,8 @@ import UsersService from './users.service';
 import Users from './users.entity';
 import News from '../news/news.entity';
 import UsersResolver from './users.resolvers';
-import LocalStrategy from './local.strategy';
-import JwtStrategy from './jwt.strategy';
+import LocalStrategy from '../shared/guard/local.strategy';
+import JwtStrategy from '../shared/guard/jwt.strategy';
 
 config({ path: resolve(__dirname, '../../.env') });
 
@@ -26,7 +26,7 @@ config({ path: resolve(__dirname, '../../.env') });
     PassportModule,
     JwtModule.register({
       secret: process.env.SECRET,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   controllers: [UsersController],

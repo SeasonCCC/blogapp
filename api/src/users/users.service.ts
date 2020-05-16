@@ -85,7 +85,7 @@ export default class UsersService {
     // console.log(this.jwtService);
 
     return {
-      token: this.jwtService.sign({ username: user.username, id: user.id }),
+      token: this.jwtService.sign({ username: user.username, sub: user.id }),
     };
   }
 

@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-05-14 18:06:02
+ * @LastEditTime: 2020-05-16 21:40:56
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
@@ -10,11 +10,14 @@ import {
   Query, Resolver, Args, Mutation,
 } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
+import CurrentUser from '../shared/guard/gql-getuser';
 import UsersService from './users.service';
 import AuthGuard from '../shared/auth.guard';
 import { UsersRO } from './users.d';
 import Users from './users.graphql';
-import LocalAuthGuard from './local-auth.guard';
+import LocalAuthGuard from '../shared/guard/local-gql-auth.guard';
+import JwtAuthGuard from '../shared/guard/jwt-gql-auth.guard';
+// import LocalAuthGuard from './local-auth.guard';
 
 @Resolver(() => Users)
 export default class UsersResolver {
@@ -23,8 +26,10 @@ export default class UsersResolver {
   }
 
   @Query(() => [Users])
-  @UseGuards(new AuthGuard())
-  async getUsers(): Promise<UsersRO[]> {
+  @UseGuards(JwtAuthGuard)
+  // @UseGuards(new AuthGuard())
+  async getUsers(@CurrentUser() userLocal: Users): Promise<UsersRO[]> {
+    console.log(userLocal);
     const users = (await this.usersService.getAllUsers()) as UsersRO[];
     return users;
   }
@@ -59,6 +64,7 @@ export default class UsersResolver {
   // }
 
   @Query(() => Users)
+  @UseGuards(LocalAuthGuard)
   async login(
     @Args({ name: 'username', type: () => String })
       username: string,

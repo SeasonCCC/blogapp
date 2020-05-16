@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-02 10:14:20
- * @LastEditTime: 2020-05-14 22:38:59
+ * @LastEditTime: 2020-05-16 16:25:46
  * @FilePath: \api\src\app.module.ts
  */
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
@@ -12,7 +12,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { resolve } from 'path';
 
 import { config } from 'dotenv';
-import AuthModule from './auth/auth.module';
 import AppController from './app.controller';
 import AppService from './app.service';
 import NewsModule from './news/news.module';
@@ -46,7 +45,6 @@ config({ path: resolve(__dirname, '../.env') });
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
     }),
-    AuthModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-05-14 21:59:58
+ * @LastEditTime: 2020-05-16 17:19:50
  * @LastEditors: Season
  * @FilePath: \api\src\users\users.controller.ts
  */
@@ -13,13 +13,15 @@ import {
   UsePipes,
   UseGuards,
   Param,
+  Request,
 } from '@nestjs/common';
 import UsersService from './users.service';
 import ValidationPipe from '../shared/validation.pipe';
 import { UsersDto, UpdateTypeDto, ChangePassowrdDto } from './users.dto';
-import AuthGuard from '../shared/auth.guard';
+// import AuthGuard from '../shared/auth.guard';
 import { User } from './users.decorator';
-import LocalAuthGuard from './local-auth.guard';
+import LocalAuthGuard from '../shared/guard/local-auth.guard';
+import JwtAuthGuard from '../shared/guard/jwt-auth.guard';
 
 @Controller('users')
 export default class UsersController {
@@ -28,13 +30,20 @@ export default class UsersController {
   }
 
   @Get()
-  @UseGuards(new AuthGuard())
-  getAllUsers() {
+  @UseGuards(JwtAuthGuard)
+  getAllUsers(@Request() req) {
+    console.log(req.user);
     return this.usersService.getAllUsers();
   }
 
+  // @Get()
+  // @UseGuards(JwtAuthGuard)
+  // getAllUsers() {
+  //   return this.usersService.getAllUsers();
+  // }
+
   @Get(':id')
-  @UseGuards(new AuthGuard())
+  @UseGuards(JwtAuthGuard)
   getUserById(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
@@ -43,7 +52,6 @@ export default class UsersController {
   @UsePipes(new ValidationPipe())
   @UseGuards(LocalAuthGuard)
   login(@Body() data: UsersDto) {
-    console.log(process.env.SECRET);
     return this.usersService.login(data);
   }
 
@@ -61,14 +69,14 @@ export default class UsersController {
 
   @Post('updateType')
   @UsePipes(new ValidationPipe())
-  @UseGuards(new AuthGuard())
+  @UseGuards(JwtAuthGuard)
   updateType(@Body() data: UpdateTypeDto) {
     return this.usersService.updateType(data);
   }
 
   @Post('changePassword')
   @UsePipes(new ValidationPipe())
-  @UseGuards(new AuthGuard())
+  @UseGuards(JwtAuthGuard)
   changePassword(@Body() data: ChangePassowrdDto, @User('id') id: string) {
     return this.usersService.changePassword(data, id);
   }
