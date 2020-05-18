@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-02 10:14:20
- * @LastEditTime: 2020-05-16 11:17:31
+ * @LastEditTime: 2020-05-18 16:14:39
  * @FilePath: \api\src\users\users.module.ts
  */
 import { Module } from '@nestjs/common';
@@ -15,7 +15,6 @@ import UsersService from './users.service';
 import Users from './users.entity';
 import News from '../news/news.entity';
 import UsersResolver from './users.resolvers';
-import LocalStrategy from '../shared/guard/local.strategy';
 import JwtStrategy from '../shared/guard/jwt.strategy';
 
 config({ path: resolve(__dirname, '../../.env') });
@@ -30,6 +29,6 @@ config({ path: resolve(__dirname, '../../.env') });
     }),
   ],
   controllers: [UsersController],
-  providers: [UsersService, UsersResolver, LocalStrategy, JwtStrategy],
+  providers: [UsersService, UsersResolver, JwtStrategy],
 })
 export default class UsersModule {}

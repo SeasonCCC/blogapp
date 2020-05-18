@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-05-16 21:40:56
+ * @LastEditTime: 2020-05-18 16:14:26
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
@@ -15,7 +15,6 @@ import UsersService from './users.service';
 import AuthGuard from '../shared/auth.guard';
 import { UsersRO } from './users.d';
 import Users from './users.graphql';
-import LocalAuthGuard from '../shared/guard/local-gql-auth.guard';
 import JwtAuthGuard from '../shared/guard/jwt-gql-auth.guard';
 // import LocalAuthGuard from './local-auth.guard';
 
@@ -64,7 +63,7 @@ export default class UsersResolver {
   // }
 
   @Query(() => Users)
-  @UseGuards(LocalAuthGuard)
+  // @UseGuards(LocalAuthGuard)
   async login(
     @Args({ name: 'username', type: () => String })
       username: string,
