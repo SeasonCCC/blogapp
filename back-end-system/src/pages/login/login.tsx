@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {
   Form, Input, Button, Radio,
 } from 'antd';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.scss';
 
@@ -10,23 +10,15 @@ import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 const EXCHANGE_RATES = gql`
-  query doLogin ($username: String!, $password: String!, $type: Float!){
+  query doLogin($username: String!, $password: String!, $type: Float!) {
     login(username: $username, password: $password, type: $type) {
-      id
-      username
-      password
-      type
-      createTime
-      updateTime
       token
     }
-  }`;
+  }
+`;
 
 const Login = () => {
-  const [
-    login,
-    { error, data },
-  ] = useLazyQuery(EXCHANGE_RATES);
+  const [login, { error, data }] = useLazyQuery(EXCHANGE_RATES);
 
   useEffect(() => {
     console.log(error, data);
@@ -34,7 +26,13 @@ const Login = () => {
 
   const onFinish = (values: any) => {
     console.log(values);
-    login({ variables: { username: values.username, password: values.password, type: values.type } });
+    login({
+      variables: {
+        username: values.username,
+        password: values.password,
+        type: values.type,
+      },
+    });
   };
 
   return (
@@ -44,13 +42,20 @@ const Login = () => {
           <Form onFinish={onFinish} className="login-form">
             <Form.Item
               name="username"
-              rules={[{ required: true, message: 'Please input your Username!' }]}
+              rules={[
+                { required: true, message: 'Please input your Username!' },
+              ]}
             >
-              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Username"
+              />
             </Form.Item>
             <Form.Item
               name="password"
-              rules={[{ required: true, message: 'Please input your Password!' }]}
+              rules={[
+                { required: true, message: 'Please input your Password!' },
+              ]}
             >
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
@@ -66,7 +71,11 @@ const Login = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-form-button">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+              >
                 Log in
               </Button>
             </Form.Item>

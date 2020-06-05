@@ -1,3 +1,9 @@
+/*
+ * @Author: Season
+ * @Date: 2020-04-02 10:14:20
+ * @LastEditTime: 2020-06-05 15:08:08
+ * @FilePath: \back-end-system\src\router\router.ts
+ */
 import Login from '../pages/login/login';
 import Main from '../pages/main/main';
 import dashboard from '../pages/main/dashboard/dashboard';

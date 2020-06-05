@@ -3,13 +3,14 @@ import { Layout, Menu } from 'antd';
 import {
   DashboardOutlined, UserSwitchOutlined, ProjectFilled, FileTextFilled, AppstoreAddOutlined,
 } from '@ant-design/icons';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import {
   Link,
   Redirect,
   Route,
   Switch,
   RouteComponentProps,
+  withRouter,
 } from 'react-router-dom';
 import './main.scss';
 // import { gql } from 'apollo-boost';
