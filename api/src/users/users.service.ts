@@ -5,11 +5,6 @@ import { ObjectId } from 'mongodb';
 import { JwtService } from '@nestjs/jwt';
 
 import Users from './users.entity';
-import {
-  UsersDto,
-  UpdateTypeDto,
-  ChangePassowrdDto,
-} from './users.dto';
 
 @Injectable()
 export default class UsersService {
@@ -70,9 +65,7 @@ export default class UsersService {
     return user[0];
   }
 
-  async login(data: UsersDto): Promise<{token: string}> {
-    const { username, password, type } = data;
-
+  async login(username: string, password: string, type: number) {
     const user = await this.usersRepository.findOne({ where: { username, type } });
 
     if (!user || !(await user.comparePassword(password))) {
@@ -83,18 +76,20 @@ export default class UsersService {
     }
 
     return {
+      username,
+      type,
       token: this.jwtService.sign({ username: user.username, sub: user.id }),
     };
   }
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersRepository.findOne({ where: { username } });
-    if (user && (await user.comparePassword(pass))) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
-  }
+  // async validateUser(username: string, pass: string) {
+  //   const user = await this.usersRepository.findOne({ where: { username } });
+  //   if (user && (await user.comparePassword(pass))) {
+  //     const { password, ...result } = user;
+  //     return result;
+  //   }
+  //   return null;
+  // }
 
   // async login(data: UsersDto): Promise<UsersRO> {
   //   const { username, password } = data;
@@ -110,8 +105,7 @@ export default class UsersService {
   //   return user.toResponseObject(true);
   // }
 
-  async register(data: UsersDto) {
-    const { username } = data;
+  async register(username: string, password: string, type: number) {
     const user = await this.usersRepository.findOne({
       where: { username },
     });
@@ -120,7 +114,7 @@ export default class UsersService {
       throw new HttpException('User already exist', HttpStatus.BAD_REQUEST);
     }
 
-    const users = await this.usersRepository.create(data);
+    const users = await this.usersRepository.create({ username, password, type });
 
     await this.usersRepository.save(users);
     const userInserted = await this.usersRepository.findOne({
@@ -130,20 +124,20 @@ export default class UsersService {
     return userInserted;
   }
 
-  async updateType(data: UpdateTypeDto) {
-    const user = await this.usersRepository.findOne(data.id);
+  async updateType(id: string, type: number) {
+    const user = await this.usersRepository.findOne(id);
     if (!user) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
 
-    user.type = data.type;
+    user.type = type;
     await this.usersRepository.save(user);
 
     return user;
   }
 
-  async changePassword(data: ChangePassowrdDto, id: string) {
-    const { oldPassword, newPassword } = data;
+  async changePassword(id: string, oldPassword: string, newPassword: string) {
+    // const { oldPassword, newPassword } = data;
     const user = await this.usersRepository.findOne(id);
     if (!user) {
       throw new HttpException('User Not found', HttpStatus.NOT_FOUND);

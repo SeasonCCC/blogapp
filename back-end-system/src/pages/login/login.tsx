@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Form, Input, Button, Radio,
+  Form, Input, Button, Radio, Alert,
 } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -14,6 +14,8 @@ import useStores from '../../utils/useStores';
 const EXCHANGE_RATES = gql`
   query doLogin($username: String!, $password: String!, $type: Float!) {
     login(username: $username, password: $password, type: $type) {
+      username
+      type
       token
     }
   }
@@ -22,13 +24,21 @@ const EXCHANGE_RATES = gql`
 const Login = observer(() => {
   const [login, { error, data: res }] = useLazyQuery(EXCHANGE_RATES);
   const { userStore } = useStores();
+  const [alertObj, setAlertState] = useState({ state: false, content: '' });
 
   useEffect(() => {
-    console.log(error, res);
+    if (error) {
+      const content = {
+        state: true,
+        content: error.graphQLErrors[0].message,
+      };
+      setAlertState(content);
+    } else if (res) {
+      userStore.setUserData(res.login.username, res.login.type, res.login.token);
+    }
   }, [error, res]);
 
   const onFinish = (values: any) => {
-    // console.log(values);
     login({
       variables: {
         username: values.username,
@@ -42,6 +52,7 @@ const Login = observer(() => {
     <div className="login">
       <div className="login-container">
         <div className="login-main">
+          {alertObj.state && <Alert message={alertObj.content} type="error" showIcon />}
           <Form onFinish={onFinish} className="login-form">
             <Form.Item
               name="username"
@@ -66,7 +77,13 @@ const Login = observer(() => {
                 placeholder="Password"
               />
             </Form.Item>
-            <Form.Item label="Type" name="type">
+            <Form.Item
+              label="Type"
+              name="type"
+              rules={[
+                { required: true, message: 'Please select user type!' },
+              ]}
+            >
               <Radio.Group>
                 <Radio.Button value={0}>普通用户</Radio.Button>
                 <Radio.Button value={1}>管理员</Radio.Button>

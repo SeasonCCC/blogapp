@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-06-09 14:43:22
+ * @LastEditTime: 2020-06-09 16:44:14
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
@@ -27,9 +27,9 @@ export default class UsersResolver {
   @Query(() => [Users])
   @UseGuards(JwtAuthGuard)
   // @UseGuards(new AuthGuard())
-  async getUsers(@CurrentUser() userLocal: Users): Promise<UsersRO[]> {
+  async getUsers(@CurrentUser() userLocal: Users) {
     console.log(userLocal);
-    const users = (await this.usersService.getAllUsers()) as UsersRO[];
+    const users = await this.usersService.getAllUsers();
     return users;
   }
 
@@ -39,7 +39,7 @@ export default class UsersResolver {
     @Args({ name: 'id', type: () => String })
       id: string,
   ): Promise<UsersRO> {
-    const user = (await this.usersService.findOne(id)) as UsersRO;
+    const user = (await this.usersService.findOne(id));
     return user;
   }
 
@@ -71,14 +71,9 @@ export default class UsersResolver {
       password: string,
     @Args({ name: 'type', type: () => Number })
       type: number,
-  ): Promise<{ token: string }> {
-    const data = {
-      username,
-      password,
-      type,
-    };
-    const token = await this.usersService.login(data);
-    return token;
+  ) {
+    const user = await this.usersService.login(username, password, type);
+    return user;
   }
 
   @Mutation(() => Users)
@@ -88,12 +83,12 @@ export default class UsersResolver {
       id: string,
     @Args({ name: 'type', type: () => Number })
       type: number,
-  ): Promise<UsersRO> {
-    const data = {
-      id,
-      type,
-    };
-    const user = (await this.usersService.updateType(data)) as UsersRO;
+  ) {
+    // const data = {
+    //   id,
+    //   type,
+    // };
+    const user = await this.usersService.updateType(id, type);
     return user;
   }
 
@@ -106,12 +101,12 @@ export default class UsersResolver {
       oldPassword: string,
     @Args({ name: 'newPassword', type: () => String })
       newPassword: string,
-  ): Promise<UsersRO> {
-    const data = {
-      oldPassword,
-      newPassword,
-    };
-    const user = (await this.usersService.changePassword(data, id)) as UsersRO;
+  ) {
+    // const data = {
+    //   oldPassword,
+    //   newPassword,
+    // };
+    const user = await this.usersService.changePassword(id, oldPassword, newPassword);
     return user;
   }
 

@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-02 10:14:20
- * @LastEditTime: 2020-05-18 16:14:39
+ * @LastEditTime: 2020-06-09 14:56:41
  * @FilePath: \api\src\users\users.module.ts
  */
 import { Module } from '@nestjs/common';
@@ -10,7 +10,6 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { resolve } from 'path';
 import { config } from 'dotenv';
-import UsersController from './users.controller';
 import UsersService from './users.service';
 import Users from './users.entity';
 import News from '../news/news.entity';
@@ -28,7 +27,6 @@ config({ path: resolve(__dirname, '../../.env') });
       signOptions: { expiresIn: '7d' },
     }),
   ],
-  controllers: [UsersController],
   providers: [UsersService, UsersResolver, JwtStrategy],
 })
 export default class UsersModule {}
