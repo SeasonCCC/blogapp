@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-05-18 16:14:26
+ * @LastEditTime: 2020-06-09 14:43:22
  * @FilePath: \api\src\users\users.resolvers.ts
  */
 
@@ -71,14 +71,14 @@ export default class UsersResolver {
       password: string,
     @Args({ name: 'type', type: () => Number })
       type: number,
-  ): Promise<UsersRO> {
+  ): Promise<{ token: string }> {
     const data = {
       username,
       password,
       type,
     };
-    const user = (await this.usersService.login(data)) as unknown as UsersRO;
-    return user;
+    const token = await this.usersService.login(data);
+    return token;
   }
 
   @Mutation(() => Users)
@@ -93,7 +93,7 @@ export default class UsersResolver {
       id,
       type,
     };
-    const user = await this.usersService.updateType(data);
+    const user = (await this.usersService.updateType(data)) as UsersRO;
     return user;
   }
 
@@ -111,7 +111,7 @@ export default class UsersResolver {
       oldPassword,
       newPassword,
     };
-    const user = await this.usersService.changePassword(data, id);
+    const user = (await this.usersService.changePassword(data, id)) as UsersRO;
     return user;
   }
 
@@ -124,11 +124,4 @@ export default class UsersResolver {
     const user = await this.usersService.resetPassword(id);
     return user;
   }
-
-  // // mutation { addCat(cat: {name: "ajanuw", age: 12}) { id name age } }
-  // @Mutation()
-  // addCat(@Args('cat') args) {
-  //   console.log(args)
-  //   return this.appService.addCat(args)
-  // }
 }

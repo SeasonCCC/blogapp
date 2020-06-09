@@ -1,7 +1,7 @@
 /*
  * @Author: Season
  * @Date: 2020-04-07 21:10:04
- * @LastEditTime: 2020-05-14 09:33:03
+ * @LastEditTime: 2020-06-09 14:41:32
  * @LastEditors: Please set LastEditors
  * @FilePath: \api\src\users\users.entity.ts
  */
@@ -14,7 +14,7 @@ import {
   BeforeUpdate,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
+// import * as jwt from 'jsonwebtoken';
 import News from '../news/news.entity';
 
 @Entity('users')
@@ -59,37 +59,37 @@ export default class Users {
     this.updateTime = Date.parse(new Date().toString()) / 1000;
   }
 
-  toResponseObject(showToken = true) {
-    const {
-      id, username, type, createTime, updateTime, news, token,
-    } = this;
-    const responseObject: any = {
-      id,
-      username,
-      type,
-      createTime,
-      updateTime,
-      news,
-    };
+  // toResponseObject(showToken = true) {
+  //   const {
+  //     id, username, type, createTime, updateTime, news, token,
+  //   } = this;
+  //   const responseObject: any = {
+  //     id,
+  //     username,
+  //     type,
+  //     createTime,
+  //     updateTime,
+  //     news,
+  //   };
 
-    if (showToken) {
-      responseObject.token = token;
-    }
+  //   if (showToken) {
+  //     responseObject.token = token;
+  //   }
 
-    return responseObject;
-  }
+  //   return responseObject;
+  // }
 
   async comparePassword(attempt: string) {
     const result = await bcrypt.compare(attempt, this.password);
     return result;
   }
 
-  private get token() {
-    const {
-      id, username, type,
-    } = this;
-    return jwt.sign({
-      id, username, type,
-    }, process.env.SECRET, { expiresIn: '7d' });
-  }
+  // private get token() {
+  //   const {
+  //     id, username, type,
+  //   } = this;
+  //   return jwt.sign({
+  //     id, username, type,
+  //   }, process.env.SECRET, { expiresIn: '7d' });
+  // }
 }

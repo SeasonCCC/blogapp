@@ -7,7 +7,6 @@ import { JwtService } from '@nestjs/jwt';
 import Users from './users.entity';
 import {
   UsersDto,
-  UsersRO,
   UpdateTypeDto,
   ChangePassowrdDto,
 } from './users.dto';
@@ -48,7 +47,7 @@ export default class UsersService {
       ])
       .toArray();
 
-    return users.map((user) => user.toResponseObject(false));
+    return users.map((user) => user);
   }
 
   async findOne(id: string) {
@@ -68,21 +67,20 @@ export default class UsersService {
       ])
       .toArray();
 
-    return user[0].toResponseObject(false);
+    return user[0];
   }
 
   async login(data: UsersDto): Promise<{token: string}> {
-    const { username, password } = data;
+    const { username, password, type } = data;
 
-    const user = await this.usersRepository.findOne({ where: { username } });
+    const user = await this.usersRepository.findOne({ where: { username, type } });
+
     if (!user || !(await user.comparePassword(password))) {
       throw new HttpException(
-        'Invalid username/password',
+        'Invalid username/password/type',
         HttpStatus.BAD_REQUEST,
       );
     }
-
-    // console.log(this.jwtService);
 
     return {
       token: this.jwtService.sign({ username: user.username, sub: user.id }),
@@ -90,11 +88,9 @@ export default class UsersService {
   }
 
   async validateUser(username: string, pass: string): Promise<any> {
-    // console.log(username);
     const user = await this.usersRepository.findOne({ where: { username } });
     if (user && (await user.comparePassword(pass))) {
       const { password, ...result } = user;
-      // console.log(result);
       return result;
     }
     return null;
@@ -114,7 +110,7 @@ export default class UsersService {
   //   return user.toResponseObject(true);
   // }
 
-  async register(data: UsersDto): Promise<UsersRO> {
+  async register(data: UsersDto) {
     const { username } = data;
     const user = await this.usersRepository.findOne({
       where: { username },
@@ -131,7 +127,7 @@ export default class UsersService {
       where: { username },
     });
 
-    return userInserted.toResponseObject(true);
+    return userInserted;
   }
 
   async updateType(data: UpdateTypeDto) {
@@ -181,6 +177,6 @@ export default class UsersService {
     user.hashPassword();
     await this.usersRepository.save(user);
 
-    return user.toResponseObject(false);
+    return user;
   }
 }

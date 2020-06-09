@@ -8,6 +8,8 @@ import './login.scss';
 
 import { gql } from 'apollo-boost';
 import { useLazyQuery } from '@apollo/react-hooks';
+import { observer } from 'mobx-react';
+import useStores from '../../utils/useStores';
 
 const EXCHANGE_RATES = gql`
   query doLogin($username: String!, $password: String!, $type: Float!) {
@@ -17,15 +19,16 @@ const EXCHANGE_RATES = gql`
   }
 `;
 
-const Login = () => {
-  const [login, { error, data }] = useLazyQuery(EXCHANGE_RATES);
+const Login = observer(() => {
+  const [login, { error, data: res }] = useLazyQuery(EXCHANGE_RATES);
+  const { userStore } = useStores();
 
   useEffect(() => {
-    console.log(error, data);
-  }, [error, data]);
+    console.log(error, res);
+  }, [error, res]);
 
   const onFinish = (values: any) => {
-    console.log(values);
+    // console.log(values);
     login({
       variables: {
         username: values.username,
@@ -123,5 +126,5 @@ const Login = () => {
       </div>
     </div>
   );
-};
+});
 export default withRouter(Login);
